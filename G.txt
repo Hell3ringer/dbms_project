@@ -12,7 +12,7 @@ void boxes(int arr[],int n,int b){
       if (arr[i] + arr[j] == b && (arr[i] != -1 || arr[j] != -1))
       {
         
-        arr[j] = -1;
+
         arr[i] = -1;
         count++;
         break;
