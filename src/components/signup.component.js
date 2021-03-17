@@ -3,6 +3,7 @@ import React, { Component } from "react";
 export default class SignUp extends Component {
     render() {
         return (
+            <div className="auth-inner">
             <form>
                 <h3>Sign Up</h3>
 
@@ -44,6 +45,7 @@ export default class SignUp extends Component {
                     <Link className="nav-link" to={"/sign-in"}>Sign in</Link>
                 </p> */}
             </form>
+            </div>
         );
     }
 }
