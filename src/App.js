@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Login from './components/login.component'
 import SignUp from './components/signup.component'
@@ -9,7 +8,7 @@ function App() {
     <div>
       {<Switch>
         <Route exact path='/' component={Login}/>
-        <Route exact path='/sign-up' component={SignUp}/>
+        <Route exact path='/signup' component={SignUp}/>
         <Route component={error}/>
       </Switch>}
     </div>
