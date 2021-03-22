@@ -1,9 +1,13 @@
-import './stylesheets/login_component.css'
+import './stylesheets/login_component.css';
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 
 export default class Login extends Component {
     render() {
         return (
+            <div className="auth-wrapper">
+            <div className="auth-inner ">
             <form className="container">
                 <h3>Sign In</h3>
 
@@ -25,10 +29,14 @@ export default class Login extends Component {
                 </div>
 
                 <button type="submit" className="btn btn-primary btn-block">Submit</button>
-                <p className="forgot-password text-right">
+                {/* <p className="forgot-password text-right">
                     Forgot <a href="#">password?</a>
-                </p>
+                </p> */}
+                <br></br>
+                <p>Don't have an account?    <Link to={'/sign-up'}>Sign up</Link></p>
             </form>
+            </div>
+            </div>
         );
     }
 }
