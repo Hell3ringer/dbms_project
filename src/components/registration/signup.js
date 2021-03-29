@@ -72,7 +72,7 @@ class SignUp extends Component {
                 <h3>Sign Up</h3>
                 <div className="form-group">
                     <label>id</label>
-                    <input type="text" id="id" className="form-control" placeholder="Enter your name" />
+                    <input type="text" id="id" className="form-control" placeholder="Enter your id" />
                 </div>
                 
 
