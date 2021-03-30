@@ -21,9 +21,13 @@ router.post('/signup',async (req,res) =>{
     db.query(sql_statement,(err ,result) => {
         if (err) {
             console.log('error inserting values' + err);
+<<<<<<< HEAD
             return res.status(404);
         }else{
             console.log("user added");
+=======
+        }else{
+>>>>>>> 38e971005baf627c7fc67bbc4484787a400f30c4
             return res.status(200).json("token");
         }
     })
