@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
 
 import '../stylesheets/dashboard.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -16,7 +15,7 @@ class dashboard_admin extends Component {
     // document.getElementById("sidebar").style.width = "0";
     // document.getElementById("main").style.marginLeft = "0";}
     Logout(){
-        document.cookie="jwt="+ ";" + "max-age=" + (0);
+        // document.cookie="jwt="+ ";" + "max-age=" + (0);
     }
     
     render() {
@@ -31,21 +30,19 @@ class dashboard_admin extends Component {
                 <div id="nav_id" className="topnav navbar nav-pills fixed-top navbar-dark bg-dark">          
                     <a href="/dashboard_admin">Dashboard</a>
                     <span className="navbar-text cfs-class">Course Feedback System  CFS</span>
-                    <a href="#contact">Contact</a>
-                    <a href="#about">About</a>
+                    <a href="/contact">Contact</a>
+                    <a href="/about">About</a>
                     <a className="active" href="/" onClick={this.Logout}>Logout</a>
                 </div>     
 
                 
                     <nav id="sidebar">
                         <ul id="ul_id" className="list-unstyled components">
-                            {/* <li>
-                                <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
-                            </li> */}
+                            
                         {/* <li><a href="/profile_prof">My Profile</a></li>                             */}
                         <li><a href="/modify_courses">Modify Courses</a></li>
-                        <li><a href="#">Modify Proffesors</a></li>
-                        <li><a href="#">Assign Proffesors</a></li>
+                        <li><a href="/modify_prof">Modify Proffesors</a></li>
+                        <li><a href="/assign_prof">Assign Proffesors</a></li>
                         {/* <li><a href="#">Post on CMS</a></li> */}
                         </ul>  
                     </nav>

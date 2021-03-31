@@ -1,5 +1,6 @@
 import '../stylesheets/login_component.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 
@@ -13,7 +14,7 @@ export default class Login extends Component {
 
                 <div className="form-group">
                     <label>id </label>
-                    <input type="name" className="form-control" placeholder="Enter id" />
+                    <input type="text" className="form-control" placeholder="Enter id" />
                 </div>
 
                 <div className="form-group">
@@ -33,8 +34,7 @@ export default class Login extends Component {
                     Forgot <a href="#">password?</a>
                 </p> */}
                 <br></br>
-
-                <p>Don't have an account?    <Link to={'/sign-up'}>Sign up</Link></p>
+                <p>Don't have an account?    <Link to={'/signup'}>Sign up</Link></p>
             </form>
             </div>
             </div>

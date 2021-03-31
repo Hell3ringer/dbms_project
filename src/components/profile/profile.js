@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-
 import Topnav from '../dashboard/topnav'
 import Sidebar from '../dashboard/sidebar'
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
-
 
 class profile extends Component{
     render(){
@@ -23,4 +21,4 @@ class profile extends Component{
     }
 }
 
-export default withRouter(profile)
+export default profile
