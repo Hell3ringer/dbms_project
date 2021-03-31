@@ -16,5 +16,4 @@ class topnav_admin extends Component{
         )
     }
 }
-
 export default topnav_admin;
