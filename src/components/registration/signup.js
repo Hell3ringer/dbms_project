@@ -48,12 +48,7 @@ function signup(){
                     text: "registered",
                     icon: 'success',
                     confirmButtonText: 'ok'
-                  }).then((result) =>{
-                      if (result.isConfirmed) {
-                          window.location.replace('/')
-                      }
-                  }
-                  )
+                  })
             }
         })
     }

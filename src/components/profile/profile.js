@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+
 import Topnav from '../dashboard/topnav'
 import Sidebar from '../dashboard/sidebar'
 
@@ -22,4 +23,4 @@ class profile extends Component{
     }
 }
 
-export default profile
+export default withRouter(profile)
