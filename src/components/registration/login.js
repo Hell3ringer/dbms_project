@@ -33,7 +33,7 @@ export default class Login extends Component {
                     Forgot <a href="#">password?</a>
                 </p> */}
                 <br></br>
-<<<<<<< HEAD
+
                 <p>Don't have an account?    <Link to={'/sign-up'}>Sign up</Link></p>
             </form>
             </div>
