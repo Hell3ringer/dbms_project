@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router';
-import Topnav from '../dashboard/topnav'
-import Sidebar from '../dashboard/sidebar'
+import topnav from '../dashboard/topnav'
+import sidebar from '../dashboard/sidebar'
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
@@ -11,8 +10,8 @@ class profile extends Component{
         return(
             <div className="entire_div_profile">
                 {/* <Dashboard/> */}
-                <Topnav/>
-                <Sidebar/>
+                <topnav/>
+                <sidebar/>
                 <div className="side_main_box">
                     <p>This is profile page OF STUDENT</p><br></br>
                     <p>window loc is {window.location.pathname}</p>
@@ -22,4 +21,4 @@ class profile extends Component{
     }
 }
 
-export default withRouter(profile)
+export default profile
