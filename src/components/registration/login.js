@@ -14,7 +14,7 @@ export default class Login extends Component {
 
                 <div className="form-group">
                     <label>id </label>
-                    <input type="email" className="form-control" placeholder="Enter id" />
+                    <input type="text" className="form-control" placeholder="Enter id" />
                 </div>
 
                 <div className="form-group">

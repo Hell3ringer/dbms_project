@@ -1,0 +1,13 @@
+.entire_div_profile{  
+    display: flex;
+}
+.side_main_box{
+    display: block;
+    margin-top: 60px;
+    width: 100%;
+    
+}
+.profile{
+    background-color: white;
+    color: blueviolet;
+}
