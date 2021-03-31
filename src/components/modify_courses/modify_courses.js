@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router';
-import Topnav_admin from '../dashboard/topnav_admin'
-import Sidebar_admin from '../dashboard/sidebar_admin'
+import topnav_admin from '../dashboard/topnav_admin'
+import sidebar_admin from '../dashboard/sidebar_admin'
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
@@ -11,8 +10,8 @@ class modify_courses extends Component{
         return(
             <div className="entire_div_profile">
                 {/* <Dashboard/> */}
-                <Topnav_admin/>
-                <Sidebar_admin/>
+                <topnav_admin/>
+                <sidebar_admin/>
                 <div className="side_main_box">
                     <p>Modify Courses Here</p><br></br>
                     <p>Like add or delete courses and kavalante handout kuda ikkade ivvochu</p><br></br>
@@ -23,4 +22,4 @@ class modify_courses extends Component{
     }
 }
 
-export default withRouter(modify_courses)
+export default modify_courses

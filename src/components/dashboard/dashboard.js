@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
-
 import '../stylesheets/dashboard.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
@@ -16,7 +14,7 @@ class dashboard extends Component {
     // document.getElementById("sidebar").style.width = "0";
     // document.getElementById("main").style.marginLeft = "0";}
     Logout(){
-        document.cookie="jwt="+ ";" + "max-age=" + (0);
+        // document.cookie="jwt="+ ";" + "max-age=" + (0);
     }
     
     render() {
@@ -43,10 +41,10 @@ class dashboard extends Component {
                                 <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
                             </li> */}
                         <li><a href="/profile">My Profile</a></li>                            
-                        <li><a href="#">Register into Courses</a></li>
-                        <li><a href="#">Give Feedback</a></li>
-                        <li><a href="#">View Feedback</a></li>
-                        <li><a href="#">CMS</a></li>
+                        <li><a href="/register">Register into Courses</a></li>
+                        <li><a href="/give_feedback">Give Feedback</a></li>
+                        <li><a href="/feedbacks">View Feedback</a></li>
+                        <li><a href="/cms_student">CMS</a></li>
                         </ul>  
                     </nav>
                     

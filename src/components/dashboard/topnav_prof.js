@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
 
 import '../stylesheets/dashboard.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
