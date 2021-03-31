@@ -21,5 +21,4 @@ class sidebar extends Component{
         )
     }
 }
-
 export default sidebar;
