@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import topnav_admin from '../dashboard/topnav_admin'
-import sidebar_admin from '../dashboard/sidebar_admin'
+import TopnavAdmin from '../dashboard/topnav_admin'
+import SidebarAdmin from '../dashboard/sidebar_admin'
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
@@ -10,8 +10,8 @@ class modify_courses extends Component{
         return(
             <div className="entire_div_profile">
                 {/* <Dashboard/> */}
-                <topnav_admin/>
-                <sidebar_admin/>
+                <TopnavAdmin/>
+                <SidebarAdmin/>
                 <div className="side_main_box">
                     <p>Modify Courses Here</p><br></br>
                     <p>Like add or delete courses and kavalante handout kuda ikkade ivvochu</p><br></br>
