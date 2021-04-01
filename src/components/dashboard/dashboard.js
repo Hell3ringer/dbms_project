@@ -29,8 +29,8 @@ class dashboard extends Component {
                 <div id="nav_id" className="topnav navbar nav-pills fixed-top navbar-dark bg-dark">          
                     <a href="/dashboard">Dashboard</a>
                     <span className="navbar-text cfs-class">Course Feedback System  CFS</span>
-                    <a href="#contact">Contact</a>
-                    <a href="#about">About</a>
+                    <a href="/contact">Contact</a>
+                    <a href="/about">About</a>
                     <a className="active" href="/" onClick={this.Logout}>Logout</a>
                 </div>     
 
@@ -43,7 +43,7 @@ class dashboard extends Component {
                         <li><a href="/profile">My Profile</a></li>                            
                         <li><a href="/register">Register into Courses</a></li>
                         <li><a href="/give_feedback">Give Feedback</a></li>
-                        <li><a href="/feedbacks">View Feedback</a></li>
+                        <li><a href="/view_all_feedbacks">View All Feedbacks</a></li>
                         <li><a href="/cms_student">CMS</a></li>
                         </ul>  
                     </nav>
