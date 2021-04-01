@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const { Router, json } = require('express');
 
 const express = require('express')
 const router = express.Router()
@@ -25,6 +25,45 @@ router.post('/signup',async (req,res) =>{
             return res.status(200).json("token");
         }
     })
+})
+
+router.post('/login',async (req,res) =>{    
+    var sql_statement = "SELECT * FROM details  WHERE id = '"+req.body.params.id+"'";
+    
+    var values = [req.body.params.id,req.body.params.pass];
+    db.query(sql_statement,(err ,result) => {
+        // var userPass = result.password
+        // console.log(userPass);
+                    
+        
+            if (err) {
+                console.log('error getting users');
+                return res.status(404)
+            }else{
+                if (result.length == 0) {
+                    console.log("user dosent exist!!");
+                    res.status(202)
+                    
+                }else(bcrypt.compare(req.body.params.pass,result.password,(error,response) => {
+                    if (error) {
+                        console.log(error);
+                        
+                    }else{
+                        if (response) {
+                            console.log('login successfull');
+                                       
+                            res.status(200) 
+                        }else{
+                            console.log('wrong password!!');
+                            res.status(201)
+                        }
+                    
+                }}))             
+                
+                
+            }
+        })
+    
 })
 
 router.get('/users',(req,res) =>{

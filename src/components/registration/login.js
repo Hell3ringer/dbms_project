@@ -1,9 +1,11 @@
 import '../stylesheets/login_component.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios'
 
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
-
+const Swal = require('sweetalert2')
+var isEmpty = false;
 function signin(){
     
     const params = {
@@ -29,13 +31,37 @@ function signin(){
           }
           )
     }else{
-        axios.post('http://localhost:4000/app/signup',{params})
+        axios.post('http://localhost:4000/app/login',{params})
         .then(Response =>{
             if (Response.status === 200) {
                 Swal.fire({
                     title: 'success',
                     text: "registered",
                     icon: 'success',
+                    confirmButtonText: 'ok'
+                  }).then((result) =>{
+                      if (result.isConfirmed) {
+                          window.location.replace('/')
+                      }
+                  }
+                  )
+            }else if(Response.status === 201){
+                Swal.fire({
+                    title: 'error',
+                    text: "wrong password",
+                    icon: 'error',
+                    confirmButtonText: 'ok'
+                  }).then((result) =>{
+                      if (result.isConfirmed) {
+                          window.location.replace('/')
+                      }
+                  }
+                  )
+            }else{
+                Swal.fire({
+                    title: 'error',
+                    text: "no user",
+                    icon: 'error',
                     confirmButtonText: 'ok'
                   }).then((result) =>{
                       if (result.isConfirmed) {
@@ -60,12 +86,12 @@ export default class Login extends Component {
 
                 <div className="form-group">
                     <label>id </label>
-                    <input type="text" id = "id"className="form-control" placeholder="Enter id" />
+                    <input type="text" id = "id" className="form-control" placeholder="Enter id" />
                 </div>
 
                 <div className="form-group">
                     <label>Password</label>
-                    <input type="password" id = "password"className="form-control" placeholder="Enter password" />
+                    <input type="password" id = "password" className="form-control" placeholder="Enter password" />
                 </div>
 
                 <div className="form-group">
