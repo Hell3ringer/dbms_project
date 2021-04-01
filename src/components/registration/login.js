@@ -4,7 +4,53 @@ import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 
+function signin(){
+    
+    const params = {
+        id : document.getElementById('id').value,
+        pass : document.getElementById('password').value
+        
+    }
+
+    if (params.id === ''||params.pass === '') {
+        isEmpty = true;
+    }
+    
+    if (isEmpty) {
+        Swal.fire({
+            title: 'error',
+            text: "Don't leave empty!!",
+            icon: 'error',
+            confirmButtonText: 'retry'
+          }).then((result) =>{
+              if (result.isConfirmed) {
+                  window.location.replace('/signup')
+              }
+          }
+          )
+    }else{
+        axios.post('http://localhost:4000/app/signup',{params})
+        .then(Response =>{
+            if (Response.status === 200) {
+                Swal.fire({
+                    title: 'success',
+                    text: "registered",
+                    icon: 'success',
+                    confirmButtonText: 'ok'
+                  }).then((result) =>{
+                      if (result.isConfirmed) {
+                          window.location.replace('/')
+                      }
+                  }
+                  )
+            }
+        })
+    }}
+
 export default class Login extends Component {
+
+    
+
     render() {
         return (
             <div className="auth-wrapper">
@@ -14,12 +60,12 @@ export default class Login extends Component {
 
                 <div className="form-group">
                     <label>id </label>
-                    <input type="text" className="form-control" placeholder="Enter id" />
+                    <input type="text" id = "id"className="form-control" placeholder="Enter id" />
                 </div>
 
                 <div className="form-group">
                     <label>Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" />
+                    <input type="password" id = "password"className="form-control" placeholder="Enter password" />
                 </div>
 
                 <div className="form-group">
@@ -29,7 +75,7 @@ export default class Login extends Component {
                     </div>
                 </div>
 
-                <button type="submit" className="btn btn-primary btn-block">Submit</button>
+                <button type="submit" onClick ={signin} className="btn btn-primary btn-block">Submit</button>
                 {/* <p className="forgot-password text-right">
                     Forgot <a href="#">password?</a>
                 </p> */}
