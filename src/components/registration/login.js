@@ -1,77 +1,48 @@
 import '../stylesheets/login_component.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios'
-
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
-const Swal = require('sweetalert2')
+import axios from 'axios';
+import Swal from 'sweetalert2';
+//const Swal = require('sweetalert2')
 var isEmpty = false;
 function signin(){
     
     const params = {
-        id : document.getElementById('id').value,
+        id : document.getElementById('idNo').value,
         pass : document.getElementById('password').value
         
     }
 
-    if (params.id === ''||params.pass === '') {
+    if (params.id === "" || params.pass === "") {
         isEmpty = true;
+        console.log("isEmpty");
+        Swal.fire({
+            title : "empty",
+            
+        });
     }
     
-    if (isEmpty) {
-        Swal.fire({
-            title: 'error',
-            text: "Don't leave empty!!",
-            icon: 'error',
-            confirmButtonText: 'retry'
-          }).then((result) =>{
-              if (result.isConfirmed) {
-                  window.location.replace('/signup')
-              }
-          }
-          )
-    }else{
-        axios.post('http://localhost:4000/app/login',{params})
-        .then(Response =>{
+    if (!isEmpty) {
+        axios.get('http://localhost:4000/app/login',{
+            params : {
+                id : document.getElementById('idNo').value,
+                pass : document.getElementById('password').value
+            }
+    })
+        .then(Response => {
             if (Response.status === 200) {
-                Swal.fire({
-                    title: 'success',
-                    text: "registered",
-                    icon: 'success',
-                    confirmButtonText: 'ok'
-                  }).then((result) =>{
-                      if (result.isConfirmed) {
-                          window.location.replace('/')
-                      }
-                  }
-                  )
-            }else if(Response.status === 201){
-                Swal.fire({
-                    title: 'error',
-                    text: "wrong password",
-                    icon: 'error',
-                    confirmButtonText: 'ok'
-                  }).then((result) =>{
-                      if (result.isConfirmed) {
-                          window.location.replace('/')
-                      }
-                  }
-                  )
+                console.log("successfully logged in");
+            } else if (Response.status === 201) {
+                console.log("incorrect password");
+            }else if (Response.status === 202) {
+                console.log("no users");
             }else{
-                Swal.fire({
-                    title: 'error',
-                    text: "no user",
-                    icon: 'error',
-                    confirmButtonText: 'ok'
-                  }).then((result) =>{
-                      if (result.isConfirmed) {
-                          window.location.replace('/')
-                      }
-                  }
-                  )
+                console.log("error in post");
             }
         })
-    }}
+    }
+}
 
 export default class Login extends Component {
 
@@ -86,7 +57,7 @@ export default class Login extends Component {
 
                 <div className="form-group">
                     <label>id </label>
-                    <input type="text" id = "id" className="form-control" placeholder="Enter id" />
+                    <input type="text" id = "idNo" className="form-control" placeholder="Enter id" />
                 </div>
 
                 <div className="form-group">
@@ -94,17 +65,8 @@ export default class Login extends Component {
                     <input type="password" id = "password" className="form-control" placeholder="Enter password" />
                 </div>
 
-                <div className="form-group">
-                    <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                        <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
-                    </div>
-                </div>
-
                 <button type="submit" onClick ={signin} className="btn btn-primary btn-block">Submit</button>
-                {/* <p className="forgot-password text-right">
-                    Forgot <a href="#">password?</a>
-                </p> */}
+               
                 <br></br>
                 <p>Don't have an account?    <Link to={'/signup'}>Sign up</Link></p>
             </form>

@@ -25,9 +25,6 @@ function signup(){
 
     if (params.id === ''||params.pass === ''||params.role === '') {
         isEmpty = true;
-    }
-    
-    if (isEmpty) {
         Swal.fire({
             title: 'error',
             text: "Don't leave empty!!",
@@ -39,9 +36,17 @@ function signup(){
               }
           }
           )
-    }else{
-        axios.post('http://localhost:4000/app/signup',{params})
-        .then(Response =>{
+    }
+    if(!isEmpty){
+        console.log(" params " + params);
+        axios.post('http://localhost:4000/app/signup',{
+            params : {
+                id : document.getElementById('id').value,
+                pass : document.getElementById('password').value,
+                role : document.getElementById('role').value
+            }
+            
+        }).then(Response =>{
             if (Response.status === 200) {
                 Swal.fire({
                     title: 'success',
@@ -49,8 +54,9 @@ function signup(){
                     icon: 'success',
                     confirmButtonText: 'ok'
                   }).then((result) =>{
-                      if (result.isConfirmed) {
-                          window.location.replace('/')
+                      if (result.isConfirmed) {                          
+                        window.location.replace("/studentDetails")                        
+                          
                       }
                   }
                   )
