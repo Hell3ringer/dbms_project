@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import '../stylesheets/dashboard.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import Search from '../search/search';
+
 
 class dashboard_prof extends Component {
 
@@ -63,6 +65,7 @@ class dashboard_prof extends Component {
                         </div> */}
                     <div> 
                     <p style={styling}><h2>Hi prof_id</h2></p>
+                    <Search></Search>
                     </div>
             </div>
         )
