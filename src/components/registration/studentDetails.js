@@ -4,18 +4,22 @@ const Swal = require('sweetalert2')
 
 var isEmpty = false;
 function register(){
-    const params = {
-        id : document.getElementById('id').value,
+    let a = document.getElementById('idNo').value
+    console.log("a value is " + a);
+    const user = {
+        id : document.getElementById('idNo').value,
         name : document.getElementById('name').value,
         email : document.getElementById('email').value,
-        contactNo : document.getElementById('contactNo').value
+        contact_no : document.getElementById('contactNo').value
+        
     }
-
-    if (params.id === ''||params.name === ''||params.email === '' || params.contactNo === '') {
+    
+    console.log("params in details " + JSON.stringify(user,null,2));
+    if (user.id === ''||user.name === ''||user.email === '' || user.contactNo === '') {
         isEmpty = true;
     }
     
-    if (isEmpty) {
+    /* if (isEmpty) {
         Swal.fire({
             title: 'error',
             text: "Don't leave empty!!",
@@ -27,22 +31,18 @@ function register(){
               }
           }
           )
-    }else{
-        axios.post('http://localhost:4000/app/details',{
-            params : {
-                id : document.getElementById('id').value,
-                pass : document.getElementById('password').value,
-                role : document.getElementById('role').value
-            }
-        }).then(Response => {
+    }else{ */
+        axios.post('http://localhost:4000/app/details',user          
+        ).then(Response => {
             if (Response.status === 200) {
+                console.log("Response " + Response);
                 window.location.replace('/');
             }
         })
     }
-}
+//}
 
-export class studentDetails extends Component {
+class studentDetails extends Component {
     render() {
         return (
             <div className="auth-wrapper">
@@ -56,19 +56,19 @@ export class studentDetails extends Component {
                 </div>
                 <div className="form-group">
                     <label>name </label>
-                    <input type="text" id = "name" className="form-control" placeholder="Enter id" />
+                    <input type="text" id = "name" className="form-control" placeholder="Enter name" />
                 </div>
                 <div className="form-group">
                     <label>email </label>
-                    <input type="email" id = "email" className="form-control" placeholder="Enter id" />
+                    <input type="email" id = "email" className="form-control" placeholder="Enter email" />
                 </div>
                 <div className="form-group">
                     <label>contact No </label>
-                    <input type="number" pattern="[0-9]{10}" id = "contactNo" className="form-control" placeholder="Enter id" />
+                    <input type="number" pattern="[0-9]{10}" id = "contactNo" className="form-control" placeholder="Enter contact no" />
                 </div>
 
 
-                <button type="submit" onClick ={register} className="btn btn-primary btn-block">Submit</button>
+                <button  onClick ={register} className="btn btn-primary btn-block">Submit</button>
                
                 <br></br>
                 

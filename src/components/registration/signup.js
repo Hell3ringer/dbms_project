@@ -25,7 +25,7 @@ function signup(){
 
     if (params.id === ''||params.pass === ''||params.role === '') {
         isEmpty = true;
-        Swal.fire({
+        /* Swal.fire({
             title: 'error',
             text: "Don't leave empty!!",
             icon: 'error',
@@ -35,7 +35,7 @@ function signup(){
                   window.location.replace('/signup')
               }
           }
-          )
+          ) */
     }
     if(!isEmpty){
         console.log(" params " + params);

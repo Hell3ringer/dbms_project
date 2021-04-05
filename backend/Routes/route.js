@@ -66,18 +66,22 @@ router.get('/login',async (req,res) =>{
 
 })
 
-router.post('/details',(req,res) => {
-    const userName = req.query.name;
-    const userContactNo = req.query.contactNo;
-    const userID = req.query.id;
-    const userEmail = req.query.email;       
-    var sql_statement = "INSERT INTO student (id,name,email,contact_no) values ('"+userID +"','"+userName +"','"+userEmail + "','"+userContactNo +"')";
+router.post('/details',async (req,res) => {
+    const userID = req.body.id;
+    const userName = req.body.name;
+    const userContactNo = req.body.contact_no;
     
-    db.query(sql_statement,(err ,result) => {
+    const userEmail = req.body.email;  
+    console.log("user name " + userName);   
+    //var sql = "select * from student "  
+    var sql_statement = "INSERT INTO student (id,name,email,contact_no) values (?,?,?,?)";
+    
+    db.query(sql_statement,[userID,userName,userEmail,userContactNo],(err ,result) => {
         if (err) {
             console.log('error inserting values' + err);
         }else{
-            return res.status(200);
+            console.log("values added");
+            return res.status(200).json(result);
         }
     })
 })
