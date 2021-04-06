@@ -9,6 +9,7 @@ import error from './components/error'
 import profile_prof from './components/profile/profile_prof';
 import dashboard_admin from './components/dashboard/dashboard_admin';
 import modify_courses from './components/modify_courses/modify_courses';
+import Search from './components/search/search';
 function App() {
   return (
     <div className="div_in_app">
@@ -21,6 +22,8 @@ function App() {
         <Route exact path='/profile' component={profile}/>
         <Route exact path='/profile_prof' component={profile_prof}/>
         <Route exact path='/modify_courses' component={modify_courses}/>
+        <Route exact path='/search' component={Search}/>
+
         <Route component={error}/>
       </Switch>}
     </div>

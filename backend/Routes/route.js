@@ -40,4 +40,17 @@ router.get('/users',(req,res) =>{
     })
 })
 
+router.post('/searchCourse',(req,res) =>{
+    console.log(req.body);
+    var sql_statement = "select * from course where (c_name) = ('"+req.body.c_name+"')";
+
+    db.query(sql_statement,(err ,result) => {
+        if (err) {
+            console.log('error finding course' + err);
+        }else{
+            res.send(result)
+        }
+    })
+})
+
 module.exports = router;
