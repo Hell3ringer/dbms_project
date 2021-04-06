@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import Topnav from '../dashboard/topnav'
 import Sidebar from '../dashboard/sidebar'
 
@@ -12,6 +13,11 @@ function registration(){
         email:document.getElementById('email').value,
         contact_no:document.getElementById('contactNo').value
     }
+    console.log("user input"+user)
+    axios.post('http://localhost:5000/app/profile',user)
+    .then(Response=>{
+        console.log(Response);
+    })
 }
 
 class profile extends Component{

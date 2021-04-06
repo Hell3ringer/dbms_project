@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const { Router, json } = require('express');
 
 const express = require('express')
 const router = express.Router()
@@ -13,24 +13,87 @@ const db = mysql.createConnection({
 
 
 router.post('/signup',async (req,res) =>{
+    let userRole = req.query.role;
+    let userPassword = req.query.pass;
+    let userID = req.query.id;
+    console.log("id " +userID + " req id " + req.query.id + " pass " + userPassword  + " req " + JSON.stringify(req.query,null,2)); 
     const saltPassword = await bcrypt.genSalt(10);
-    const securedPassword = await bcrypt.hash(req.body.params.pass,saltPassword)
-    var sql_statement = "INSERT INTO details (id,password,role) values ('"+req.body.params.id +"','"+securedPassword +"','"+req.body.params.role + "')";
+    const securedPassword = await bcrypt.hash(userPassword,saltPassword);    
+    var sql_statement = "INSERT INTO details (id,password,role) values ('"+userID +"','"+securedPassword +"','"+userRole + "')";
     
-    var values = [req.body.params.id,req.body.params.pass,req.body.params.role];
     db.query(sql_statement,(err ,result) => {
         if (err) {
             console.log('error inserting values' + err);
-<<<<<<< HEAD
-            return res.status(404);
         }else{
-            console.log("user added");
-=======
-        }else{
->>>>>>> 38e971005baf627c7fc67bbc4484787a400f30c4
-            return res.status(200).json("token");
+            return res.status(200).json(userRole);
         }
     })
+})
+
+router.get('/login',async (req,res) =>{   
+    let userID = req.query.id;
+    let userPass = req.query.pass;
+    console.log("id " +userID + " pass " + userPass); 
+    let sql_statement = "SELECT * FROM details WHERE id = ? ";      
+    db.query(sql_statement,[userID],async (err ,result) => {     
+            if (err) {
+                console.log('error getting users');
+                return res.status(404)
+            }else{
+                
+                 if (result.length == 0) {
+                    console.log("user dosent exist!!");
+                    res.status(202);
+                    
+                }else(await bcrypt.compare(userPass,result[0].password,(error,response) => {
+                    if (error) {
+                        console.log(error);                        
+                    }else{
+                        console.log("response from bcrypt " + response);
+                        if (response) {
+                            console.log('login successfull');                                       
+                            res.status(200) 
+                        }else{
+                            console.log('wrong password!!');
+                            res.status(201)
+                        }
+                    
+                }}))             
+                
+                
+            } 
+       })
+
+})
+
+router.post('/details',async (req,res) => {
+    const userID = req.body.id;
+    const userName = req.body.name;
+    const userContactNo = req.body.contact_no;
+    
+    const userEmail = req.body.email;  
+    console.log("user name " + userName);   
+    //var sql = "select * from student "  
+    var sql_statement = "INSERT INTO student (id,name,email,contact_no) values (?,?,?,?)";
+    
+    db.query(sql_statement,[userID,userName,userEmail,userContactNo],(err ,result) => {
+        if (err) {
+            console.log('error inserting values' + err);
+        }else{
+            console.log("values added");
+            return res.status(200).json(result);
+        }
+    })
+})
+
+router.post('/profile', (request,response)=>{
+    const userID=request.body.id
+    const userName=request.body.name
+    const userEmail=request.body.email
+    const userContactNo=request.body.contact_no
+    console.log("id is" + userID + " name is "+ userName);
+
+    response.status(200).json(userID+userName);
 })
 
 router.get('/users',(req,res) =>{
@@ -40,7 +103,7 @@ router.get('/users',(req,res) =>{
         if (err) {
             console.log('error inserting values' + err);
         }else{
-            console.log("rows" + result);
+            console.log("rows" + {result});
             res.send(result)
         }
     })
