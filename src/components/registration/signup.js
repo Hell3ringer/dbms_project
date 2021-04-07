@@ -37,6 +37,7 @@ class SignUp extends Component {
                 confirmButtonText: 'retry'
               }).then((result) =>{
                   if (result.isConfirmed) {
+                      isEmpty = false;
                       window.location.replace('/signup')
                   }
               }
@@ -44,11 +45,12 @@ class SignUp extends Component {
         }
         if(!isEmpty){
             console.log(" params " + params);
-            axios.post('http://localhost:5000/app/signup',params)  
+            axios.post('http://localhost:4000/app/signup',params)  
             .then(Response =>{            
                 
                 if (Response.status === 200) {                    
-                    sessionStorage.setItem('role',params.role)
+                    sessionStorage.setItem('role',params.role);
+                    sessionStorage.setItem('id',params.id);
                     Swal.fire({
                         title: 'success',
                         text: "registered",

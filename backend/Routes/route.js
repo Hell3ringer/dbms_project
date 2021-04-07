@@ -32,32 +32,30 @@ router.post('/signup',async (req,res) =>{
     })
 })
 
-router.get('/login',async (req,res) =>{   
-    let userID = req.query.id;
-    let userPass = req.query.pass;
-    console.log("id " +userID + " pass " + userPass); 
+router.post('/login',async (req,res) =>{   
+    let userID = req.body.id;
+    let userPass = req.body.pass;  
+    const role = userID[0];    
+    console.log("role is " + role + " pass is " + userPass);  
     let sql_statement = "SELECT * FROM details WHERE id = ? ";      
     db.query(sql_statement,[userID],async (err ,result) => {     
             if (err) {
                 console.log('error getting users');
-                return res.status(404)
-            }else{
-                
+                return res.send('-2')
+            }else{                
                  if (result.length == 0) {
                     console.log("user dosent exist!!");
-                    res.status(202);
-                    
+                    return res.send('-1');
                 }else(await bcrypt.compare(userPass,result[0].password,(error,response) => {
                     if (error) {
                         console.log(error);                        
-                    }else{
-                        console.log("response from bcrypt " + response);
+                    }else{                        
                         if (response) {
-                            console.log('login successfull');                                       
-                            res.status(200) 
+                            console.log('login successfull');                                                                                        
+                            return res.send('1');
                         }else{
                             console.log('wrong password!!');
-                            res.status(201)
+                            return res.send('2')
                         }
                     
                 }}))             
@@ -76,11 +74,11 @@ router.post('/details',async (req,res) => {
     const userEmail = req.body.email;  
     console.log("user name " + userName);   
     if (userRole === "student") {
-        sql_statement = "INSERT INTO student (id,name,email,contact_no) values (?,?,?,?)";
+        sql_statement = "INSERT INTO student (s_id,s_name,s_email,s_contact_no) values (?,?,?,?)";
     } else if(userRole === "professor"){
-        sql_statement = "INSERT INTO professor (id,name,email,contact_no) values (?,?,?,?)";
+        sql_statement = "INSERT INTO professor (p_id,p_name,p_email,p_contact_no) values (?,?,?,?)";
     }else{
-        sql_statement = "INSERT INTO admin (id,name,email,contact_no) values (?,?,?,?)";
+        console.log("users role error or admin ");
     }
     
     
@@ -94,32 +92,6 @@ router.post('/details',async (req,res) => {
         }
     })
 })
-
-
-router.post('/professorDetails', (request,response) => {
-    const userID = request.body.id
-    const userName = request.body.name
-    const userEmail = request.body.email
-    const userContactNo = request.body.contact_no
-    console.log("id is " + userID + " name is "+ userName);
-
-    sql = "insert into professor (id,name,email,contact_no) values (?,?,?,?)"
-    db.query(sql,[userID,userName,userEmail,userContactNo],(err,result) => {
-        if (err) {
-            console.log("error in professordetails " + error);
-        } else {
-            console.log("values added in professor");
-            return response.status(200).json(result);
-        }
-    })
-
-    //return response.status(200).json(userID+userName);
-})
-
-
-
-
-
 router.get('/users',(req,res) =>{
     var sql_statement = "select * from  details ";
     //var values = [req.query.id,req.query.pass,req.query.role];

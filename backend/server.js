@@ -24,4 +24,4 @@ app.use(express.json())
 //app.use(cookieParser()) 
 app.use(cors());
 app.use('/app',routeURL)
-app.listen(5000,() => console.log('server is open'))
+app.listen(4000,() => console.log('server is open'))

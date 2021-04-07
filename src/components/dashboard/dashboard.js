@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../stylesheets/dashboard.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-
+var id = localStorage.getItem('loginID')
 class dashboard extends Component {
 
     // openNav() {
@@ -62,7 +62,7 @@ class dashboard extends Component {
                            
                         </div> */}
                 <div> 
-                    <p style={styling}><h2>Hi student_id</h2></p>
+                    <p style={styling}><h2>Hi {id}</h2></p>
                 </div>
             </div>
         )

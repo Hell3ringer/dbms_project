@@ -20,7 +20,7 @@ export default class Login extends Component {
         }
     
         if (params.id === "" || params.pass === "") {
-            isEmpty = true;
+            isEmpty = true;            
             Swal.fire({
                 title: 'error',
                 text: "Don't leave empty!!",
@@ -28,37 +28,45 @@ export default class Login extends Component {
                 confirmButtonText: 'retry'
               }).then((result) =>{
                   if (result.isConfirmed) {
-                      window.location.replace('/login')
+                      isEmpty = false;
+                      window.location.replace('/')
                   }
               }
               )
         }
-        
+        console.log("isEmpty " + isEmpty);
         if (!isEmpty) {
-            axios.get('http://localhost:5000/app/login',{
-                params : {
-                    id : document.getElementById('idNo').value,
-                    pass : document.getElementById('password').value
-                }
-        })
-            .then(Response => {
-                if (Response.status === 200) {
-                    console.log("successfully logged in");
+            axios.post('http://localhost:4000/app/login',params)
+            .then(Response =>{
+                console.log("response.status is " + Response.data);
+                if (Response.data === 1) {
                     Swal.fire({
-                        title: 'success',
-                        text: "login",
+                        toast:true,
+                        title: 'signed in successfully',                        
                         icon: 'success',
-                        confirmButtonText: 'ok'
+                        timer:2000,
+                        timerProgressBar:true,                        
+                        position:'top-end',                        
+                        showConfirmButton:false,                        
                       }).then((result) =>{
-                          if (result.isConfirmed) {      
-    
-                            window.location.replace("/dashboard")                        
+                          if (result.dismiss) {      
+                             
+                            var role = params.id[4]+params.id[9]
+                            console.log(role);
+                            localStorage.setItem('loginID',params.id);
+                            if (role === "AH") {
+                                window.location.replace("/dashboard_admin")     
+                            }else if(role === "PH"){
+                                window.location.replace("/dashboard_prof")     
+                            }else{
+                                window.location.replace("/dashboard")     
+                            }
+                                               
                               
                           }
                       }
                       )
-                } else if (Response.status === 201) {
-                    console.log("incorrect password");
+                }else if (Response.data === 2) {
                     Swal.fire({
                         title: 'error',
                         text: "incorrect password!",
@@ -67,30 +75,27 @@ export default class Login extends Component {
                       }).then((result) =>{
                           if (result.isConfirmed) {      
     
-                            window.location.replace("/login")                        
+                            window.location.replace("/")                        
                               
                           }
                       }
                       )
-                }else if (Response.status === 202) {
-                    console.log("no users");
+                }else if (Response.data === -1) {
                     Swal.fire({
                         title: 'error',
-                        text: "no users!",
+                        text: "user dosen't exist!",
                         icon: 'error',
                         confirmButtonText: 'retry'
                       }).then((result) =>{
                           if (result.isConfirmed) {      
     
-                            window.location.replace("/login")                        
+                            window.location.replace("/")                        
                               
                           }
                       }
                       )
-                }else{
-                    console.log("error in post");
                 }
-            })
+            })            
         }
     }
 
