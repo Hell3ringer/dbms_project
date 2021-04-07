@@ -15,6 +15,8 @@ class dashboard extends Component {
     // document.getElementById("main").style.marginLeft = "0";}
     Logout(){
         // document.cookie="jwt="+ ";" + "max-age=" + (0);
+        sessionStorage.clear();
+        localStorage.clear()
     }
     
     render() {
