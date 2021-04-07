@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
 const Swal = require('sweetalert2')
+
 var isEmpty = false;
 function check_pass() {
     if (document.getElementById('password').value ===
@@ -15,59 +16,59 @@ function check_pass() {
         document.getElementById('message').innerHTML = 'not matching';
     }
 }
-function signup(){
-    
-    const params = {
-        id : document.getElementById('id').value,
-        pass : document.getElementById('password').value,
-        role : document.getElementById('role').value
-    }
 
-    if (params.id === ''||params.pass === ''||params.role === '') {
-        isEmpty = true;
-        /* Swal.fire({
-            title: 'error',
-            text: "Don't leave empty!!",
-            icon: 'error',
-            confirmButtonText: 'retry'
-          }).then((result) =>{
-              if (result.isConfirmed) {
-                  window.location.replace('/signup')
-              }
-          }
-          ) */
-    }
-    if(!isEmpty){
-        console.log(" params " + params);
-        axios.post('http://localhost:4000/app/signup',{
-            params : {
-                id : document.getElementById('id').value,
-                pass : document.getElementById('password').value,
-                role : document.getElementById('role').value
-            }
-            
-        }).then(Response =>{
-            if (Response.status === 200) {
-                Swal.fire({
-                    title: 'success',
-                    text: "registered",
-                    icon: 'success',
-                    confirmButtonText: 'ok'
-                  }).then((result) =>{
-                      if (result.isConfirmed) {                          
-                        window.location.replace("/studentDetails")                        
-                          
-                      }
-                  }
-                  )
-            }
-        })
-    }
-}
 
 class SignUp extends Component {   
         
-
+    signup(Event){
+        Event.preventDefault()
+        const params = {
+            id : document.getElementById('id').value,
+            pass : document.getElementById('password').value,
+            role : document.getElementById('role').value
+        }
+    
+        if (params.id === ''||params.pass === ''||params.role === '') {
+            isEmpty = true;
+            Swal.fire({
+                title: 'error',
+                text: "Don't leave empty!!",
+                icon: 'error',
+                confirmButtonText: 'retry'
+              }).then((result) =>{
+                  if (result.isConfirmed) {
+                      window.location.replace('/signup')
+                  }
+              }
+              )
+        }
+        if(!isEmpty){
+            console.log(" params " + params);
+            axios.post('http://localhost:5000/app/signup',params)  
+            .then(Response =>{            
+                
+                if (Response.status === 200) {                    
+                    sessionStorage.setItem('role',params.role)
+                    Swal.fire({
+                        title: 'success',
+                        text: "registered",
+                        icon: 'success',
+                        confirmButtonText: 'ok'
+                      }).then((result) =>{
+                          if (result.isConfirmed) {    
+    
+                            window.location.replace("/details")                        
+                              
+                          }
+                      }
+                      )
+                }else{
+                    console.log("error in post");
+                    window.location.replace('/signup')
+                }
+            })
+        }
+    }
     
 
     render() {
@@ -101,7 +102,7 @@ class SignUp extends Component {
                         {/* <option value="admin">Admin</option> */}
                     </select>
                 </div>
-                <button type="submit" onClick={signup} className="btn btn-primary btn-block" >Sign Up</button>
+                <button type="submit" onClick={this.signup} className="btn btn-primary btn-block" >Sign Up</button>
                 
             </form>
             </div>

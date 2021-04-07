@@ -6,47 +6,93 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 //const Swal = require('sweetalert2')
 var isEmpty = false;
-function signin(){
-    
-    const params = {
-        id : document.getElementById('idNo').value,
-        pass : document.getElementById('password').value
-        
-    }
 
-    if (params.id === "" || params.pass === "") {
-        isEmpty = true;
-        console.log("isEmpty");
-        Swal.fire({
-            title : "empty",
-            
-        });
-    }
-    
-    if (!isEmpty) {
-        axios.get('http://localhost:4000/app/login',{
-            params : {
-                id : document.getElementById('idNo').value,
-                pass : document.getElementById('password').value
-            }
-    })
-        .then(Response => {
-            if (Response.status === 200) {
-                console.log("successfully logged in");
-            } else if (Response.status === 201) {
-                console.log("incorrect password");
-            }else if (Response.status === 202) {
-                console.log("no users");
-            }else{
-                console.log("error in post");
-            }
-        })
-    }
-}
 
 export default class Login extends Component {
 
+    signin(Event){
+        Event.preventDefault()
     
+        const params = {
+            id : document.getElementById('idNo').value,
+            pass : document.getElementById('password').value
+            
+        }
+    
+        if (params.id === "" || params.pass === "") {
+            isEmpty = true;
+            Swal.fire({
+                title: 'error',
+                text: "Don't leave empty!!",
+                icon: 'error',
+                confirmButtonText: 'retry'
+              }).then((result) =>{
+                  if (result.isConfirmed) {
+                      window.location.replace('/login')
+                  }
+              }
+              )
+        }
+        
+        if (!isEmpty) {
+            axios.get('http://localhost:5000/app/login',{
+                params : {
+                    id : document.getElementById('idNo').value,
+                    pass : document.getElementById('password').value
+                }
+        })
+            .then(Response => {
+                if (Response.status === 200) {
+                    console.log("successfully logged in");
+                    Swal.fire({
+                        title: 'success',
+                        text: "login",
+                        icon: 'success',
+                        confirmButtonText: 'ok'
+                      }).then((result) =>{
+                          if (result.isConfirmed) {      
+    
+                            window.location.replace("/dashboard")                        
+                              
+                          }
+                      }
+                      )
+                } else if (Response.status === 201) {
+                    console.log("incorrect password");
+                    Swal.fire({
+                        title: 'error',
+                        text: "incorrect password!",
+                        icon: 'error',
+                        confirmButtonText: 'retry'
+                      }).then((result) =>{
+                          if (result.isConfirmed) {      
+    
+                            window.location.replace("/login")                        
+                              
+                          }
+                      }
+                      )
+                }else if (Response.status === 202) {
+                    console.log("no users");
+                    Swal.fire({
+                        title: 'error',
+                        text: "no users!",
+                        icon: 'error',
+                        confirmButtonText: 'retry'
+                      }).then((result) =>{
+                          if (result.isConfirmed) {      
+    
+                            window.location.replace("/login")                        
+                              
+                          }
+                      }
+                      )
+                }else{
+                    console.log("error in post");
+                }
+            })
+        }
+    }
 
     render() {
         return (
@@ -65,7 +111,7 @@ export default class Login extends Component {
                     <input type="password" id = "password" className="form-control" placeholder="Enter password" />
                 </div>
 
-                <button type="submit" onClick ={signin} className="btn btn-primary btn-block">Submit</button>
+                <button type="submit" onClick ={this.signin} className="btn btn-primary btn-block">Submit</button>
                
                 <br></br>
                 <p>Don't have an account?    <Link to={'/signup'}>Sign up</Link></p>

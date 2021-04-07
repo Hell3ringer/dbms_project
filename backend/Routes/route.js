@@ -13,10 +13,10 @@ const db = mysql.createConnection({
 
 
 router.post('/signup',async (req,res) =>{
-    let userRole = req.query.role;
-    let userPassword = req.query.pass;
-    let userID = req.query.id;
-    console.log("id " +userID + " req id " + req.query.id + " pass " + userPassword  + " req " + JSON.stringify(req.query,null,2)); 
+    let userRole = req.body.role;
+    let userPassword = req.body.pass;
+    let userID = req.body.id;
+    console.log("id " +userID + " req id " + req.query.id + " pass " + userPassword  + " req " + JSON.stringify(req.body,null,2)); 
     const saltPassword = await bcrypt.genSalt(10);
     const securedPassword = await bcrypt.hash(userPassword,saltPassword);    
     var sql_statement = "INSERT INTO details (id,password,role) values ('"+userID +"','"+securedPassword +"','"+userRole + "')";
@@ -24,8 +24,10 @@ router.post('/signup',async (req,res) =>{
     db.query(sql_statement,(err ,result) => {
         if (err) {
             console.log('error inserting values' + err);
+            res.status(404);            
         }else{
-            return res.status(200).json(userRole);
+            console.log("data entered to details table");
+            res.status(200).send(userRole);
         }
     })
 })
@@ -70,15 +72,22 @@ router.post('/details',async (req,res) => {
     const userID = req.body.id;
     const userName = req.body.name;
     const userContactNo = req.body.contact_no;
-    
+    const userRole = req.body.role;    
     const userEmail = req.body.email;  
     console.log("user name " + userName);   
-    //var sql = "select * from student "  
-    var sql_statement = "INSERT INTO student (id,name,email,contact_no) values (?,?,?,?)";
+    if (userRole === "student") {
+        sql_statement = "INSERT INTO student (id,name,email,contact_no) values (?,?,?,?)";
+    } else if(userRole === "professor"){
+        sql_statement = "INSERT INTO professor (id,name,email,contact_no) values (?,?,?,?)";
+    }else{
+        sql_statement = "INSERT INTO admin (id,name,email,contact_no) values (?,?,?,?)";
+    }
+    
     
     db.query(sql_statement,[userID,userName,userEmail,userContactNo],(err ,result) => {
         if (err) {
             console.log('error inserting values' + err);
+            return res.status(404);
         }else{
             console.log("values added");
             return res.status(200).json(result);
@@ -86,14 +95,39 @@ router.post('/details',async (req,res) => {
     })
 })
 
+
+router.post('/professorDetails', (request,response) => {
+    const userID = request.body.id
+    const userName = request.body.name
+    const userEmail = request.body.email
+    const userContactNo = request.body.contact_no
+    console.log("id is " + userID + " name is "+ userName);
+
+    sql = "insert into professor (id,name,email,contact_no) values (?,?,?,?)"
+    db.query(sql,[userID,userName,userEmail,userContactNo],(err,result) => {
+        if (err) {
+            console.log("error in professordetails " + error);
+        } else {
+            console.log("values added in professor");
+            return response.status(200).json(result);
+        }
+    })
+
+    //return response.status(200).json(userID+userName);
+})
+
+
+
+
+
 router.get('/users',(req,res) =>{
-    var sql_statement = "select * from  details";
-    var values = [req.query.id,req.query.pass,req.query.role];
+    var sql_statement = "select * from  details ";
+    //var values = [req.query.id,req.query.pass,req.query.role];
     db.query(sql_statement,(err ,result) => {
         if (err) {
             console.log('error inserting values' + err);
         }else{
-            console.log("rows" + {result});
+            console.log("rows" + JSON.stringify(result,null,2));
             res.send(result)
         }
     })

@@ -1,12 +1,10 @@
-post   http://localhost:4000/app/details
+POST    http://localhost:5000/app/professorDetails
 Content-Type: application/json
 
- {  
-  "id":"2019A7PS0000H",
-  "name":"vamshi" ,
-  "email":"v@g.com",
-  "contact_no":"7789989878"    
-
- }
-
+{
+    "id": "123gehg",
+    "name" : "kedar ",
+    "email" : "a@g.com",
+    "contact_no" : "6516851685"
+}
 
