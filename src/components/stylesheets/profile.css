@@ -5,9 +5,20 @@
     display: block;
     margin-top: 60px;
     width: 100%;
-    
+    padding: 1.5%;
 }
 .profile{
     background-color: white;
     color: blueviolet;
+}
+button{
+    background-color:dodgerblue;
+    color: white;
+    border-radius: 5px;
+    padding: 1% 4% 1% 4%;   
+    font-weight:600;
+}
+button:hover{
+    background-color:whitesmoke;
+    color: dodgerblue;
 }
