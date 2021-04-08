@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import '../stylesheets/dashboard.css';
-import '../stylesheets/search.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
+const Swal = require('sweetalert2')
+
 
 function searchCourse(){
     var isEmpty = false;
@@ -15,7 +16,11 @@ function searchCourse(){
     }
     
     if (isEmpty) {
-        alert("The search box is empty");
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'The search box is empty!',
+          })
     }else{
         axios.post('http://localhost:4000/app/searchCourse',params)
         .then(Response =>{
@@ -23,9 +28,18 @@ function searchCourse(){
                 console.log(Response.data);
 
                 if(Response.data.length===0){
-                    alert("no such course")}
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'No such course!',
+                      })
+                    }
                     else{
-                        console.log(Response.data[0].c_name);
+                        const c_id = Response.data[0].c_id
+                        const c_name = Response.data[0].c_name
+                        const credits = Response.data[0].credits
+
+                        console.log(c_id, c_name, credits);
                         alert(Response.data)
                     }
                 

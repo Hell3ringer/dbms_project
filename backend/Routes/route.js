@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const Swal = require('sweetalert2')
 
 const express = require('express')
 const router = express.Router()
@@ -46,8 +47,25 @@ router.post('/searchCourse',(req,res) =>{
 
     db.query(sql_statement,(err ,result) => {
         if (err) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Error finding the course!'
+              })
             console.log('error finding course' + err);
         }else{
+            res.send(result)
+        }
+    })
+})
+
+router.get('/profRating',(req,res) =>{
+    var sql_statement = "select * from  prof_rating_view";
+    db.query(sql_statement,(err ,result) => {
+        if (err) {
+            console.log('error finding ratings' + err);
+        }else{
+            console.log("rows" + result);
             res.send(result)
         }
     })
