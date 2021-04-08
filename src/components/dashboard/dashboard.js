@@ -3,6 +3,7 @@ import '../stylesheets/dashboard.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
 
+var id = localStorage.getItem('loginID')
 class dashboard extends Component {
     constructor(props){
         super(props);
@@ -22,6 +23,8 @@ class dashboard extends Component {
     // document.getElementById("main").style.marginLeft = "0";}
     Logout(){
         // document.cookie="jwt="+ ";" + "max-age=" + (0);
+        sessionStorage.clear();
+        localStorage.clear()
     }
     
     getCourses(){

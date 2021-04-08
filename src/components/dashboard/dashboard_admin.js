@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import '../stylesheets/dashboard.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+var id = localStorage.getItem('loginID')
 
 class dashboard_admin extends Component {
 
@@ -16,6 +17,8 @@ class dashboard_admin extends Component {
     // document.getElementById("main").style.marginLeft = "0";}
     Logout(){
         // document.cookie="jwt="+ ";" + "max-age=" + (0);
+        sessionStorage.clear();
+        localStorage.clear()
     }
     
     render() {
@@ -61,7 +64,7 @@ class dashboard_admin extends Component {
                            
                         </div> */}
                     <div> 
-                    <p style={styling}><h2>Hi Admin</h2></p>
+                    <p style={styling}><h2>Hi {id}</h2></p>
                     </div>
             </div>
         )
