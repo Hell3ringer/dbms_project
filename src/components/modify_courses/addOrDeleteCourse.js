@@ -3,6 +3,7 @@ import TopnavAdmin from '../dashboard/topnav_admin'
 import SidebarAdmin from '../dashboard/sidebar_admin'
 import axios from 'axios'
 import Select from 'react-select'
+import Swal from 'sweetalert2'
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
@@ -87,13 +88,34 @@ class addOrDeleteCourse extends Component{
                                 document.getElementById("del").innerHTML='Did not select'
                             }
                             else{
-                            axios.post('http://localhost:4000/app/delete_course',{c_id})
-                            .then(Response=>{
-                                if(Response.status===200){
-                                    document.getElementById("alert").innerHTML='';
-                                    document.getElementById("del").innerHTML='Deleted '+this.state.id+' Successfully!'
-                                }
-                            })
+                                Swal.fire({
+                                    title:'Alert',
+                                    text:'Are you sure, you want to Delete course '+c_id,
+                                    confirmButtonText:'Yes, Delete',
+                                    showCancelButton:true,
+                                    cancelButtonText:'No, dont'
+                                }).then((result)=>{
+                                    if(result.value){
+                                        axios.post('http://localhost:4000/app/delete_course',{c_id})
+                                        .then(Response=>{
+                                        if(Response.status===200){
+                                            document.getElementById("alert").innerHTML='';
+                                            document.getElementById("del").innerHTML='Deleted '+this.state.id+' Successfully!'
+                                        }
+                                        })
+                                        Swal.fire({
+                                            title:'Deletion of course',
+                                            text:'Successfully Deleted course '+c_id,
+                                            confirmButtonText:'Ok'
+                                        }).then((res)=>{
+                                            if(res.value){
+                                                window.location.reload();
+                                            }
+                                        })
+                                    }
+                                    
+                                });
+                            
                             }
                         }}>Delete</button>
                         <div id="alert"></div>
@@ -132,12 +154,32 @@ function addCourse(){
         document.getElementById("out").innerHTML='c_id and c_name cannot be empty'
     }
     else{
-        axios.post('http://localhost:4000/app/add_course',{course})
-        .then(Response=>{
-            if(Response.status===200){
-                document.getElementById("out").innerHTML='Added Successfully!'
+        Swal.fire({
+            text:'Are you sure, you want to Add course '+course.c_id,
+            confirmButtonText:'Yes, Add',
+            showCancelButton:true,
+            cancelButtonText:'No, dont'
+        }).then((result)=>{
+            if(result.value){
+                axios.post('http://localhost:4000/app/add_course',{course})
+                .then(Response=>{
+                if(Response.status===200){
+                    document.getElementById("out").innerHTML='Added Successfully!'
+                }
+                })
+                Swal.fire({
+                    title:'Addition of course',
+                    text:'Successfully Added course '+course.c_id,
+                    confirmButtonText:'Ok'
+                }).then((res)=>{
+                    if(res.value){
+                        window.location.reload();
+                    }
+                })
             }
-        })
+            
+        });
+        
     }
     
 }

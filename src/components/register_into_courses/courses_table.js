@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 // import ReactTable from 'react-table'
 import Topnav from '../dashboard/topnav'
 import Sidebar from '../dashboard/sidebar'
+import Swal from 'sweetalert2'
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
@@ -60,13 +61,34 @@ class courses_table extends Component{
             // console.log(x['c_id']);
             if(c_id===x['c_id']){
                 return(<td><button onClick={()=>{
-                    const pair={c_id:c_id,s_id:this.state.s_id}
-                    axios.post('http://localhost:4000/app/delete_registered_course',{pair})
-                    .then(Response=>{
-                        if(Response.status===200){
-                            document.getElementById("alert_reg").innerHTML="Unenrolled from "+c_id;
+                    const pair={c_id:c_id,s_id:this.state.s_id};
+                    Swal.fire({
+                        title:'Alert',
+                        text:'Are you sure, you want to Unenroll from '+c_id+'?',
+                        confirmButtonText:'Yes, Unenroll',
+                        showCancelButton:true,
+                        cancelButtonText:'No, dont'
+                    }).then((result)=>{
+                        if(result.value){
+                            axios.post('http://localhost:4000/app/delete_registered_course',{pair})
+                            .then(Response=>{
+                            if(Response.status===200){
+                                document.getElementById("alert_reg").innerHTML="Unenrolled from "+c_id;
+                            }
+                            })
+                            Swal.fire({
+                                title:'Unenrollment',
+                                text:'Successfully Unenrolled from '+c_id,
+                                confirmButtonText:'Ok'
+                            }).then((res)=>{
+                                if(res.value){
+                                    window.location.reload();
+                                }
+                            })
                         }
-                    })
+                        
+                    });
+                    
                 }}>Unenroll</button></td>)
             }
         }
@@ -89,12 +111,42 @@ class courses_table extends Component{
                 this.setState({id:c_id})
                         console.log('selected '+c_id+' by '+this.state.s_id);
                         const pair={c_id:c_id,s_id:this.state.s_id}
-                        axios.post('http://localhost:4000/app/register_student',{pair})
-                        .then(Response=>{
-                            if(Response.status===200){
-                                document.getElementById("alert_reg").innerHTML="Successfully registered to "+c_id;
+                        if(this.state.enrolled_courses.length>=9){
+                            Swal.fire({
+                                title:'Alert!!!',
+                                text:'You have already enrolled into 9 courses which is maximum limit and you cannot enroll more!',
+                                confirmButtonText:'Ok, got it',
+                                icon:'error'
+                            })
+                        }
+                        else{
+                        Swal.fire({
+                            text:'Are you sure, you want to register to '+c_id+'?',
+                            confirmButtonText:'Yes, Register',
+                            showCancelButton:true,
+                            cancelButtonText:'No, dont'
+                        }).then((result)=>{
+                            if(result.value){
+                                axios.post('http://localhost:4000/app/register_student',{pair})
+                                .then(Response=>{
+                                if(Response.status===200){
+                                    document.getElementById("alert_reg").innerHTML="Successfully registered to "+c_id;                               
+                                }
+                                })
+                                Swal.fire({
+                                    title:'Registration',
+                                    text:'Successfully registered to '+c_id,
+                                    confirmButtonText:'Ok',
+                                    icon:'success'
+                                }).then((res)=>{
+                                    if(res.value){
+                                        window.location.reload();
+                                    }
+                                })
                             }
-                        })
+                            
+                        });
+                        }    
             }}>Register</button></td>)
         }
         else{
