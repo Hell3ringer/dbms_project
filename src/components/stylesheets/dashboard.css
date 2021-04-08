@@ -96,3 +96,10 @@ li :hover{
     color: #7386D5;
     background-color: white;
 }
+#side_main_box{
+    display: block;
+    margin-top: 60px;
+    width: 100%;
+    padding: 1.5%;
+    /* background-color: burlywood; */
+}

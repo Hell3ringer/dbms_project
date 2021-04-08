@@ -5,13 +5,27 @@
     display: block;
     margin-top: 15%;
     width: 100%;
-    background-color: white;
-    
+
+    padding: 1.5%;
+
 }
 .profile{
     background-color: white;
     color: blueviolet;
 }
+
+button{
+    background-color:dodgerblue;
+    color: white;
+    border-radius: 5px;
+    padding: 1% 4% 1% 4%;   
+    font-weight:600;
+}
+button:hover{
+    background-color:whitesmoke;
+    color: dodgerblue;
+}
+
 body, html, .App, #root, .auth-wrapper {
     width: 100%;
     height: 100%;
@@ -39,3 +53,4 @@ body, html, .App, #root, .auth-wrapper {
     box-shadow: none;
     
   }
+
