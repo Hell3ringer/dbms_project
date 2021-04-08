@@ -131,4 +131,5 @@ router.post('/delete_registered_course',(req,res)=>{
     })
 })
 
+
 module.exports = router;
