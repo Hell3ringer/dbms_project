@@ -11,7 +11,8 @@ import error from './components/error'
 import profile_prof from './components/profile/profile_prof';
 import dashboard_admin from './components/dashboard/dashboard_admin';
 import modify_courses from './components/modify_courses/modify_courses';
-
+import courses_table from './components/register_into_courses/courses_table';
+import addOrDeleteCourse from './components/modify_courses/addOrDeleteCourse';
 function App() {
   return (
     <div className="div_in_app">
@@ -28,6 +29,8 @@ function App() {
         <Route exact path='/profile' component={profile}/>
         <Route exact path='/profile_prof' component={profile_prof}/>
         <Route exact path='/modify_courses' component={modify_courses}/>
+        <Route exact path='/register' component={courses_table}/>
+        <Route exact path='/add_del_course' component={addOrDeleteCourse}/>
         <Route component={error}/>
       </Switch>}
     </div>
