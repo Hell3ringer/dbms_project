@@ -6,12 +6,12 @@ import Sidebar from '../dashboard/sidebar'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
 
-
+var id = localStorage.getItem("loginID")
 class profile extends Component{
     constructor(props){
         super(props)
         this.state={
-            id:"8",
+            id:id,
             details:[]
         }
     }
@@ -37,7 +37,7 @@ class profile extends Component{
                 </div>
 
                 <div className="form-group">
-                    <label>Email id</label>
+                    <label>Email id </label>
                     <input type="text" id = "email" className="form-control" placeholder="Enter Email id" />
                 </div>
 

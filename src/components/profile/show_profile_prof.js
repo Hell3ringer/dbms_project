@@ -6,13 +6,13 @@ import Sidebar from '../dashboard/sidebar'
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
-
+var id = localStorage.getItem("loginID")
 class show_profile_prof extends Component{
     constructor(props){
         super(props)
         this.state={
             details:[1],
-            id:"6"
+            id : id
         }
     }
     get_details(){

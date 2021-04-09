@@ -5,12 +5,12 @@ import Sidebar from '../dashboard/sidebar'
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
-
+var id = localStorage.getItem("loginID")
 class profile_prof extends Component{
     constructor(props){
         super(props)
         this.state={
-            id:"6",
+            id:id,
             details:[]
         }
     }
