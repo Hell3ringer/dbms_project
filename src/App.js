@@ -11,8 +11,6 @@ import error from './components/error'
 import profile_prof from './components/profile/profile_prof';
 import dashboard_admin from './components/dashboard/dashboard_admin';
 import modify_courses from './components/modify_courses/modify_courses';
-import Search from './components/search/search';
-import ProfRating from './components/search/profRating';
 
 import courses_table from './components/register_into_courses/courses_table';
 import addOrDeleteCourse from './components/modify_courses/addOrDeleteCourse';
@@ -32,8 +30,6 @@ function App() {
         <Route exact path='/profile' component={profile}/>
         <Route exact path='/profile_prof' component={profile_prof}/>
         <Route exact path='/modify_courses' component={modify_courses}/>
-        <Route exact path='/search' component={Search}/>
-        <Route exact path='/search' component={ProfRating}/>
 
 
         <Route exact path='/register' component={courses_table}/>

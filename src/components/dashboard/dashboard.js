@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import '../stylesheets/dashboard.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import Search from '../search/search';
-import ProfRating from '../search/profRating';
 import axios from 'axios'
 
 var id = localStorage.getItem('loginID')

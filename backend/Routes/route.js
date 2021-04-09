@@ -131,17 +131,7 @@ router.post('/add_course',(req,res)=>{
     })
 })
 
-router.get('/profRating',(req,res) =>{
-    var sql_statement = "select * from  prof_rating_view";
-    db.query(sql_statement,(err ,result) => {
-        if (err) {
-            console.log('error finding ratings' + err);
-        }else{
-            console.log("rows" + result);
-            res.send(result)}
-        }
-        )
-    })
+
 router.post('/delete_course',(req,res)=>{
     var sql_statement="DELETE FROM course WHERE c_id='"+req.body.c_id+"'";
 
