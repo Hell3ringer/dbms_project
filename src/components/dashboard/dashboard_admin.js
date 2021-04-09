@@ -4,6 +4,7 @@ import '../stylesheets/dashboard.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Search from '../search/search';
 
+var id = localStorage.getItem('loginID')
 
 class dashboard_admin extends Component {
 
@@ -18,6 +19,8 @@ class dashboard_admin extends Component {
     // document.getElementById("main").style.marginLeft = "0";}
     Logout(){
         // document.cookie="jwt="+ ";" + "max-age=" + (0);
+        sessionStorage.clear();
+        localStorage.clear()
     }
     
     render() {
@@ -32,8 +35,8 @@ class dashboard_admin extends Component {
                 <div id="nav_id" className="topnav navbar nav-pills fixed-top navbar-dark bg-dark">          
                     <a href="/dashboard_admin">Dashboard</a>
                     <span className="navbar-text cfs-class">Course Feedback System  CFS</span>
-                    <a href="#contact">Contact</a>
-                    <a href="#about">About</a>
+                    <a href="/contact">Contact</a>
+                    <a href="/about">About</a>
                     <a className="active" href="/" onClick={this.Logout}>Logout</a>
                 </div>     
 
@@ -65,6 +68,7 @@ class dashboard_admin extends Component {
                     <div> 
                     <p style={styling}><h2>Hi Admin</h2></p>
                     <Search></Search>
+                    <p style={styling}><h2>Hi {id}</h2></p>
                     </div>
             </div>
         )

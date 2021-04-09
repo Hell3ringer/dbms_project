@@ -8,11 +8,13 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "cookie": "^0.4.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.3",
-    "sweetalert2": "^10.15.6",
+    "react-scripts": "4.0.3",
+    "react-select": "^4.3.0",
+    "sweetalert2": "^10.16.0",
     "web-vitals": "^1.1.0"
   },
   "scripts": {

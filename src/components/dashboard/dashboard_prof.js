@@ -5,6 +5,7 @@ import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Search from '../search/search';
 
 
+var id = localStorage.getItem('loginID')
 class dashboard_prof extends Component {
 
     // openNav() {
@@ -18,6 +19,8 @@ class dashboard_prof extends Component {
     // document.getElementById("main").style.marginLeft = "0";}
     Logout(){
         // document.cookie="jwt="+ ";" + "max-age=" + (0);
+        sessionStorage.clear();
+        localStorage.clear()
     }
     
     render() {
@@ -32,8 +35,8 @@ class dashboard_prof extends Component {
                 <div id="nav_id" className="topnav navbar nav-pills fixed-top navbar-dark bg-dark">          
                     <a href="/dashboard_prof">Dashboard</a>
                     <span className="navbar-text cfs-class">Course Feedback System  CFS</span>
-                    <a href="#contact">Contact</a>
-                    <a href="#about">About</a>
+                    <a href="/contact">Contact</a>
+                    <a href="/about">About</a>
                     <a className="active" href="/" onClick={this.Logout}>Logout</a>
                 </div>     
 
@@ -45,7 +48,7 @@ class dashboard_prof extends Component {
                             </li> */}
                         <li><a href="/profile_prof">My Profile</a></li>                            
                         <li><a href="/my_courses">My Courses</a></li>
-                        <li><a href="/feedbacks">View Feedbacks</a></li>
+                        <li><a href="/my_feedbacks">View Feedbacks</a></li>
                         <li><a href="/cms_prof">Post on CMS</a></li>
                         </ul>  
                     </nav>
@@ -66,6 +69,7 @@ class dashboard_prof extends Component {
                     <div> 
                     <p style={styling}><h2>Hi prof_id</h2></p>
                     <Search></Search>
+                    <p style={styling}><h2>Hi {id}</h2></p>
                     </div>
             </div>
         )

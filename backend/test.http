@@ -1,0 +1,10 @@
+POST    http://localhost:4000/app/professorDetails
+Content-Type: application/json
+
+{
+    "id": "123gehg",
+    "name" : "kedar ",
+    "email" : "a@g.com",
+    "contact_no" : "6516851685"
+}
+
