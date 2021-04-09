@@ -13,10 +13,13 @@ const db = mysql.createConnection({
 
 
 router.post('/signup',async (req,res) =>{
+
     let userRole = req.body.role;
     let userPassword = req.body.pass;
     let userID = req.body.id;
     console.log("id " +userID + " req id " + req.query.id + " pass " + userPassword  + " req " + JSON.stringify(req.body,null,2)); 
+
+    
     const saltPassword = await bcrypt.genSalt(10);
     const securedPassword = await bcrypt.hash(userPassword,saltPassword);    
     var sql_statement = "INSERT INTO details (id,password,role) values ('"+userID +"','"+securedPassword +"','"+userRole + "')";
@@ -24,13 +27,16 @@ router.post('/signup',async (req,res) =>{
     db.query(sql_statement,(err ,result) => {
         if (err) {
             console.log('error inserting values' + err);
+
             res.status(404);            
         }else{
             console.log("data entered to details table");
             res.status(200).send(userRole);
+
         }
     })
 })
+
 
 router.post('/login',async (req,res) =>{   
     let userID = req.body.id;
@@ -92,6 +98,18 @@ router.post('/details',async (req,res) => {
         }
     })
 })
+
+router.post('/profile', (request,response)=>{
+    const userID=request.body.id
+    const userName=request.body.name
+    const userEmail=request.body.email
+    const userContactNo=request.body.contact_no
+    console.log("id is" + userID + " name is "+ userName);
+
+    response.status(200).json(userID+userName);
+})
+
+
 router.get('/users',(req,res) =>{
     var sql_statement = "select * from  details ";
     //var values = [req.query.id,req.query.pass,req.query.role];
@@ -99,7 +117,10 @@ router.get('/users',(req,res) =>{
         if (err) {
             console.log('error inserting values' + err);
         }else{
+
             console.log("rows" + JSON.stringify(result,null,2));
+
+
             res.send(result)
         }
     })
