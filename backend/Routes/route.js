@@ -106,23 +106,6 @@ router.get('/users',(req,res) =>{
     })
 })
 
-router.post('/searchCourse',(req,res) =>{
-    console.log(req.body);
-    var sql_statement = "select * from course where (c_name) = ('"+req.body.c_name+"')";
-
-    db.query(sql_statement,(err ,result) => {
-        if (err) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Error finding the course!'
-              })
-            console.log('error finding course' + err);
-        }else{
-            res.send(result)
-        }
-    })
-})
 router.get('/courses',(req,res)=>{
     var sql_query="SELECT * FROM COURSE";
     db.query(sql_query,(err,result)=>{

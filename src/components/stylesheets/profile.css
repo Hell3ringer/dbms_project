@@ -22,3 +22,10 @@ button:hover{
     background-color:whitesmoke;
     color: dodgerblue;
 }
+.display_class{
+    display:none;
+    background-color: red;
+}
+.show_display{
+    display: block;
+}
