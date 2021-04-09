@@ -109,6 +109,61 @@ router.post('/profile', (request,response)=>{
     response.status(200).json(userID+userName);
 })
 
+router.post('/get_student_details',(req,res)=>{
+    var sql_statement = "SELECT * FROM student WHERE s_id='"+req.body.student.s_id+"'";
+    db.query(sql_statement,(err ,result) => {
+        if (err) {
+            console.log('error getting values' + err);
+        }else{
+
+            //console.log("rows" + JSON.stringify(result,null,2));
+            console.log(result);
+            res.status(200).send(result)
+        }
+    })
+})
+
+router.post('/modify_student',(req,res)=>{
+    console.log(req.body.student.s_id);
+    var sql_query="UPDATE student SET s_name='"+req.body.student.name+"', s_email='"+req.body.student.email+"', s_contact_no='"+req.body.student.contact_no+"' "+"WHERE s_id='"+req.body.student.id+"'";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on Updating student details "+err);
+        }
+        else{
+            console.log("result is "+JSON.stringify(result));
+            return res.status(200).json(result);
+        }
+    })
+})
+
+router.post('/get_prof_details',(req,res)=>{
+    var sql_statement = "SELECT * FROM professor WHERE p_id='"+req.body.prof.p_id+"'";
+    db.query(sql_statement,(err ,result) => {
+        if (err) {
+            console.log('error getting values' + err);
+        }else{
+
+            //console.log("rows" + JSON.stringify(result,null,2));
+            console.log(result);
+            res.status(200).send(result)
+        }
+    })
+})
+
+router.post('/modify_prof',(req,res)=>{
+    console.log(req.body.prof.p_id);
+    var sql_query="UPDATE professor SET p_name='"+req.body.prof.name+"', p_email='"+req.body.prof.email+"', p_contact_no='"+req.body.prof.contact_no+"' "+"WHERE p_id='"+req.body.prof.id+"'";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on Updating student details "+err);
+        }
+        else{
+            console.log("result is "+JSON.stringify(result));
+            return res.status(200).json(result);
+        }
+    })
+})
 
 router.get('/users',(req,res) =>{
     var sql_statement = "select * from  details ";

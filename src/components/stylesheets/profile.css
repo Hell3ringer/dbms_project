@@ -51,6 +51,6 @@ body, html, .App, #root, .auth-wrapper {
   .auth-wrapper .form-control:focus {
     border-color: #f80606;
     box-shadow: none;
-    
+     
   }
 
