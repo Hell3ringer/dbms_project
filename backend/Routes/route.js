@@ -11,6 +11,17 @@ const db = mysql.createConnection({
     database:process.env.database
 })
 
+router.post('/get_enrolled_students',(req,res)=>{
+    var sql_query="SELECT s_id from registers WHERE c_id='"+req.body.course.c_id+"'";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error in getting sid"+err);
+        }
+        else{
+            res.status(200).send(result);
+        }
+    })
+})
 
 router.post('/signup',async (req,res) =>{
 
@@ -216,6 +227,7 @@ router.post('/delete_registered_course',(req,res)=>{
         }
     })
 })
+
 
 
 module.exports = router;
