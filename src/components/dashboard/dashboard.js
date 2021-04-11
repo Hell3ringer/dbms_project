@@ -40,6 +40,7 @@ class dashboard extends Component {
         this.getCourses();
     }
     renderTableData(){
+
         console.log(this.state.courses);
         return this.state.courses.map((course,index)=>{
             const {c_id,c_name}=course
@@ -96,6 +97,8 @@ class dashboard extends Component {
                            
                         </div> */}
                 <div id="side_main_box"> 
+                <div> 
+            
                     <h2 id="hello_sid">Hi</h2><br></br>
                     <h5>Your registered courses:</h5>
                     <table id="courses_table" className="table table-bordered table-hover">
@@ -112,6 +115,7 @@ class dashboard extends Component {
                         </table>
                 </div>
 
+            </div>
             </div>
         )
     }
