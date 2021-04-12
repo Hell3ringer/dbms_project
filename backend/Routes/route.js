@@ -243,7 +243,7 @@ router.post('/register_student',(req,res)=>{
 
 router.post('/registered_courses',(req,res)=>{
     console.log(req.body.student.s_id);
-    var sql_query="SELECT course.c_id,course.c_name FROM registers,course WHERE registers.s_id='"+req.body.student.s_id+"' AND registers.c_id=course.c_id";
+    var sql_query="SELECT course.c_id,course.c_name,course.handout,course.credits,course.mids,course.compre FROM registers,course WHERE registers.s_id='"+req.body.student.s_id+"' AND registers.c_id=course.c_id";
     db.query(sql_query,(err,result)=>{
         if(err){
             console.log("error on retrieving from registers "+err);

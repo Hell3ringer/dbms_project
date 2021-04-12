@@ -15,6 +15,7 @@ import courses_table from './components/register_into_courses/courses_table';
 import addOrDeleteCourse from './components/modify_courses/addOrDeleteCourse';
 import show_profile from './components/profile/show_profile';
 import show_profile_prof from './components/profile/show_profile_prof';
+import cms_student from './components/CMS/cms_student';
 function App() {
   return (
     <div className="div_in_app">
@@ -35,6 +36,7 @@ function App() {
         <Route exact path='/register' component={courses_table}/>
         <Route exact path='/add_del_course' component={addOrDeleteCourse}/>
         <Route exact path='/profile' component={show_profile}/>
+        <Route exact path='/cms_student' component={cms_student}/>
         <Route component={error}/>
       </Switch>}
     </div>
