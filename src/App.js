@@ -12,6 +12,8 @@ import profile_prof from './components/profile/profile_prof';
 import dashboard_admin from './components/dashboard/dashboard_admin';
 import modify_courses from './components/modify_courses/modify_courses';
 
+import Feedback from './components/feedback/Feedback'
+
 function App() {
   return (
     <div className="div_in_app">
@@ -28,7 +30,13 @@ function App() {
         <Route exact path='/profile' component={profile}/>
         <Route exact path='/profile_prof' component={profile_prof}/>
         <Route exact path='/modify_courses' component={modify_courses}/>
+
+        {/*feedback */}
+        <Route exact path='/feedback' component={Feedback}/>
+
+        
         <Route component={error}/>
+        
       </Switch>}
     </div>
   );
