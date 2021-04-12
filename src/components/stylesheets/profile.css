@@ -26,6 +26,15 @@ button:hover{
     color: dodgerblue;
 }
 
+.display_class{
+    display:none;
+    background-color: red;
+}
+.show_display{
+    display: block;
+}
+
+
 body, html, .App, #root, .auth-wrapper {
     width: 100%;
     height: 100%;
@@ -53,4 +62,5 @@ body, html, .App, #root, .auth-wrapper {
     box-shadow: none;
      
   }
+
 

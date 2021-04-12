@@ -1,4 +1,5 @@
-const { Router, json } = require('express');
+const { Router } = require('express');
+const Swal = require('sweetalert2')
 
 const express = require('express')
 const router = express.Router()
@@ -205,6 +206,7 @@ router.post('/add_course',(req,res)=>{
         }
     })
 })
+
 
 router.post('/delete_course',(req,res)=>{
     var sql_statement="DELETE FROM course WHERE c_id='"+req.body.c_id+"'";
