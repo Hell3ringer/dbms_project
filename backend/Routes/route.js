@@ -274,5 +274,34 @@ router.post('/delete_registered_course',(req,res)=>{
     })
 })
 
+router.post('/allotted_courses',(req,res)=>{
+        console.log("this is "+req.body.professor.p_id+" from backend");
+        var sql_query="SELECT c.c_id, c.c_name, c.credits FROM course c, teaches t WHERE t.p_id='"+req.body.professor.p_id+"'AND t.c_id = c.c_id";
+        db.query(sql_query,(err,result)=>{
+            if(err){
+                console.log("error retrieving from teaches"+err);
+            }
+            else{
+                console.log("result of allotted courses is "+JSON.stringify(result));
+                res.send(result);
+            }
+        })
+    
+})
+
+// router.get('/view_students',(req,res)=>{
+//     console.log(req.body.professor.p_id);
+//     var sql_query="SELECT s_id,s_name, s_email, s_contact_no FROM student WHERE student.s_id='"+req.body.pair.c_id+"' AND teaches.p_id = course.c_id";
+//     db.query(sql_query,(err,result)=>{
+//         if(err){
+//             console.log("error on retrieving from teaches "+err);
+//         }
+//         else{
+//             console.log("result of allotted courses is "+JSON.stringify(result));
+//             res.send(result);
+//         }
+//     })
+
+// })
 
 module.exports = router;
