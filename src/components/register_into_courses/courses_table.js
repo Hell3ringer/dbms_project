@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import ReactTable from 'react-table'
 import Topnav from '../dashboard/topnav'
 import Sidebar from '../dashboard/sidebar'
 import Swal from 'sweetalert2'
@@ -38,6 +37,7 @@ class courses_table extends Component{
         .then(res=>{
             this.setState({courses:res.data})
         })
+        console.log("got courses");
     }
     getEnrolledCourses(){
         const student={s_id:this.state.s_id}
@@ -51,6 +51,7 @@ class courses_table extends Component{
     componentDidMount(){
         this.getCourses();
         this.getEnrolledCourses();
+        document.getElementById("half_table").setAttribute('class','display_class')
     }
     get_td(c_id){
         // console.log(this.state.enrolled_courses);
@@ -193,24 +194,36 @@ class courses_table extends Component{
                     <td>{c_id}</td>
                     <td>{c_name}</td>
                     <td>{credits}</td>
-                    {/* <td><button onClick={()=>{
-                        this.setState({id:c_id})
-                        console.log('selected '+c_id+' by '+this.state.s_id);
-                        const pair={c_id:c_id,s_id:this.state.s_id}
-                        axios.post('http://localhost:4000/app/register_student',{pair})
-                        .then(Response=>{
-                            if(Response.status===200){
-                                document.getElementById("alert_reg").innerHTML="Successfully registered to "+c_id;
-                            }
-                        })
-                    }                 
-                    }>Register</button></td> */}
                     {this.get_register(c_id)}
                     {this.get_td(c_id)}
                 </tr>
             )
         })
     }
+    renderTableData2(){
+        var search=this.state.seach_course;
+        console.log("search is "+search);
+        return this.state.courses.map((course,index)=>{
+            const {c_id,c_name,credits}=course
+            var l_id = c_id.toLowerCase()
+            var l_name = c_name.toLowerCase()
+            if(l_id.startsWith(search.toLowerCase())||l_name.startsWith(search.toLowerCase())){   
+            return(
+                <tr id={c_id}>
+                    <td>{c_id}</td>
+                    <td>{c_name}</td>
+                    <td>{credits}</td>
+                    {this.get_register(c_id)}
+                    {this.get_td(c_id)}
+                </tr>
+            )
+            }
+        })
+    }
+ 
+ 
+    
+ 
     
     render(){
         return(
@@ -226,6 +239,30 @@ class courses_table extends Component{
                         <br></br>
                         <h3>Register Into Courses</h3><br></br><br></br>
                         <div id="alert_reg"></div>
+                       
+                        <FaSearch></FaSearch><input 
+                        style={{margin : 10}}
+                        type="text"
+              placeholder="Type to search..."
+              id="search_bar"
+              onChange={e => {
+                  this.setState({seach_course:document.getElementById("search_bar").value})
+                  console.log(document.getElementById("search_bar").value);
+                    if(document.getElementById("search_bar").value===''){
+                        
+                        console.log("search is empty");
+                        document.getElementById("full_table").setAttribute('class','show_display')
+                        document.getElementById("half_table").setAttribute('class','display_class')
+ 
+                    }
+                    else{
+                        document.getElementById("full_table").setAttribute('class','display_class')
+                        document.getElementById("half_table").setAttribute('class','show_display')
+                    }
+              }}
+ 
+            ></input>
+                        <div id="full_table">
                         <table id="courses_table" className="table table-bordered table-hover">
                             <thead className="thead-dark">
                             <tr>
@@ -238,15 +275,38 @@ class courses_table extends Component{
                             </thead>
                             
                             <tbody>
+                                
                                 {this.renderTableData()}
                             </tbody>
                         </table>
+                        </div>
+                        <div id="test"> </div>
+                        <div id="half_table">
+                        <table id="courses_table_2" className="table table-bordered table-hover">
+                            <thead className="thead-dark">
+                            <tr>
+                                <th>Cid</th>
+                                <th>Cname</th>
+                                <th>Credits</th>
+                                <th>Register</th>
+                                <th>Unenroll</th>
+                            </tr>
+                            </thead>
+                            
+                            <tbody>
+                                
+                                {/* {x=document.getElementById("search_bar").value} */}
+                                {this.renderTableData2()}
+                            </tbody>
+                        </table>
+                        </div>
                     </div>
                 </div>  
  
             </div>
         )
     }
+    
 }
  
 export default courses_table;
