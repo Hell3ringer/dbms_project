@@ -2,10 +2,14 @@ import axios from 'axios';
 import React ,{Component} from 'react'
 import { FaStar } from 'react-icons/fa'
 import './StarRating.css'
-var rName;
+var rName,ID;
 var rColour;
 var styling = {
     color:rColour
+}
+
+function getID(){
+    ID = localStorage.getItem('loginID');    
 }
 
 
@@ -56,7 +60,8 @@ class  StarRating extends Component {
     submit(rating,review){
         const feedback = {
             rating : rating,
-            review : review
+            review : review,
+            id:ID
         }
         axios.post("",feedback)
         .then(Response => {
@@ -70,28 +75,28 @@ class  StarRating extends Component {
         <div className="auth-wrapper1">
         <div className="auth-inner1 ">
         <div className="container1">
-            <h1>Rating </h1>
+            <h1 className='t'>Rating </h1>
             
             {[...Array(5)].map((star,i) => {
                 const ratingValue = i + 1;
                 this.rating_name(this.state.rating);
-                
+                getID();             
                 
 
                 return <label>
                     <input  type="radio" name="rating" value={ratingValue}                                       
                      onClick={() => this.setState({rating:ratingValue})}></input>
-                    <FaStar className = "star" size={100}  
+                    <FaStar className = "star" size={50}  
                     onMouseEnter = {() => this.setState({hover:ratingValue})}                    
                     onMouseLeave = {() => this.setState({hover:null})}                    
                     color ={ratingValue <= (this.state.hover||this.state.rating) ? "#ffc107" : "#e4e5e9"}/>                    
                     </label>                    
             })}
             <h2  style={styling}>{rName}</h2>
-            <h1>Review </h1>
+            <h1 className="t">Review </h1>
             <textarea  type = 'text' className="review"  ></textarea>
             <br></br>
-            <button >submit</button>
+            <button className="submit">submit</button>
             
             
             
