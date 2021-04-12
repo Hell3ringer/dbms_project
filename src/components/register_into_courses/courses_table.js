@@ -29,7 +29,7 @@ class courses_table extends Component{
     }
     getEnrolledCourses(){
         const student={s_id:this.state.s_id}
-        console.log(student.s_id);
+        //console.log(student.s_id);
         axios.post('http://localhost:4000/app/registered_courses',{student})
         .then(Response=>{
             this.setState({enrolled_courses:Response.data});

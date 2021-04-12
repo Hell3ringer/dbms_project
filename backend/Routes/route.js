@@ -132,7 +132,7 @@ router.post('/modify_student',(req,res)=>{
             console.log("error on Updating student details "+err);
         }
         else{
-            console.log("result is "+JSON.stringify(result));
+            //console.log("result is "+JSON.stringify(result));
             return res.status(200).json(result);
         }
     })
@@ -160,24 +160,27 @@ router.post('/modify_prof',(req,res)=>{
             console.log("error on Updating student details "+err);
         }
         else{
-            console.log("result is "+JSON.stringify(result));
+            //console.log("result is "+JSON.stringify(result));
             return res.status(200).json(result);
         }
     })
 })
 router.post('/feedback',async (req,res) =>{
     let rating = req.body.rating;
-    let review= req.body.review;       
+    let review= req.body.review;  
+    let s_id = req.body.s_id; 
+    let c_id=req.body.c_id   
      
-    var sql_statement = "INSERT INTO details (id,password,role) values ('"+userID +"','"+securedPassword +"','"+userRole + "')";
+    var sql_statement = "INSERT INTO feedback_course (c_id,s_id,c_rating,c_review) values ('"+c_id +"','"+s_id +"','"+ rating+ "','"+review + "')";
     
     db.query(sql_statement,(err ,result) => {
         if (err) {
             console.log('error inserting values' + err);
-            res.status(404);            
+            res.sendStatus(404); 
+                   
         }else{
             console.log("data entered to details table");
-            res.status(200).send(userRole);
+            res.sendStatus(200);
         }
     })
 })
@@ -205,7 +208,7 @@ router.get('/courses',(req,res)=>{
             console.log("error on retrieving from courses "+err);
         }
         else{
-            console.log("result is "+JSON.stringify(result));
+            //console.log("result is "+JSON.stringify(result));
             res.send(result);
         }
     })
@@ -256,7 +259,7 @@ router.post('/registered_courses',(req,res)=>{
             console.log("error on retrieving from registers "+err);
         }
         else{
-            console.log("result is "+JSON.stringify(result));
+            //console.log("result is "+JSON.stringify(result));
             res.send(result);
         }
     })
@@ -270,7 +273,7 @@ router.post('/update_course',(req,res)=>{
             console.log("error on Updating course "+err);
         }
         else{
-            console.log("result is "+JSON.stringify(result));
+            //console.log("result is "+JSON.stringify(result));
             return res.status(200).json(result);
         }
     })
