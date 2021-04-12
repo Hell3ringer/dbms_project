@@ -165,6 +165,22 @@ router.post('/modify_prof',(req,res)=>{
         }
     })
 })
+router.post('/feedback',async (req,res) =>{
+    let rating = req.body.rating;
+    let review= req.body.review;       
+     
+    var sql_statement = "INSERT INTO details (id,password,role) values ('"+userID +"','"+securedPassword +"','"+userRole + "')";
+    
+    db.query(sql_statement,(err ,result) => {
+        if (err) {
+            console.log('error inserting values' + err);
+            res.status(404);            
+        }else{
+            console.log("data entered to details table");
+            res.status(200).send(userRole);
+        }
+    })
+})
 
 router.get('/users',(req,res) =>{
     var sql_statement = "select * from  details ";
