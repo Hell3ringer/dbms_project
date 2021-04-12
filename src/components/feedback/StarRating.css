@@ -7,8 +7,8 @@ input[type = "radio"]{
 }
 
 .review{
-    width: 700px;
-    height: 200px;
+    width: 600px;
+    height: 150px;
     box-shadow: 10px;
     border-radius: 10px;
     font-size: 2em;
@@ -20,10 +20,11 @@ input[type = "radio"]{
     display: flex;
     justify-content: center;
     flex-direction: column;
+    padding-top: 50px;
     
-  }
+}
   
-  .auth-inner1 {
+.auth-inner1 {
     width: auto;
     margin: auto;
     background: #ffffff;
@@ -32,4 +33,14 @@ input[type = "radio"]{
     border-radius: 15px;
     transition: all .3s;
     
-  }
+}
+
+.submit{
+    margin-top: 10px;
+    border-radius: 5px;
+    background-color: rgb(28, 148, 218);
+}
+
+.t{
+    font-size: 30px;
+}
