@@ -221,7 +221,12 @@ router.post('/add_course',(req,res)=>{
 
 router.post('/delete_course',(req,res)=>{
     var sql_statement="DELETE FROM course WHERE c_id='"+req.body.c_id+"'";
-
+    var sql_statement2="DELETE FROM registers WHERE c_id='"+req.body.c_id+"'";
+    db.query(sql_statement2,(err,result)=>{
+        if(err){
+            console.log('error deleting in registers'+err);
+        }
+    })
     db.query(sql_statement,(err,result)=>{
         if (err) {
             console.log('error deleting values' + err);
@@ -285,6 +290,74 @@ router.post('/delete_registered_course',(req,res)=>{
     })
 })
 
+router.post('/get_feedback_course',(req,res)=>{
+    console.log("c_id is "+req.body.course.c_id);
+    var sql_query="SELECT s_id,c_id,c_rating,c_review FROM feedback_course WHERE c_id='"+req.body.course.c_id+"'";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving from registers "+err);
+        }
+        else{
+            console.log("result is "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
+})
 
+router.post('/get_course_details',(req,res)=>{
+    console.log("c_id is "+req.body.course.c_id);
+    var sql_query="SELECT c_id,c_name,handout,credits,mids,compre FROM course WHERE c_id='"+req.body.course.c_id+"'";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving from registers "+err);
+        }
+        else{
+            console.log("result is "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
+})
+
+router.get('/prof',(req,res)=>{
+    // console.log("p_id is "+req.body.prof.p_id);
+    var sql_query="SELECT * FROM professor";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving from registers "+err);
+        }
+        else{
+            console.log("result is "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
+})
+
+router.post('/get_prof_details',(req,res)=>{
+    console.log("p_id is "+req.body.prof.p_id);
+    var sql_query="SELECT p_id,p_name,p_email,p_contact_no FROM professor WHERE p_id='"+req.body.prof.p_id+"'";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving from registers "+err);
+        }
+        else{
+            console.log("result is "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
+})
+
+router.post('/get_feedback_prof',(req,res)=>{
+    console.log("p_id is "+req.body.prof.p_id);
+    var sql_query="SELECT s_id,p_id,p_rating,p_review FROM feedback_prof WHERE p_id='"+req.body.prof.p_id+"'";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving from registers "+err);
+        }
+        else{
+            console.log("result is "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
+})
 
 module.exports = router;

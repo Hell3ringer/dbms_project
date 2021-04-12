@@ -79,7 +79,7 @@ class dashboard extends Component {
                         <li><a href="/profile">My Profile</a></li>                            
                         <li><a href="/register">Register/Unenroll from Courses</a></li>
                         {/* <li><a href="/give_feedback">Give Feedback</a></li> */}
-                        <li><a href="/view_all_feedbacks">View All Feedbacks</a></li>
+                        <li><a href="/view_all_feedbacks">All Courses</a></li>
                         <li><a href="/cms_student">CMS</a></li>
                         </ul>  
                     </nav>

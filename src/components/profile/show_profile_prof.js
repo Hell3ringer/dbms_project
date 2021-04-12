@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
-import Topnav from '../dashboard/topnav'
-import Sidebar from '../dashboard/sidebar'
+import Topnav_prof from '../dashboard/topnav_prof'
+import Sidebar_prof from '../dashboard/sidebar_prof'
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
@@ -43,8 +43,8 @@ class show_profile_prof extends Component{
         return(
             <div className="entire_div_profile">
                 {/* <Dashboard/> */}
-                <Topnav/>
-                <Sidebar/>
+                <Topnav_prof/>
+                <Sidebar_prof/>
                 <div className="side_main_box" style={{marginLeft:"20%",border:"1px solid",width:"45%",height:"50%",borderRadius:"10px"}}>
                 <img src="http://www.caiml.co.uk/wp-content/uploads/2016/03/270x270-male-avatar.png" style={{width:"35%",height:"20%",marginLeft:"33%"}} ></img><br></br><br></br>
                     <pre >ID:            <input type="text" id="show_pid" readOnly></input></pre>

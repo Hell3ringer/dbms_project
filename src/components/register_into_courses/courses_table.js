@@ -29,7 +29,7 @@ class courses_table extends Component{
             id:'',
             enrolled_courses:[],
             s_id:'2019A7PS0155H',  //HARD-CODED HERE
-            n:-1   
+            seach_course:''
         }
     }
     getCourses(){
@@ -240,7 +240,7 @@ class courses_table extends Component{
                         <h3>Register Into Courses</h3><br></br><br></br>
                         <div id="alert_reg"></div>
                        
-                        <FaSearch></FaSearch><input 
+                        <input 
                         style={{margin : 10}}
                         type="text"
               placeholder="Type to search..."
