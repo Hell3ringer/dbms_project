@@ -9,7 +9,7 @@ class dashboard extends Component {
         super(props);
         this.state={
             courses:[],
-            s_id:'2019A7PS0155H'    //HARD-CODED HERE
+            s_id: id  
         }
     }
     // openNav() {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Topnav from '../dashboard/topnav'
 import Sidebar from '../dashboard/sidebar'
-import Swal from 'sweetalert2'
 import {FaSearch} from 'react-icons/fa'
  
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -15,7 +14,11 @@ class my_courses_prof extends Component{
         this.state={
             allotted_courses:[],
             p_id:id,
-            seach_course:''
+            search_course:'',
+            search_student:'',
+            viewStudsOf : '',
+            students:[]
+
         }
     }
   
@@ -31,18 +34,62 @@ class my_courses_prof extends Component{
 
     componentDidMount(){
         this.getMyCourses();
-        // this.getSearchedCourses();
         document.getElementById("half_table").setAttribute('class','display_class')
+        document.getElementById("studentview").setAttribute('class','display_class')
     }
-
     view_students(c_id){
+        
         return(<td><button onClick={()=>{
-            window.location.replace("/view_students")     
+            console.log(c_id+"in view_students");
+        axios.post('http://localhost:4000/app/view_students',{c_id})
+        .then(Response=>{
+            this.setState({students:Response.data});
+            console.log("students in "+{c_id} +" are " +JSON.stringify(Response.data));
+        })
+            this.setState({viewStudsOf:c_id})
+            document.getElementById("half_table2").setAttribute('class','display_class')
+            document.getElementById("nostudentview").setAttribute('class','display_class')
+            document.getElementById("studentview").setAttribute('class','show_display')
         }}>View Students</button></td>)
     }
 
+    display_students(){
+        console.log("students that should be displayed "+ this.state.students);
+        return this.state.students.map((student,index)=>{
+            const {s_id,s_name,s_email,s_contact_no}=student
+            return(
+                <tr id={s_id}>
+                    <td>{s_id}</td>
+                    <td>{s_name}</td>
+                    <td>{s_email}</td>
+                    <td>{s_contact_no}</td>
+                </tr>
+            )
+        })
+    }
+
+    display_students2(){
+        var search=this.state.search_student;
+        console.log("search fron st2 is "+search);
+        return this.state.students.map((student,index)=>{
+            const {s_id,s_name,s_email,s_contact_no}=student
+            var l_id = s_id.toLowerCase()
+            var l_name = s_name.toLowerCase()
+            if(l_id.startsWith(search.toLowerCase())||l_name.startsWith(search.toLowerCase())){   
+            return(
+                <tr id={s_id}>
+                    <td>{s_id}</td>
+                    <td>{s_name}</td>
+                    <td>{s_email}</td>
+                    <td>{s_contact_no}</td>
+                </tr>
+            )
+            }
+        })
+    }
+
     renderTableData(){
-        console.log(this.state.allotted_courses);
+        console.log("allotted courses are "+ this.state.allotted_courses);
         return this.state.allotted_courses.map((course,index)=>{
             const {c_id,c_name,credits}=course
             return(
@@ -57,8 +104,8 @@ class my_courses_prof extends Component{
     }
 
     renderTableData2(){
-        var search=this.state.seach_course;
-        console.log("search is "+search);
+        var search=this.state.search_course;
+        console.log("search course is "+search);
         return this.state.allotted_courses.map((allotted_courses,index)=>{
             const {c_id,c_name,credits}=allotted_courses
             var l_id = c_id.toLowerCase()
@@ -76,16 +123,14 @@ class my_courses_prof extends Component{
         })
     }
  
-
     render (){
         return(
             <div className="entire_div_profile">
             <Topnav/>
             <Sidebar/>
             <div className="side_main_box">
-                <div>
+                <div id="nostudentview">
                     <h3>My Courses</h3><br></br><br></br>
-                    {/* <div id="alert_reg"></div> */}
                    
                     <FaSearch></FaSearch><input 
                     style={{margin : 10}}
@@ -93,8 +138,8 @@ class my_courses_prof extends Component{
                     placeholder="Type to search..."
                     id="search_bar"
                     onChange={e => {
-                        this.setState({seach_course:document.getElementById("search_bar").value})
-                        console.log(document.getElementById("search_bar").value);
+                        this.setState({search_course:document.getElementById("search_bar").value})
+                        console.log("from course search bar "+document.getElementById("search_bar").value);
                     if(document.getElementById("search_bar").value===''){
                     
                     console.log("search is empty");
@@ -143,6 +188,62 @@ class my_courses_prof extends Component{
                         </tbody>
                     </table>
                     </div>
+                </div>
+                <div id="studentview">
+                <h3>Students in {this.state.viewStudsOf}</h3><br></br><br></br>
+                   
+                   <FaSearch></FaSearch><input 
+                   style={{margin : 10}}
+                   type="text"
+                   placeholder="Type to search..."
+                   id="search_bar2"
+                   onChange={e => {
+                       this.setState({search_student:document.getElementById("search_bar2").value})
+                       console.log(document.getElementById("search_bar2").value);
+                   if(document.getElementById("search_bar2").value===''){
+                   
+                   console.log("st search is empty");
+                   document.getElementById("full_table2").setAttribute('class','show_display')
+                   document.getElementById("half_table2").setAttribute('class','display_class')
+
+               }
+               else{
+                   document.getElementById("full_table2").setAttribute('class','display_class')
+                   document.getElementById("half_table2").setAttribute('class','show_display')
+               }
+                    }}
+
+                    ></input>
+                   <div id="full_table2">
+                    <table id="students" className="table table-bordered table-hover">
+                        <thead className="thead-dark">
+                        <tr>
+                            <th>Sid</th>
+                            <th>Sname</th>
+                            <th>Semail</th>
+                            <th>SContactNo</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {this.display_students()}
+                        </tbody>
+                    </table>
+                   </div>
+                   <div id="half_table2">
+                    <table id="students2" className="table table-bordered table-hover">
+                            <thead className="thead-dark">
+                            <tr>
+                                <th>Sid</th>
+                                <th>Sname</th>
+                                <th>Semail</th>
+                                <th>SContactNo</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {this.display_students2()}
+                            </tbody>
+                        </table>
+                   </div>
                 </div>
             </div>  
 

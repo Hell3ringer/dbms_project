@@ -8,16 +8,16 @@ import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
 import axios from 'axios';
  
+var id = localStorage.getItem('loginID')
   
 class courses_table extends Component{
     constructor(props){
         super(props)
         this.state={
             courses:[],
-            id:'',
             enrolled_courses:[],
-            s_id:'2019A7PS0155H',
-            seach_course:''    //HARD-CODED HERE
+            s_id: id,
+            seach_course:''
         }
     }
     getCourses(){

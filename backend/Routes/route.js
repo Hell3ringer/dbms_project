@@ -289,19 +289,20 @@ router.post('/allotted_courses',(req,res)=>{
     
 })
 
-// router.get('/view_students',(req,res)=>{
-//     console.log(req.body.professor.p_id);
-//     var sql_query="SELECT s_id,s_name, s_email, s_contact_no FROM student WHERE student.s_id='"+req.body.pair.c_id+"' AND teaches.p_id = course.c_id";
-//     db.query(sql_query,(err,result)=>{
-//         if(err){
-//             console.log("error on retrieving from teaches "+err);
-//         }
-//         else{
-//             console.log("result of allotted courses is "+JSON.stringify(result));
-//             res.send(result);
-//         }
-//     })
+router.post('/view_students',(req,res)=>{
+    console.log("from backend - "+req.body.c_id);
+    var sql_query="SELECT s.s_id, s.s_name, s.s_email, s.s_contact_no FROM student s, registers r WHERE s.s_id=r.s_id AND r.c_id = '"+req.body.c_id+"'";
+    
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving from registers "+err);
+        }
+        else{
+            console.log("result of students is "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
 
-// })
+})
 
 module.exports = router;
