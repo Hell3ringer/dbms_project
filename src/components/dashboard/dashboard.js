@@ -48,6 +48,7 @@ class dashboard extends Component {
                 <tr id={c_id}>
                     <td>{c_id}</td>
                     <td>{c_name}</td>
+                    <td><button>Give feedback</button></td>
                 </tr>
             )
         })
@@ -76,9 +77,9 @@ class dashboard extends Component {
                                 <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
                             </li> */}
                         <li><a href="/profile">My Profile</a></li>                            
-                        <li><a href="/register">Register into Courses</a></li>
-                        <li><a href="/give_feedback">Give Feedback</a></li>
-                        <li><a href="/view_all_feedbacks">View All Feedbacks</a></li>
+                        <li><a href="/register">Register/Unenroll from Courses</a></li>
+                        {/* <li><a href="/give_feedback">Give Feedback</a></li> */}
+                        <li><a href="/view_all_feedbacks">All Courses</a></li>
                         <li><a href="/cms_student">CMS</a></li>
                         </ul>  
                     </nav>
@@ -106,6 +107,7 @@ class dashboard extends Component {
                             <tr>
                                 <th>Course ID</th>
                                 <th>Course name</th>
+                                <th>Give feedback</th>
                             </tr>
                             </thead>
                             

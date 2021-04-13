@@ -46,13 +46,15 @@ class show_profile extends Component{
                 {/* <Dashboard/> */}
                 <Topnav/>
                 <Sidebar/>
-                <div className="side_main_box" style={{marginLeft:"20%",border:"1px solid",width:"45%",height:"50%",borderRadius:"10px"}}>
-                <img src="https://i.pinimg.com/736x/5f/40/6a/5f406ab25e8942cbe0da6485afd26b71.jpg"  alt="Avatar" style={{width:"35%",height:"20%",marginLeft:"33%"}} ></img><br></br><br></br>
+                <div className="side_main_box">
+                <div style={{marginLeft:"25%",border:"1px solid",width:"45%",height:"",borderRadius:"10px"}}>
+                    <img src="https://i.pinimg.com/736x/5f/40/6a/5f406ab25e8942cbe0da6485afd26b71.jpg"  alt="Avatar" style={{width:"35%",height:"50%",marginLeft:"33%"}} ></img><br></br><br></br>
                     <pre >ID:            <input type="text" id="show_sid" readOnly></input></pre>
                     <pre >NAME:          <input type="text" id="show_sname" readOnly></input></pre>
                     <pre >EMAIL:         <input type="text" id="show_semail" readOnly style={{width:"50%"}}></input></pre>
                     <pre >CONTACT NO:    <input type="text" id="show_scontact_no" readOnly></input></pre>
                     <p style={{marginLeft:"90%"}}><Link to={'/profile_edit'}>Edit</Link></p>
+                </div>
                 </div>
             </div>
         )
