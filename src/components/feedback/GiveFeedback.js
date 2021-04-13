@@ -17,7 +17,8 @@ class modify_courses extends Component{
                 <div className="side_main_box">
                     {/* <p>Modify Courses Here</p><br></br>
                     <p>Like add or delete courses and kavalante handout kuda ikkade ivvochu</p><br></br>
-                    <p>window loc is {window.location.pathname}</p> */}
+                    <p>window loc is {window.location.pathname}</p> */}    
+                    
                     <button onClick={() => window.location.replace('/course_give_feedback')}>Courses</button>
                     <button onClick = {() => window.location.replace("/professor_give_feedback")}>Professor</button>
                     
