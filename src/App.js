@@ -19,6 +19,7 @@ import show_profile_prof from './components/profile/show_profile_prof';
 import Feedback from './components/feedback/Feedback'
 import GiveFeedback from './components/feedback/GiveFeedback'
 import GiveCourseFeedback from './components/feedback/CourseGiveFeedback'
+import GiveProfessorFeedback from './components/feedback/ProfessorGiveFeedback'
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
         <Route exact path='/feedback' component={Feedback}/>
         <Route exact path='/give_feedback' component={GiveFeedback}/>
         <Route exact path='/course_give_feedback' component={GiveCourseFeedback}/>
+        <Route exact path='/professor_give_feedback' component={GiveProfessorFeedback}/>
 
 
         

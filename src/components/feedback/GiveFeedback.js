@@ -19,7 +19,7 @@ class modify_courses extends Component{
                     <p>Like add or delete courses and kavalante handout kuda ikkade ivvochu</p><br></br>
                     <p>window loc is {window.location.pathname}</p> */}
                     <button onClick={() => window.location.replace('/course_give_feedback')}>Courses</button>
-                    <button onClick = {() => window.location.replace("/professor_gice_feedback")}>Professor</button>
+                    <button onClick = {() => window.location.replace("/professor_give_feedback")}>Professor</button>
                     
                    
                         

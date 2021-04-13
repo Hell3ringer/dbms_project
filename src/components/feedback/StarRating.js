@@ -3,7 +3,7 @@ import React ,{Component} from 'react'
 import { FaStar } from 'react-icons/fa'
 import Swal from 'sweetalert2';
 import './StarRating.css'
-var rName,sID,cID;
+var rName,sID,cID,pID;
 var rColour;
 var styling = {
     color:rColour
@@ -12,6 +12,7 @@ var styling = {
 function getID(){
     sID = localStorage.getItem('loginID');  
     cID = sessionStorage.getItem('cID');  
+    pID = sessionStorage.getItem('pID');
 }
 
 
@@ -64,25 +65,26 @@ class  StarRating extends Component {
     
     submit(Event){
         Event.preventDefault();
-       
         
-        const feedback = {
-            rating : this.state.rating,
-            review : document.getElementById("review").value,
-            s_id:sID,
-            c_id:cID
-        }
-        console.log(JSON.stringify(feedback,null,2));
-        axios.post("http://localhost:4000/app/feedback",feedback)
+        if (cID === null) {
+            const feedback = {
+                rating : this.state.rating,
+                review : document.getElementById("review").value,
+                s_id:sID,
+                p_id:pID
+            }
+            console.log(JSON.stringify(feedback,null,2));
+        axios.post("http://localhost:4000/app/feedback_professor",feedback)
         .then(Response => {
             if (Response.status === 200) {
                 Swal.fire({
                     title: 'success',
-                    text: "feedback registered!",
+                    text: "prof feedback registered!",
                     icon: 'success',
                     confirmButtonText: 'ok'
                   }).then((result) =>{
-                      if (result.isConfirmed) {      
+                      if (result.isConfirmed) { 
+                        sessionStorage.removeItem('pID')   
 
                         window.location.replace("/dashboard")                        
                           
@@ -91,6 +93,37 @@ class  StarRating extends Component {
                   )
             }
         })
+        } else {
+            const feedback = {
+                rating : this.state.rating,
+                review : document.getElementById("review").value,
+                s_id:sID,
+                c_id:cID
+            }
+            console.log(JSON.stringify(feedback,null,2));
+        axios.post("http://localhost:4000/app/feedback_course",feedback)
+        .then(Response => {
+            if (Response.status === 200) {
+                Swal.fire({
+                    title: 'success',
+                    text: "course feedback registered!",
+                    icon: 'success',
+                    confirmButtonText: 'ok'
+                  }).then((result) =>{
+                      if (result.isConfirmed) {      
+                          sessionStorage.removeItem('cID')
+                        window.location.replace("/dashboard")                        
+                          
+                      }
+                  }
+                  )
+            }
+        })
+        }
+        
+        
+
+        
     } 
     
     

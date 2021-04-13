@@ -165,7 +165,7 @@ router.post('/modify_prof',(req,res)=>{
         }
     })
 })
-router.post('/feedback',async (req,res) =>{
+router.post('/feedback_course',async (req,res) =>{
     let rating = req.body.rating;
     let review= req.body.review;  
     let s_id = req.body.s_id; 
@@ -185,12 +185,32 @@ router.post('/feedback',async (req,res) =>{
     })
 })
 
-router.get('/users',(req,res) =>{
-    var sql_statement = "select * from  details ";
-    //var values = [req.query.id,req.query.pass,req.query.role];
+router.post('/feedback_professor',async (req,res) =>{
+    let rating = req.body.rating;
+    let review= req.body.review;  
+    let s_id = req.body.s_id; 
+    let p_id=req.body.p_id   
+     
+    var sql_statement = "INSERT INTO feedback_prof(s_id,p_id,p_rating,p_review) values ('"+s_id +"','"+p_id +"','"+ rating+ "','"+review + "')";
+    
     db.query(sql_statement,(err ,result) => {
         if (err) {
             console.log('error inserting values' + err);
+            res.sendStatus(404); 
+                   
+        }else{
+            console.log("data entered to details table");
+            res.sendStatus(200);
+        }
+    })
+})
+
+router.get('/professor',(req,res) =>{
+    var sql_statement = "select * from  professor ";
+    //var values = [req.query.id,req.query.pass,req.query.role];
+    db.query(sql_statement,(err ,result) => {
+        if (err) {
+            console.log('error retiriving values' + err);
         }else{
 
             console.log("rows" + JSON.stringify(result,null,2));
