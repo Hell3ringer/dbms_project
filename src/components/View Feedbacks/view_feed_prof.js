@@ -17,6 +17,7 @@ class view_feed_prof extends Component{
     constructor(props){
         super(props)
         this.state={
+            
             p_id:p_id,
             feedbacks:[]
         }
