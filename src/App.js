@@ -23,6 +23,11 @@ import show_all_courses from './components/View Feedbacks/show_all_courses';
 import show_all_prof from './components/View Feedbacks/show_all_prof'
 import view_feed_prof from './components/View Feedbacks/view_feed_prof';
 import about from './components/Extras/about';
+import Feedback from './components/feedback/Feedback'
+import GiveFeedback from './components/feedback/GiveFeedback'
+import GiveCourseFeedback from './components/feedback/CourseGiveFeedback'
+import GiveProfessorFeedback from './components/feedback/ProfessorGiveFeedback'
+
 function App() {
   return (
     <div className="div_in_app">
@@ -53,7 +58,16 @@ function App() {
         <Route exact path='/view_feedback_prof_to_student' component={show_all_prof}/>
         <Route exact path='/my_feedbacks' component={view_feed_prof}/>
         <Route exact path='/about' component={about}/>
+        {/*feedback */}
+        <Route exact path='/feedback' component={Feedback}/>
+        <Route exact path='/give_feedback' component={GiveFeedback}/>
+        <Route exact path='/course_give_feedback' component={GiveCourseFeedback}/>
+        <Route exact path='/professor_give_feedback' component={GiveProfessorFeedback}/>
+
+
+        
         <Route component={error}/>
+        
       </Switch>}
     </div>
   );

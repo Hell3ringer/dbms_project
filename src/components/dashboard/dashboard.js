@@ -29,7 +29,7 @@ class dashboard extends Component {
     
     getCourses(){
         const student={s_id:this.state.s_id};
-        console.log(student.s_id);
+        //console.log(student.s_id);
         axios.post('http://localhost:4000/app/registered_courses',{student})
         .then(res=>{
             this.setState({courses:res.data})
