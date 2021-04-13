@@ -48,7 +48,7 @@ class dashboard_prof extends Component {
                         <li><a href="/profile_prof">My Profile</a></li>                            
                         <li><a href="/my_courses">My Courses</a></li>
                         <li><a href="/my_feedbacks">View Feedbacks</a></li>
-                        <li><a href="/cms_prof">Post on CMS</a></li>
+                        {/* <li><a href="/cms_prof">Post on CMS</a></li> */}
                         </ul>  
                     </nav>
                     

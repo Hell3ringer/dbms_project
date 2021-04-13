@@ -21,6 +21,8 @@ import view_feedbacks_student from './components/View Feedbacks/view_feedbacks_s
 // import view_feedbacks_course from './components/View Feedbacks/view_feedback_course';
 import show_all_courses from './components/View Feedbacks/show_all_courses';
 import show_all_prof from './components/View Feedbacks/show_all_prof'
+import view_feed_prof from './components/View Feedbacks/view_feed_prof';
+import about from './components/Extras/about';
 function App() {
   return (
     <div className="div_in_app">
@@ -49,6 +51,8 @@ function App() {
         {/* <Route exact path='/view_feedback_course' component={view_feedbacks_course}/> */}
         <Route exact path='/show_all_courses' component={show_all_courses}/>
         <Route exact path='/view_feedback_prof_to_student' component={show_all_prof}/>
+        <Route exact path='/my_feedbacks' component={view_feed_prof}/>
+        <Route exact path='/about' component={about}/>
         <Route component={error}/>
       </Switch>}
     </div>

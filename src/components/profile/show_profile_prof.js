@@ -45,13 +45,15 @@ class show_profile_prof extends Component{
                 {/* <Dashboard/> */}
                 <Topnav_prof/>
                 <Sidebar_prof/>
-                <div className="side_main_box" style={{marginLeft:"20%",border:"1px solid",width:"45%",height:"50%",borderRadius:"10px"}}>
-                <img src="http://www.caiml.co.uk/wp-content/uploads/2016/03/270x270-male-avatar.png" style={{width:"35%",height:"20%",marginLeft:"33%"}} ></img><br></br><br></br>
+                <div className="side_main_box">
+                    <div style={{marginLeft:"20%",border:"1px solid",width:"45%",height:"80%",borderRadius:"10px"}}>
+                <img src="http://www.caiml.co.uk/wp-content/uploads/2016/03/270x270-male-avatar.png" style={{width:"35%",height:"40%",marginLeft:"33%"}} ></img><br></br><br></br>
                     <pre >ID:            <input type="text" id="show_pid" readOnly></input></pre>
                     <pre >NAME:          <input type="text" id="show_pname" readOnly></input></pre>
                     <pre >EMAIL:         <input type="text" id="show_pemail" readOnly></input></pre>
                     <pre >CONTACT NO:    <input type="text" id="show_pcontact_no" readOnly></input></pre>
                     <p style={{marginLeft:"90%"}}><Link to={'/profile_prof_edit'}>Edit</Link></p>
+                    </div>
                 </div>
                 
             </div>
