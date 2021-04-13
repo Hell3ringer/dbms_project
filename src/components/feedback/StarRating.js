@@ -1,26 +1,30 @@
 import axios from 'axios';
 import React ,{Component} from 'react'
 import { FaStar } from 'react-icons/fa'
+import Swal from 'sweetalert2';
 import './StarRating.css'
-var rName,ID;
+var rName,sID,cID,pID;
 var rColour;
 var styling = {
     color:rColour
 }
 
 function getID(){
-    ID = localStorage.getItem('loginID');    
+    sID = localStorage.getItem('loginID');  
+    cID = sessionStorage.getItem('cID');  
+    pID = sessionStorage.getItem('pID');
 }
 
 
 class  StarRating extends Component {
     constructor(props) {
-        super(props)
-    
+        super(props)    
         this.state = {
              rating : null,
-             hover : null
+             hover : null,
+             review:''
         }
+        this.submit = this.submit.bind(this)
     }
 
     rating_name(rating){    
@@ -51,26 +55,80 @@ class  StarRating extends Component {
                 break;
                
         } 
+        ;
         styling = {
             color:rColour
         }
         
         
     }
-    submit(rating,review){
-        const feedback = {
-            rating : rating,
-            review : review,
-            id:ID
-        }
-        axios.post("",feedback)
-        .then(Response => {
-
-        })
-    }    
-
     
-    render(){        
+    submit(Event){
+        Event.preventDefault();
+        
+        if (cID === null) {
+            const feedback = {
+                rating : this.state.rating,
+                review : document.getElementById("review").value,
+                s_id:sID,
+                p_id:pID
+            }
+            console.log(JSON.stringify(feedback,null,2));
+        axios.post("http://localhost:4000/app/feedback_professor",feedback)
+        .then(Response => {
+            if (Response.status === 200) {
+                Swal.fire({
+                    title: 'success',
+                    text: "prof feedback registered!",
+                    icon: 'success',
+                    confirmButtonText: 'ok'
+                  }).then((result) =>{
+                      if (result.isConfirmed) { 
+                        sessionStorage.removeItem('pID')   
+
+                        window.location.replace("/dashboard")                        
+                          
+                      }
+                  }
+                  )
+            }
+        })
+        } else {
+            const feedback = {
+                rating : this.state.rating,
+                review : document.getElementById("review").value,
+                s_id:sID,
+                c_id:cID
+            }
+            console.log(JSON.stringify(feedback,null,2));
+        axios.post("http://localhost:4000/app/feedback_course",feedback)
+        .then(Response => {
+            if (Response.status === 200) {
+                Swal.fire({
+                    title: 'success',
+                    text: "course feedback registered!",
+                    icon: 'success',
+                    confirmButtonText: 'ok'
+                  }).then((result) =>{
+                      if (result.isConfirmed) {      
+                          sessionStorage.removeItem('cID')
+                        window.location.replace("/dashboard")                        
+                          
+                      }
+                  }
+                  )
+            }
+        })
+        }
+        
+        
+
+        
+    } 
+    
+    
+    render(){  
+        this.rating_name(this.state.rating);          
     return (
         <div className="auth-wrapper1">
         <div className="auth-inner1 ">
@@ -79,7 +137,7 @@ class  StarRating extends Component {
             
             {[...Array(5)].map((star,i) => {
                 const ratingValue = i + 1;
-                this.rating_name(this.state.rating);
+                
                 getID();             
                 
 
@@ -92,11 +150,11 @@ class  StarRating extends Component {
                     color ={ratingValue <= (this.state.hover||this.state.rating) ? "#ffc107" : "#e4e5e9"}/>                    
                     </label>                    
             })}
-            <h2  style={styling}>{rName}</h2>
+            <h2 id="rating" style={styling} value={this.state.rating}>{rName}</h2>
             <h1 className="t">Review </h1>
-            <textarea  type = 'text' className="review"  ></textarea>
+            <textarea id="review" type = 'text' className="review" ></textarea>
             <br></br>
-            <button className="submit">submit</button>
+            <button onClick={this.submit}>submit</button>
             
             
             
