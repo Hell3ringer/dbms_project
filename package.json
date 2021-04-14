@@ -10,6 +10,7 @@
     "bootstrap": "^4.6.0",
     "cookie": "^0.4.1",
     "react": "^17.0.1",
+    "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
     "react-router-dom": "^5.2.0",
@@ -41,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining": "^7.13.12"
   }
 }

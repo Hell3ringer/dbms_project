@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import Topnav from '../dashboard/topnav'
-import Sidebar from '../dashboard/sidebar'
+import Topnav_prof from '../dashboard/topnav_prof'
+import Sidebar_prof from '../dashboard/sidebar_prof'
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
@@ -18,8 +18,8 @@ class profile_prof extends Component{
         return(
             <div className="entire_div_profile">
                 {/* <Dashboard/> */}
-                <Topnav/>
-                <Sidebar/>
+                <Topnav_prof/>
+                <Sidebar_prof/>
             <div className="auth-wrapper">
             <div className="auth-inner ">
 
