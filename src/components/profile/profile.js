@@ -87,7 +87,7 @@ function modify(){
         email:document.getElementById("email").value,
         contact_no:document.getElementById("contactNo").value,
     }
-    console.log(student);
+    //console.log(student);
     axios.post('http://localhost:4000/app/modify_student',{student})
     .then(Response=>{
         if(Response.status===200){

@@ -9,12 +9,16 @@ import {BsStar} from 'react-icons/bs'
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
+var p_id;
+
+p_id = localStorage.getItem('loginID')
 
 class view_feed_prof extends Component{
     constructor(props){
         super(props)
         this.state={
-            p_id:"2019P0155",
+            
+            p_id:p_id,
             feedbacks:[]
         }
     }
