@@ -305,4 +305,20 @@ router.post('/view_students',(req,res)=>{
 
 })
 
+router.post('/courseprof',(req,res)=>{
+    console.log("from backend - "+req.body.c_id);
+    var sql_query="SELECT p.p_name FROM professor p, teaches t WHERE p.p_id=t.p_id AND t.c_id = '"+req.body.c_id+"'";
+    
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving profs from teaches"+err);
+        }
+        else{
+            console.log("profs of the course are "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
+
+})
+
 module.exports = router;

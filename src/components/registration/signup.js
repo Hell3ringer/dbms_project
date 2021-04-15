@@ -47,6 +47,7 @@ class SignUp extends Component {
             console.log(" params " + params);
             axios.post('http://localhost:4000/app/signup',params)  
             .then(Response =>{            
+                // if((params.id[4]+params.id[5]==='AH' && params.role==='admin' ) || (params.id[4]+params.id[5]==='PH' && params.role ==='professor') || (params.id[4]+params.id[12]==='AH' && params.role==='students')){
                 
                 if (Response.status === 200) {                    
                     sessionStorage.setItem('role',params.role);

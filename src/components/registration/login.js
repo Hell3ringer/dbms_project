@@ -116,7 +116,7 @@ export default class Login extends Component {
                     <input type="password" id = "password" className="form-control" placeholder="Enter password" />
                 </div>
 
-                <button type="submit" onClick ={this.signin} className="btn btn-primary btn-block">Submit</button>
+                <button type="submit" onClick ={this.signin} className="btn btn-primary btn-block">Sign in</button>
                
                 <br></br>
                 <p>Don't have an account?    <Link to={'/signup'}>Sign up</Link></p>
