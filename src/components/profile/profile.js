@@ -6,12 +6,12 @@ import Sidebar from '../dashboard/sidebar'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
 
-
+var id = localStorage.getItem("loginID")
 class profile extends Component{
     constructor(props){
         super(props)
         this.state={
-            id:"8",
+            id:id,
             details:[]
         }
     }
@@ -21,36 +21,38 @@ class profile extends Component{
                 {/* <Dashboard/> */}
                 <Topnav/>
                 <Sidebar/>
-            <div className="auth-wrapper">
-            <div className="auth-inner ">
+                <div className="side_main_box">
+                    <div className="auth-wrapper">
+                        <div className="auth-inner ">
 
-                <h3>Modify Details</h3>
+                        <h3>Modify Details</h3>
 
-                <div className="form-group">
-                    <label>id</label>
-                    <input type="text" id = "idNo" className="form-control" placeholder="Enter id" />
-                </div>
+                        <div className="form-group">
+                            <label>id</label>
+                            <input type="text" id = "idNo" className="form-control" placeholder="Enter id" />
+                        </div>
 
-                <div className="form-group">
-                    <label>Name</label>
-                    <input type="text" id = "name" className="form-control" placeholder="Enter Name" />
-                </div>
+                        <div className="form-group">
+                            <label>Name</label>
+                            <input type="text" id = "name" className="form-control" placeholder="Enter Name" />
+                        </div>
 
-                <div className="form-group">
-                    <label>Email id</label>
-                    <input type="text" id = "email" className="form-control" placeholder="Enter Email id" />
-                </div>
+                        <div className="form-group">
+                            <label>Email id </label>
+                            <input type="text" id = "email" className="form-control" placeholder="Enter Email id" />
+                        </div>
 
-                <div className="form-group">
-                    <label>Contact no</label>
-                    <input type="text" id = "contactNo" className="form-control" placeholder="Enter Contact no" />
-                </div>
+                        <div className="form-group">
+                            <label>Contact no</label>
+                            <input type="text" id = "contactNo" className="form-control" placeholder="Enter Contact no" />
+                        </div>
 
                 
-                <button onClick={modify}>Modify</button>
+                        <button onClick={modify}>Modify</button>
 
-            </div>
-            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
@@ -85,7 +87,7 @@ function modify(){
         email:document.getElementById("email").value,
         contact_no:document.getElementById("contactNo").value,
     }
-    console.log(student);
+    //console.log(student);
     axios.post('http://localhost:4000/app/modify_student',{student})
     .then(Response=>{
         if(Response.status===200){

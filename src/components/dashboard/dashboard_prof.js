@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import '../stylesheets/dashboard.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+
 var id = localStorage.getItem('loginID')
 class dashboard_prof extends Component {
 
@@ -46,7 +48,7 @@ class dashboard_prof extends Component {
                         <li><a href="/profile_prof">My Profile</a></li>                            
                         <li><a href="/my_courses">My Courses</a></li>
                         <li><a href="/my_feedbacks">View Feedbacks</a></li>
-                        <li><a href="/cms_prof">Post on CMS</a></li>
+                        {/* <li><a href="/cms_prof">Post on CMS</a></li> */}
                         </ul>  
                     </nav>
                     
@@ -64,6 +66,7 @@ class dashboard_prof extends Component {
                            
                         </div> */}
                     <div> 
+                    <p style={styling}><h2>Hi prof_id</h2></p>
                     <p style={styling}><h2>Hi {id}</h2></p>
                     </div>
             </div>

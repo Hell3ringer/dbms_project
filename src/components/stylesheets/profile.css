@@ -3,7 +3,7 @@
 }
 .side_main_box{
     display: block;
-    margin-top: 15%;
+    margin-top: 5%;
     width: 100%;
 
     padding: 1.5%;
@@ -12,6 +12,13 @@
 .profile{
     background-color: white;
     color: blueviolet;
+}
+.display_class{
+  display:none;
+  background-color: red;
+}
+.show_display{
+  display: block;
 }
 
 button{
@@ -25,6 +32,15 @@ button:hover{
     background-color:whitesmoke;
     color: dodgerblue;
 }
+
+.display_class{
+    display:none;
+    background-color: red;
+}
+.show_display{
+    display: block;
+}
+
 
 body, html, .App, #root, .auth-wrapper {
     width: 100%;
@@ -53,4 +69,5 @@ body, html, .App, #root, .auth-wrapper {
     box-shadow: none;
      
   }
+
 

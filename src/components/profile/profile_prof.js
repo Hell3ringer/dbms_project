@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import Topnav from '../dashboard/topnav'
-import Sidebar from '../dashboard/sidebar'
+import Topnav_prof from '../dashboard/topnav_prof'
+import Sidebar_prof from '../dashboard/sidebar_prof'
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
-
+var id = localStorage.getItem("loginID")
 class profile_prof extends Component{
     constructor(props){
         super(props)
         this.state={
-            id:"6",
+            id:id,
             details:[]
         }
     }
@@ -18,8 +18,8 @@ class profile_prof extends Component{
         return(
             <div className="entire_div_profile">
                 {/* <Dashboard/> */}
-                <Topnav/>
-                <Sidebar/>
+                <Topnav_prof/>
+                <Sidebar_prof/>
             <div className="auth-wrapper">
             <div className="auth-inner ">
 
