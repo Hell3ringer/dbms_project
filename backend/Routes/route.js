@@ -342,10 +342,25 @@ router.post('/get_feedback_course',(req,res)=>{
         }
     })
 })
+router.post('/allotted_courses',(req,res)=>{
+        console.log("this is "+req.body.professor.p_id+" from backend");
+        var sql_query="SELECT c.c_id, c.c_name, c.credits FROM course c, teaches t WHERE t.p_id='"+req.body.professor.p_id+"'AND t.c_id = c.c_id";
+        db.query(sql_query,(err,result)=>{
+            if(err){
+                console.log("error retrieving from teaches"+err);
+            }
+            else{
+                console.log("result of allotted courses is "+JSON.stringify(result));
+                res.send(result);
+            }
+        })
+    
+})
 
-router.post('/get_course_details',(req,res)=>{
-    console.log("c_id is "+req.body.course.c_id);
-    var sql_query="SELECT c_id,c_name,handout,credits,mids,compre FROM course WHERE c_id='"+req.body.course.c_id+"'";
+router.post('/view_students',(req,res)=>{
+    console.log("from backend - "+req.body.c_id);
+    var sql_query="SELECT s.s_id, s.s_name, s.s_email, s.s_contact_no FROM student s, registers r WHERE s.s_id=r.s_id AND r.c_id = '"+req.body.c_id+"'";
+    
     db.query(sql_query,(err,result)=>{
         if(err){
             console.log("error on retrieving from registers "+err);
@@ -397,6 +412,26 @@ router.post('/get_feedback_prof',(req,res)=>{
             res.send(result);
         }
     })
+            console.log("result of students is "+JSON.stringify(result));
+            res.send(result);
+        }
+    )
+
+
+router.post('/courseprof',(req,res)=>{
+    console.log("from backend - "+req.body.c_id);
+    var sql_query="SELECT p.p_name FROM professor p, teaches t WHERE p.p_id=t.p_id AND t.c_id = '"+req.body.c_id+"'";
+    
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving profs from teaches"+err);
+        }
+        else{
+            console.log("profs of the course are "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
+
 })
 
 module.exports = router;
