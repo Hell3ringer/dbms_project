@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import Topnav from '../dashboard/topnav'
-import Sidebar from '../dashboard/sidebar'
 import {FaSearch} from 'react-icons/fa'
- 
+import TopnavProf from '../dashboard/topnav_prof'
+import SidebarProf from '../dashboard/sidebar_prof'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
 import axios from 'axios';
@@ -126,11 +125,12 @@ class my_courses_prof extends Component{
     render (){
         return(
             <div className="entire_div_profile">
-            <Topnav/>
-            <Sidebar/>
+                <TopnavProf/>
+                <SidebarProf/>
             <div className="side_main_box">
                 <div id="nostudentview">
-                    <h3>My Courses</h3><br></br><br></br>
+                    <br></br>
+                    <h3>My Courses</h3><br></br>
                    
                     <FaSearch></FaSearch><input 
                     style={{margin : 10}}
@@ -153,7 +153,7 @@ class my_courses_prof extends Component{
                 }
           }}
 
-        ></input>
+        ></input> <br></br><br></br>
                     <div id="full_table">
                     <table id="courses_table" className="table table-bordered table-hover">
                         <thead className="thead-dark">

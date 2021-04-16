@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Topnav from '../dashboard/topnav'
-import Sidebar from '../dashboard/sidebar'
+// import Topnav from '../dashboard/topnav'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 class about extends Component{
     render(){

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Topnav from '../dashboard/topnav'
 import Sidebar from '../dashboard/sidebar'
 import Swal from 'sweetalert2'
- 
+import {FaSearch} from 'react-icons/fa'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
 import axios from 'axios';
@@ -226,7 +226,7 @@ class courses_table extends Component{
                         <br></br>
                         <h3>Register Into Courses</h3><br></br><br></br>
                         <div id="alert_reg"></div>
-                       
+                        <FaSearch></FaSearch>
                         <input 
                         style={{margin : 10}}
                         type="text"
