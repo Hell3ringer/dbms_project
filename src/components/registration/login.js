@@ -72,7 +72,8 @@ export default class Login extends Component {
                             }else if(role === "PH"){
                                 window.location.replace("/dashboard_prof")     
                             }else{
-                                window.location.replace("/dashboard")     
+                                window.location.replace("/dashboard")   
+                                  
                             }
                                                
                               
