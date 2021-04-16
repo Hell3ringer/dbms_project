@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import '../stylesheets/dashboard.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-class topnav_prof extends Component{
+class TopnavProf extends Component{
     render(){
         return(
             <div id="nav_id" className="topnav navbar nav-pills fixed-top navbar-dark bg-dark">          
@@ -16,4 +16,4 @@ class topnav_prof extends Component{
         )
     }
 }
-export default topnav_prof;
+export default TopnavProf;

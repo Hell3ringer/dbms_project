@@ -15,7 +15,7 @@ class details extends Component {
             name : document.getElementById('name').value,
             email : document.getElementById('email').value,
             contact_no : document.getElementById('contactNo').value,
-            role : role                
+            role : role          
         }
         
         console.log("params in details " + JSON.stringify(user,null,2));
