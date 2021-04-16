@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import Topnav_prof from '../dashboard/topnav_prof'
-import Sidebar_prof from '../dashboard/sidebar_prof'
+import TopnavProf from '../dashboard/topnav_prof'
+import SidebarProf from '../dashboard/sidebar_prof'
 import {Card} from 'react-bootstrap'
 import {BsStarFill} from 'react-icons/bs'
 import {BsStar} from 'react-icons/bs'
@@ -26,8 +26,8 @@ class view_feed_prof extends Component{
         return(
             <div className="entire_div_profile">
                 {/* <Dashboard/> */}
-                <Topnav_prof/>
-                <Sidebar_prof/>
+                <TopnavProf/>
+                <SidebarProf/>
                 <div className="side_main_box">
                     <h3>Feedbacks received:</h3>
                     {this.show_cards()}
@@ -53,7 +53,7 @@ class view_feed_prof extends Component{
     show_cards(){
         var j=this.state.feedbacks;
         console.log("j is "+j);
-        if(j==""){
+        if(j===""){
             return(<div style={{marginLeft:"40%"}}>No Feedbacks yet :(</div>)
         }
         return j.map((course_json,index)=>{

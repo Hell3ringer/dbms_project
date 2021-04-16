@@ -156,7 +156,7 @@ class show_all_prof extends Component{
     show_cards(){
         var j=this.state.feedbacks;
         console.log("j is "+j);
-        if(j==""){
+        if(j===""){
             return(<div style={{marginLeft:"40%"}}>No Feedbacks yet :(</div>)
         }
         return j.map((course_json,index)=>{
