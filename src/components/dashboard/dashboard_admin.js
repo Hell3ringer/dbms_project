@@ -2,22 +2,13 @@ import React, { Component } from 'react';
 
 import '../stylesheets/dashboard.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import TopnavAdmin from './topnav_admin';
+import SidebarAdmin from './sidebar_admin';
 
 var id = localStorage.getItem('loginID')
 
 class dashboard_admin extends Component {
-
-    // openNav() {
-    //     document.getElementById("sidebar").style.width = "250px";
-    //     document.getElementById("main").style.marginLeft = "250px";       
-    // }
-    
-    
-    // closeNav() {
-    // document.getElementById("sidebar").style.width = "0";
-    // document.getElementById("main").style.marginLeft = "0";}
     Logout(){
-        // document.cookie="jwt="+ ";" + "max-age=" + (0);
         sessionStorage.clear();
         localStorage.clear()
     }
@@ -25,12 +16,13 @@ class dashboard_admin extends Component {
     render() {
         const styling={
             marginTop: "60px",
-            marginLeft: "300%",
+            marginLeft: "200%",
             display: "block",
             width: "100%",
         };
         return (
             <div className="entire_div_dashboard">        
+
                 <div id="nav_id" className="topnav navbar nav-pills fixed-top navbar-dark bg-dark">          
                     <a href="/dashboard_admin">Dashboard</a>
                     <span className="navbar-text cfs-class">Course Feedback System  CFS</span>
@@ -65,8 +57,8 @@ class dashboard_admin extends Component {
                             </form>
                            
                         </div> */}
+
                     <div> 
-                    <p style={styling}><h2>Hi Admin</h2></p>
                     <p style={styling}><h2>Hi {id}</h2></p>
                     </div>
             </div>
