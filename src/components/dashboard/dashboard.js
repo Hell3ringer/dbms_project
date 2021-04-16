@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import '../stylesheets/dashboard.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
+import Topnav from './topnav';
+import Sidebar from './sidebar';
 
-var id = localStorage.getItem('loginID')
+// var id = localStorage.getItem('loginID')
 class dashboard extends Component {
     constructor(props){
         super(props);
         this.state={
             courses:[],
-            s_id:'2019A7PS0155H'    //HARD-CODED HERE
+            s_id: localStorage.getItem('loginID') 
         }
     }
     // openNav() {
@@ -29,7 +31,7 @@ class dashboard extends Component {
     
     getCourses(){
         const student={s_id:this.state.s_id};
-        console.log(student.s_id);
+        //console.log(student.s_id);
         axios.post('http://localhost:4000/app/registered_courses',{student})
         .then(res=>{
             this.setState({courses:res.data})
@@ -48,6 +50,7 @@ class dashboard extends Component {
                 <tr id={c_id}>
                     <td>{c_id}</td>
                     <td>{c_name}</td>
+                    <td><button>Give feedback</button></td>
                 </tr>
             )
         })
@@ -60,28 +63,11 @@ class dashboard extends Component {
         //     width: "100%",
         // };
         return (
-            <div className="entire_div_dashboard">        
-                <div id="nav_id" className="topnav navbar nav-pills fixed-top navbar-dark bg-dark">          
-                    <a href="/dashboard">Dashboard</a>
-                    <span className="navbar-text cfs-class">Course Feedback System  CFS</span>
-                    <a href="/contact">Contact</a>
-                    <a href="/about">About</a>
-                    <a className="active" href="/" onClick={this.Logout}>Logout</a>
-                </div>     
+            <div className="entire_div_dashboard">     
 
+                <Topnav/>
+                <Sidebar/>   
                 
-                    <nav id="sidebar">
-                        <ul id="ul_id" className="list-unstyled components">
-                            {/* <li>
-                                <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
-                            </li> */}
-                        <li><a href="/profile">My Profile</a></li>                            
-                        <li><a href="/register">Register into Courses</a></li>
-                        <li><a href="/give_feedback">Give Feedback</a></li>
-                        <li><a href="/view_all_feedbacks">View All Feedbacks</a></li>
-                        <li><a href="/cms_student">CMS</a></li>
-                        </ul>  
-                    </nav>
                     
                         {/* <div id="main">
 
@@ -106,6 +92,7 @@ class dashboard extends Component {
                             <tr>
                                 <th>Course ID</th>
                                 <th>Course name</th>
+                                <th>Give feedback</th>
                             </tr>
                             </thead>
                             
