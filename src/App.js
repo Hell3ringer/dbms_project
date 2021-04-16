@@ -27,6 +27,7 @@ import Feedback from './components/feedback/Feedback'
 import GiveFeedback from './components/feedback/GiveFeedback'
 import GiveCourseFeedback from './components/feedback/CourseGiveFeedback'
 import GiveProfessorFeedback from './components/feedback/ProfessorGiveFeedback'
+import assign_prof from './components/assign_prof/assign_prof';
 
 function App() {
   return (
@@ -63,7 +64,7 @@ function App() {
         <Route exact path='/give_feedback' component={GiveFeedback}/>
         <Route exact path='/course_give_feedback' component={GiveCourseFeedback}/>
         <Route exact path='/professor_give_feedback' component={GiveProfessorFeedback}/>
-
+        <Route exact path='/modify_prof' component={assign_prof}/>
 
         
         <Route component={error}/>

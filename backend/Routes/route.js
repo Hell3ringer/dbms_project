@@ -399,4 +399,22 @@ router.post('/get_feedback_prof',(req,res)=>{
     })
 })
 
+router.post('/courseprof',(req,res)=>{
+    console.log("req.body is "+JSON.stringify(req.body));
+    console.log("from backend - "+req.body.c_id);
+    var sql_query="SELECT p.p_name FROM professor p, teaches t WHERE p.p_id=t.p_id AND t.c_id = '"+req.body.c_id+"'";
+    
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving profs from teaches"+err);
+            res.send("error")
+        }
+        else{
+            console.log("profs of the course "+req.body.c_id+"are "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
+ 
+})
+
 module.exports = router;
