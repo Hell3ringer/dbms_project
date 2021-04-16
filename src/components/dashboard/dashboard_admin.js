@@ -47,7 +47,7 @@ class dashboard_admin extends Component {
                         <li><a href="/modify_courses">Modify Courses</a></li>
                         <li><a href="/modify_prof">Modify Proffesors</a></li>
                         <li><a href="/assign_prof">Assign Proffesors</a></li>
-                        <li><a href="/verify">Verify</a></li>
+                        <li><a href="/verify_confirm">Verify</a></li>
                         {/* <li><a href="#">Post on CMS</a></li> */}
                         </ul>  
                     </nav>

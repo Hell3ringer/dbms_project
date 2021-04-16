@@ -15,7 +15,7 @@ class sidebar_admin extends Component{
                         <li id={window.location.pathname==="/modify_courses"?"active_tab":""}><a href="/modify_courses">Modify Courses</a></li>
                         <li id={window.location.pathname==="/modify_prof"?"active_tab":""}><a href="/modify_prof">Modify Proffesors</a></li>
                         <li id={window.location.pathname==="/assign_prof"?"active_tab":""}><a href="/assign_prof">Assign Proffesors</a></li>
-                        <li id={window.location.pathname==="/verify"?"active_tab":""}><a href="/verify">Verify</a></li>
+                        <li id={window.location.pathname==="/verify_confirm"?"active_tab":""}><a href="/verify_confirm">Verify</a></li>
                         {/* <li><a href="#">Post on CMS</a></li> */}
                     </ul>  
             </nav>
