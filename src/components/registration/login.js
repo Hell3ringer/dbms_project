@@ -36,9 +36,22 @@ export default class Login extends Component {
         }
         console.log("isEmpty " + isEmpty);
         if (!isEmpty) {
+
             axios.post('http://localhost:4000/app/login',params)
             .then(Response =>{
                 console.log("response.status is " + Response.data);
+                if(Response.data==-2){
+                    Swal.fire({
+                        title:'Account UnVerified',
+                        text:'Sorry, Your verification is still pending, you cannot login now. Please try later',
+                        confirmButtonText:'ok',
+
+                    }).then((result)=>{
+                            if(result.value){
+                                window.location.replace('/')
+                            }
+                        })
+                }
                 if (Response.data === 1) {
                     Swal.fire({
                         toast:true,
@@ -59,7 +72,8 @@ export default class Login extends Component {
                             }else if(role === "PH"){
                                 window.location.replace("/dashboard_prof")     
                             }else{
-                                window.location.replace("/dashboard")     
+                                window.location.replace("/dashboard")   
+                                  
                             }
                                                
                               

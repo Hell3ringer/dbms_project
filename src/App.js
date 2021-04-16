@@ -2,6 +2,9 @@ import './App.css';
 import Login from './components/registration/login'
 import SignUp from './components/registration/signup'
 import details from './components/registration/details'
+import verify from './components/registration/verify'
+import verify_prof from './components/registration/verify_prof'
+import verify_confirm from './components/registration/verify_confirm'
 
 import dashboard from './components/dashboard/dashboard'
 import profile from './components/profile/profile'
@@ -50,6 +53,9 @@ function App() {
         <Route exact path='/profile_prof_edit' component={profile_prof}/>
         <Route exact path='/profile_prof' component={show_profile_prof}/>
         <Route exact path='/modify_courses' component={modify_courses}/>
+        <Route exact path='/verify' component={verify}/>
+        <Route exact path='/verify_prof' component={verify_prof}/>
+        <Route exact path='/verify_confirm' component={verify_confirm}/>
 
         <Route exact path='/my_courses' component={my_courses_prof}/>
 

@@ -33,7 +33,7 @@ router.post('/signup',async (req,res) =>{
     
     const saltPassword = await bcrypt.genSalt(10);
     const securedPassword = await bcrypt.hash(userPassword,saltPassword);    
-    var sql_statement = "INSERT INTO details (id,password,role) values ('"+userID +"','"+securedPassword +"','"+userRole + "')";
+    var sql_statement = "INSERT INTO details (id,password,role,status) values ('"+userID +"','"+securedPassword +"','"+userRole + "','nv')";
     
     db.query(sql_statement,(err ,result) => {
         if (err) {
@@ -59,7 +59,11 @@ router.post('/login',async (req,res) =>{
             if (err) {
                 console.log('error getting users');
                 return res.send('-2')
-            }else{                
+            }else{
+                console.log("result is "+JSON.stringify(result));
+                if(result[0]['status']=='nv'){
+                    return res.send('-2')
+                }                
                  if (result.length == 0) {
                     console.log("user dosent exist!!");
                     return res.send('-1');
@@ -175,6 +179,61 @@ router.post('/modify_prof',(req,res)=>{
         }
     })
 })
+
+router.get('/verify',(req,res)=>{
+    var sql_query="SELECT s_id,s_name,s_email,s_contact_no FROM student,details WHERE status='nv' and s_id=id";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving from student "+err);
+        }
+        else{
+            //console.log("result is "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
+})
+
+router.post('/verify_student',(req,res)=>{
+    console.log(req.body.s_id);
+    var sql_query="UPDATE details SET status='v' "+"WHERE id='"+req.body.s_id+"'";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on Updating student details "+err);
+        }
+        else{
+            //console.log("result is "+JSON.stringify(result));
+            return res.status(200).json(result);
+        }
+    })
+})
+
+router.get('/verify_prof',(req,res)=>{
+    var sql_query="SELECT p_id,p_name,p_email,p_contact_no FROM professor,details WHERE status='nv' and p_id=id";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving from professor "+err);
+        }
+        else{
+            //console.log("result is "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
+})
+
+router.post('/verify_professor',(req,res)=>{
+    console.log(req.body.p_id);
+    var sql_query="UPDATE details SET status='v' "+"WHERE id='"+req.body.p_id+"'";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on Updating professor details "+err);
+        }
+        else{
+            //console.log("result is "+JSON.stringify(result));
+            return res.status(200).json(result);
+        }
+    })
+})
+
 router.post('/feedback_course',async (req,res) =>{
     let rating = req.body.rating;
     let review= req.body.review;  
