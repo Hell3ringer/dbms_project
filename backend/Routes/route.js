@@ -96,7 +96,7 @@ router.post('/details',async (req,res) => {
     const userEmail = req.body.email;  
     console.log("user name " + userName);   
     if (userRole === "student") {
-        sql_statement = "INSERT INTO student (s_id,s_name,s_email,s_contact_no,s_status) values (?,?,?,?,'NV')";
+        sql_statement = "INSERT INTO student (s_id,s_name,s_email,s_contact_no) values (?,?,?,?)";
     } else if(userRole === "professor"){
         sql_statement = "INSERT INTO professor (p_id,p_name,p_email,p_contact_no) values (?,?,?,?)";
     }else{
