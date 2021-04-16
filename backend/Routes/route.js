@@ -1,4 +1,5 @@
-const { Router, json } = require('express');
+const { Router } = require('express');
+const Swal = require('sweetalert2')
 
 const express = require('express')
 const router = express.Router()
@@ -11,6 +12,17 @@ const db = mysql.createConnection({
     database:process.env.database
 })
 
+router.post('/get_enrolled_students',(req,res)=>{
+    var sql_query="SELECT s_id from registers WHERE c_id='"+req.body.course.c_id+"'";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error in getting sid"+err);
+        }
+        else{
+            res.status(200).send(result);
+        }
+    })
+})
 
 router.post('/signup',async (req,res) =>{
 
@@ -22,7 +34,7 @@ router.post('/signup',async (req,res) =>{
     
     const saltPassword = await bcrypt.genSalt(10);
     const securedPassword = await bcrypt.hash(userPassword,saltPassword);    
-    var sql_statement = "INSERT INTO details (id,password,role) values ('"+userID +"','"+securedPassword +"','"+userRole + "')";
+    var sql_statement = "INSERT INTO details (id,password,role,status) values ('"+userID +"','"+securedPassword +"','"+userRole + "','nv')";
     
     db.query(sql_statement,(err ,result) => {
         if (err) {
@@ -48,7 +60,11 @@ router.post('/login',async (req,res) =>{
             if (err) {
                 console.log('error getting users');
                 return res.send('-2')
-            }else{                
+            }else{
+                console.log("result is "+JSON.stringify(result));
+                if(result[0]['status']=='nv'){
+                    return res.send('-2')
+                }                
                  if (result.length == 0) {
                     console.log("user dosent exist!!");
                     return res.send('-1');
@@ -80,7 +96,7 @@ router.post('/details',async (req,res) => {
     const userEmail = req.body.email;  
     console.log("user name " + userName);   
     if (userRole === "student") {
-        sql_statement = "INSERT INTO student (s_id,s_name,s_email,s_contact_no) values (?,?,?,?)";
+        sql_statement = "INSERT INTO student (s_id,s_name,s_email,s_contact_no,s_status) values (?,?,?,?,'NV')";
     } else if(userRole === "professor"){
         sql_statement = "INSERT INTO professor (p_id,p_name,p_email,p_contact_no) values (?,?,?,?)";
     }else{
@@ -131,7 +147,7 @@ router.post('/modify_student',(req,res)=>{
             console.log("error on Updating student details "+err);
         }
         else{
-            console.log("result is "+JSON.stringify(result));
+            //console.log("result is "+JSON.stringify(result));
             return res.status(200).json(result);
         }
     })
@@ -159,18 +175,112 @@ router.post('/modify_prof',(req,res)=>{
             console.log("error on Updating student details "+err);
         }
         else{
-            console.log("result is "+JSON.stringify(result));
+            //console.log("result is "+JSON.stringify(result));
             return res.status(200).json(result);
         }
     })
 })
 
-router.get('/users',(req,res) =>{
-    var sql_statement = "select * from  details ";
-    //var values = [req.query.id,req.query.pass,req.query.role];
+router.get('/verify',(req,res)=>{
+    var sql_query="SELECT s_id,s_name,s_email,s_contact_no FROM student,details WHERE status='nv' and s_id=id";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving from student "+err);
+        }
+        else{
+            //console.log("result is "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
+})
+
+router.post('/verify_student',(req,res)=>{
+    console.log(req.body.s_id);
+    var sql_query="UPDATE details SET status='v' "+"WHERE id='"+req.body.s_id+"'";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on Updating student details "+err);
+        }
+        else{
+            //console.log("result is "+JSON.stringify(result));
+            return res.status(200).json(result);
+        }
+    })
+})
+
+router.get('/verify_prof',(req,res)=>{
+    var sql_query="SELECT p_id,p_name,p_email,p_contact_no FROM professor,details WHERE status='nv' and p_id=id";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving from professor "+err);
+        }
+        else{
+            //console.log("result is "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
+})
+
+router.post('/verify_professor',(req,res)=>{
+    console.log(req.body.p_id);
+    var sql_query="UPDATE details SET status='v' "+"WHERE id='"+req.body.p_id+"'";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on Updating professor details "+err);
+        }
+        else{
+            //console.log("result is "+JSON.stringify(result));
+            return res.status(200).json(result);
+        }
+    })
+})
+
+router.post('/feedback_course',async (req,res) =>{
+    let rating = req.body.rating;
+    let review= req.body.review;  
+    let s_id = req.body.s_id; 
+    let c_id=req.body.c_id   
+     
+    var sql_statement = "INSERT INTO feedback_course (c_id,s_id,c_rating,c_review) values ('"+c_id +"','"+s_id +"','"+ rating+ "','"+review + "')";
+    
     db.query(sql_statement,(err ,result) => {
         if (err) {
             console.log('error inserting values' + err);
+            res.sendStatus(404); 
+                   
+        }else{
+            console.log("data entered to details table");
+            res.sendStatus(200);
+        }
+    })
+})
+
+router.post('/feedback_professor',async (req,res) =>{
+    let rating = req.body.rating;
+    let review= req.body.review;  
+    let s_id = req.body.s_id; 
+    let p_id=req.body.p_id   
+     
+    var sql_statement = "INSERT INTO feedback_prof(s_id,p_id,p_rating,p_review) values ('"+s_id +"','"+p_id +"','"+ rating+ "','"+review + "')";
+    
+    db.query(sql_statement,(err ,result) => {
+        if (err) {
+            console.log('error inserting values' + err);
+            res.sendStatus(404); 
+                   
+        }else{
+            console.log("data entered to details table");
+            res.sendStatus(200);
+        }
+    })
+})
+
+router.get('/professor',(req,res) =>{
+    var sql_statement = "select * from  professor ";
+    //var values = [req.query.id,req.query.pass,req.query.role];
+    db.query(sql_statement,(err ,result) => {
+        if (err) {
+            console.log('error retiriving values' + err);
         }else{
 
             console.log("rows" + JSON.stringify(result,null,2));
@@ -188,7 +298,7 @@ router.get('/courses',(req,res)=>{
             console.log("error on retrieving from courses "+err);
         }
         else{
-            console.log("result is "+JSON.stringify(result));
+            //console.log("result is "+JSON.stringify(result));
             res.send(result);
         }
     })
@@ -206,9 +316,15 @@ router.post('/add_course',(req,res)=>{
     })
 })
 
+
 router.post('/delete_course',(req,res)=>{
     var sql_statement="DELETE FROM course WHERE c_id='"+req.body.c_id+"'";
-
+    var sql_statement2="DELETE FROM registers WHERE c_id='"+req.body.c_id+"'";
+    db.query(sql_statement2,(err,result)=>{
+        if(err){
+            console.log('error deleting in registers'+err);
+        }
+    })
     db.query(sql_statement,(err,result)=>{
         if (err) {
             console.log('error deleting values' + err);
@@ -232,13 +348,13 @@ router.post('/register_student',(req,res)=>{
 
 router.post('/registered_courses',(req,res)=>{
     console.log(req.body.student.s_id);
-    var sql_query="SELECT course.c_id,course.c_name FROM registers,course WHERE registers.s_id='"+req.body.student.s_id+"' AND registers.c_id=course.c_id";
+    var sql_query="SELECT course.c_id,course.c_name,course.handout,course.credits,course.mids,course.compre FROM registers,course WHERE registers.s_id='"+req.body.student.s_id+"' AND registers.c_id=course.c_id";
     db.query(sql_query,(err,result)=>{
         if(err){
             console.log("error on retrieving from registers "+err);
         }
         else{
-            console.log("result is "+JSON.stringify(result));
+            //console.log("result is "+JSON.stringify(result));
             res.send(result);
         }
     })
@@ -252,7 +368,7 @@ router.post('/update_course',(req,res)=>{
             console.log("error on Updating course "+err);
         }
         else{
-            console.log("result is "+JSON.stringify(result));
+            //console.log("result is "+JSON.stringify(result));
             return res.status(200).json(result);
         }
     })
@@ -272,5 +388,74 @@ router.post('/delete_registered_course',(req,res)=>{
     })
 })
 
+router.post('/get_feedback_course',(req,res)=>{
+    console.log("c_id is "+req.body.course.c_id);
+    var sql_query="SELECT s_id,c_id,c_rating,c_review FROM feedback_course WHERE c_id='"+req.body.course.c_id+"'";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving from registers "+err);
+        }
+        else{
+            console.log("result is "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
+})
+
+router.post('/get_course_details',(req,res)=>{
+    console.log("c_id is "+req.body.course.c_id);
+    var sql_query="SELECT c_id,c_name,handout,credits,mids,compre FROM course WHERE c_id='"+req.body.course.c_id+"'";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving from registers "+err);
+        }
+        else{
+            console.log("result is "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
+})
+
+router.get('/prof',(req,res)=>{
+    // console.log("p_id is "+req.body.prof.p_id);
+    var sql_query="SELECT * FROM professor";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving from registers "+err);
+        }
+        else{
+            console.log("result is "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
+})
+
+router.post('/get_prof_details',(req,res)=>{
+    console.log("p_id is "+req.body.prof.p_id);
+    var sql_query="SELECT p_id,p_name,p_email,p_contact_no FROM professor WHERE p_id='"+req.body.prof.p_id+"'";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving from registers "+err);
+        }
+        else{
+            console.log("result is "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
+})
+
+router.post('/get_feedback_prof',(req,res)=>{
+    console.log("p_id is "+req.body.prof.p_id);
+    var sql_query="SELECT s_id,p_id,p_rating,p_review FROM feedback_prof WHERE p_id='"+req.body.prof.p_id+"'";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving from registers "+err);
+        }
+        else{
+            console.log("result is "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
+})
 
 module.exports = router;

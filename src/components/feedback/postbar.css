@@ -1,0 +1,12 @@
+.postbar{
+    margin-left: 300px;
+    padding: 10px;
+    box-shadow: 10px;
+    background:grey;
+    width: 500px;
+    
+}
+.feedbackbtn{    
+    align-content: flex-end;
+}
+

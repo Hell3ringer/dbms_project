@@ -103,3 +103,9 @@ li :hover{
     padding: 1.5%;
     /* background-color: burlywood; */
 }
+#sidebar a{
+    text-decoration: none;
+}
+#nav_id a{
+    text-decoration: none;
+}

@@ -29,7 +29,7 @@ class dashboard extends Component {
     
     getCourses(){
         const student={s_id:this.state.s_id};
-        console.log(student.s_id);
+        //console.log(student.s_id);
         axios.post('http://localhost:4000/app/registered_courses',{student})
         .then(res=>{
             this.setState({courses:res.data})
@@ -40,6 +40,7 @@ class dashboard extends Component {
         this.getCourses();
     }
     renderTableData(){
+
         console.log(this.state.courses);
         return this.state.courses.map((course,index)=>{
             const {c_id,c_name}=course
@@ -47,6 +48,7 @@ class dashboard extends Component {
                 <tr id={c_id}>
                     <td>{c_id}</td>
                     <td>{c_name}</td>
+                    <td><button>Give feedback</button></td>
                 </tr>
             )
         })
@@ -75,9 +77,9 @@ class dashboard extends Component {
                                 <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
                             </li> */}
                         <li><a href="/profile">My Profile</a></li>                            
-                        <li><a href="/register">Register into Courses</a></li>
-                        <li><a href="/give_feedback">Give Feedback</a></li>
-                        <li><a href="/view_all_feedbacks">View All Feedbacks</a></li>
+                        <li><a href="/register">Register/Unenroll from Courses</a></li>
+                        <li><a href="/give_feedback">Give Feedback</a></li> 
+                        <li><a href="/view_all_feedbacks">All Courses</a></li>
                         <li><a href="/cms_student">CMS</a></li>
                         </ul>  
                     </nav>
@@ -96,6 +98,8 @@ class dashboard extends Component {
                            
                         </div> */}
                 <div id="side_main_box"> 
+                <div> 
+            
                     <h2 id="hello_sid">Hi</h2><br></br>
                     <h5>Your registered courses:</h5>
                     <table id="courses_table" className="table table-bordered table-hover">
@@ -103,6 +107,7 @@ class dashboard extends Component {
                             <tr>
                                 <th>Course ID</th>
                                 <th>Course name</th>
+                                <th>Give feedback</th>
                             </tr>
                             </thead>
                             
@@ -112,6 +117,7 @@ class dashboard extends Component {
                         </table>
                 </div>
 
+            </div>
             </div>
         )
     }
