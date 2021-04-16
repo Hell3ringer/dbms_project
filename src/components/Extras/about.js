@@ -13,7 +13,7 @@ class about extends Component{
                 <span className="navbar-text cfs-class" style={{marginLeft:"40%"}}>Course Feedback System CFS</span>
                 <a href="/contact">Contact</a>
                 <a href="/about">About</a>
-                {/* <a className="active" href="/" onClick={this.Logout}>Logout</a> */}
+                <a className="active" href="/" onClick={this.Logout}>Logout</a>
                 </div>
                 <div style={{marginLeft:"15%",marginRight:"15%",marginTop:"15%"}}>
                     This site is for collecting feedbacks for the courses and professors individually and show them to the students to help them choose courses and professors.

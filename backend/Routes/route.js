@@ -1,5 +1,4 @@
 const { Router } = require('express');
-const Swal = require('sweetalert2')
 
 const express = require('express')
 const router = express.Router()
@@ -420,7 +419,7 @@ router.post('/get_feedback_prof',(req,res)=>{
 
 router.post('/courseprof',(req,res)=>{
     console.log("from backend - "+req.body.c_id);
-    var sql_query="SELECT p.p_name FROM professor p, teaches t WHERE p.p_id=t.p_id AND t.c_id = '"+req.body.c_id+"'";
+    var sql_query="SELECT p.p_name,p.p_id FROM professor p, teaches t WHERE p.p_id=t.p_id AND t.c_id = '"+req.body.c_id+"'";
     
     db.query(sql_query,(err,result)=>{
         if(err){
@@ -434,4 +433,35 @@ router.post('/courseprof',(req,res)=>{
 
 })
 
+router.post('/remove_prof',(req,res)=>{
+    console.log("pname is - "+req.body.pname+ " cid is "+req.body.c_id);
+    var sql_query="DELETE FROM teaches WHERE p_id IN( SELECT p.p_id FROM professor p WHERE p.p_name = '"+req.body.pname+"' ) AND c_id = '"+req.body.c_id+"'"
+    // "delete from teaches where p_id= '"+req.body.pid+"' and c_id= '"+req.body.c_id+"'"
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error removing "+req.body.pid+" from course due to "+ err);
+        }
+        else{
+            res.send(result);
+        }
+    })
+
+})
+
+router.post('/add_prof',(req,res)=>{
+    console.log("pid is - "+req.body.pid+ " cid is "+req.body.cid);
+    var sql_query="insert into teaches (p_id,c_id) values ('"+req.body.pid+"','"+req.body.cid+"')"
+    // "delete from teaches where p_id= '"+req.body.pid+"' and c_id= '"+req.body.c_id+"'"
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error adding "+req.body.pid+" into course due to "+ err);
+            res.send('-1')
+        }
+        else{
+            console.log(result);
+            res.send(result);
+        }
+    })
+
+})
 module.exports = router;

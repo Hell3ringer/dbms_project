@@ -10,7 +10,7 @@ class topnav extends Component{
                 <a href="/dashboard">Dashboard</a>
                 <span className="navbar-text cfs-class">Course Feedback System CFS</span>
                 <a href="/contact">Contact</a>
-                <a href="/about">About</a>
+                <a href="/about" >About</a>
                 <a className="active" href="/" onClick={this.Logout}>Logout</a>
             </div>  
         )

@@ -1,179 +1,234 @@
 import React, { Component } from 'react'
-import Topnav from '../dashboard/topnav'
-import Sidebar from '../dashboard/sidebar'
 import Swal from 'sweetalert2'
-import {FaSearch} from 'react-icons/fa'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
 import axios from 'axios';
-
+// import { traverseTwoPhase } from 'react-dom/test-utils'
+import {Card, Button, Modal, ModalBody, ModalFooter} from 'react-bootstrap'
+import {ListGroup, ListGroupItem} from 'react-bootstrap'
+import ModalHeader from 'react-bootstrap/esm/ModalHeader'
+import { FormGroup, FormLabel } from 'react-bootstrap'
+import Topnav_admin from '../dashboard/topnav_admin'
+import Sidebar_admin from '../dashboard/sidebar_admin';
+ 
+ 
 class assign_prof extends Component{
-
+ 
     constructor(props){
         super(props)
         this.state={
             courseprof:[],
             search_course:'',
-            courses:[]
+            courses:[],
+            all_course_prof:[],
+            all:[],
+            html_rows:[],
+            showAddProfs:{}
         }
     }
-
+ 
     componentDidMount(){
         this.getCourses();
-        // this.getAllProfs() 
-        document.getElementById("half_table").setAttribute('class','display_class')
     }
-
+ 
+    AddProf(pid,cid){
+        console.log("in addProf "+pid+" "+cid);
+        axios.post('http://localhost:4000/app/add_prof',{pid,cid})
+                .then(Response=>{
+                    if(Response.data===-1){
+                        console.log("error inserting");
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Recheck the number'
+                          })
+                    }
+                    else{
+                        console.log("professor added");
+                        window.location.replace('/assign_prof')
+                    }
+                })
+    }
+ 
     getCourses(){
         axios.get('http://localhost:4000/app/courses')
         .then(res=>{
             this.setState({courses:res.data})
-        })
-        console.log("got courses");
+            var l=[]
+            var z=res.data
+            console.log(z);
+            for(let x in z){
+                let sap=this.state.showAddProfs;
+                sap[z[x]['c_id']]=false;
+                this.setState({showAddProfs:sap})
+                console.log(z[x]+" "+z[x]['c_id']);
+                var c_id=z[x]['c_id']
+                axios.post('http://localhost:4000/app/courseprof',{c_id})
+                .then(Response=>{
+                    console.log(Response.data);
+                    var r=[];
+                    r=Response.data;
+                    var emp=[];
+                    console.log("Rwsponse is "+JSON.stringify(Response.data)+"for cid "+z[x]['c_id']);
+                    
+                        let y=Response.data
+                        let test=-1;
+                        for(test in y){
+                            l.push({"c_id":z[x]['c_id'],"c_name":z[x]['c_name'],"prof":y[test]['p_name']})
+                            console.log("l is "+l);
+                            this.setState({all:l})
+                            var all=this.state.all;
+                            console.log("all is "+all);
+                        }
+                        console.log("test is "+test+" for cid "+z[x]['c_id']);
+                    if(test==-1){
+                        l.push({"c_id":z[x]['c_id'],"c_name":z[x]['c_name'],"prof":"-"})
+                        console.log("l is "+l);
+                            this.setState({all:l})
+                            var all=this.state.all;
+                    }
+                })
+                console.log("l is "+l);
+            }
+        }) 
+ 
     }
-
-    getCourseProf(c_id){
-            axios.post('http://localhost:4000/app/courseprof',{c_id})
-            .then(res=>{
-                let x=res.data;
-                var para=document.createElement("td")
-                let id=c_id+"_td"
-                console.log("initially para is "+JSON.stringify(para));
-                console.log("x is "+x);
-                for(let y in x){
-                    var p=document.createElement("p");
-                    var text=document.createTextNode((x[y])['p_name']);
-                    console.log("p_name is "+(x[y])['p_name']);
-                    p.appendChild(text)
-                    console.log("p is "+JSON.stringify(p));
-                    para.appendChild(p)
-                }
-                console.log("finally para is "+JSON.stringify(para)+" c_id is "+ c_id);
-
-                var td=document.getElementById(c_id);
-                console.log("td is "+ td);
-                td.appendChild(para)
-        })
-    
-    }
-
-    
+  
     update_prof(c_id){
         return(<td><button onClick={()=>{
                       
         }}>Update</button></td>)
       
     }
-
-    renderTableData(){
-        console.log(this.state.courseprof);
-        return this.state.courses.map((data,index)=>{
-            const {c_id,c_name}=data
+    
+    createCards(){
+        console.log("all at cards is "+JSON.stringify(this.state.all));
+        var all=this.state.all;
+        var done={};
+        for(let a in all){
+            
+            done[all[a]['c_id']]=0;
+        }
+        return all.map((row,index)=>{
+            const {c_id,c_name,p_name}=row;
+            if(done[c_id]==0){
+            var l=[];
+            for(let t in all){
+                if(all[t]['c_id']==c_id){
+                    console.log("prof for cid "+c_id+" is "+all[t]['prof']);
+                    if(all[t]['prof']=="-"){
+                        // l.push(<ListGroupItem>No professors alloted<button style={{float:"right"}}>Add</button></ListGroupItem>)
+                    }
+                    else{
+                        l.push(<ListGroupItem>{all[t]['prof']}<button style={{float:"right"}} onClick={()=>{
+                            console.log("prof is "+all[t]["prof"]+ " and course is "+c_id);
+                            
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: "you want to remove "+all[t]["prof"]+"?",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes, proceed'
+                              }).then((result) =>{
+                                  if (result.isConfirmed) {
+                                    var pname= all[t]["prof"]
+                                    axios.post('http://localhost:4000/app/remove_prof',{pname,c_id})
+                                    .then(Response=>{
+                                        Swal.fire(
+                                            'Removed!',
+                                            'Professor has been removed',
+                                            'success'
+                                          )
+                                        window.location.replace('/assign_prof')
+                                        console.log(Response.data);
+                                    })  
+                                        
+                                  }
+                              }
+                              )
+                            
+                        }}>Remove</button></ListGroupItem>)
+                        }
+                    done[c_id]=1;
+                }
+            }
             return(
-                <tr id={c_id}>
-                    <td>{c_id}</td>
-                    <td>{c_name}</td>
-                    {/* <td>{professors}</td> */}
-                    {this.getCourseProf(c_id)}
-                    {this.update_prof(c_id)}
-                </tr>
+                <Card style={{marginTop:"2%",border:"1px solid",boxShadow:"0px 14px 20px rgba(34, 35, 58, 0.2)",marginLeft:"10%",marginRight:"10%"}}>
+                    <Card.Body>
+                        <Card.Title>
+                            {c_name}-{c_id}
+                        </Card.Title>
+                        <Card.Subtitle>Course Name - c_id</Card.Subtitle>
+                        <br></br>
+                        <ListGroup style={{width:"60%",marginLeft:"20%"}}>
+                            <ListGroupItem active>Professors:</ListGroupItem>
+                            {l}
+                        </ListGroup>
+                        <Card.Text style={{marginLeft:"80%"}}>Alloted:{l.length} Remaining:{3-l.length}</Card.Text>
+                        {this.cardButton(l,c_id)}
+                    </Card.Body>
+                </Card>
             )
+            }
+            else{
+ 
+            }
         })
     }
-
-    renderTableData2(){
-        // var search=this.state.seach_course;
-        // console.log("search is "+search);
-        // return this.state.courses.map((data,index)=>{
-        //     const {c_id,c_name}=data
-        //     var l_id = c_id.toLowerCase()
-        //     var l_name = c_name.toLowerCase()
-        //     if(l_id.startsWith(search.toLowerCase())||l_name.startsWith(search.toLowerCase())){   
-        //     return(
-        //         <tr id="id2">
-        //             <td>{c_id}</td>
-        //             <td>{c_name}</td>
-        //             {this.getCourseProf(c_id)}
-        //             {this.update_prof(c_id)}
-        //         </tr>
-        //     )
-        //     }
-        // })
+    
+    cardButton(l,c_id){
+        if(l.length<3){
+            console.log("cid from cardbutton"+c_id);
+            var current_state=this.state.showAddProfs;
+            return(
+            <div>
+            <button style={{float:"right"}} onClick={()=>{
+                current_state[c_id]=true;
+                this.setState({showAddProfs:current_state})
+                }}>Add</button>
+            <Modal show={this.state.showAddProfs[c_id]} onHide={()=>{this.setState({showAddProfs:{c_id:false}})}}>
+                <ModalHeader closeButton>Add Professor</ModalHeader>
+                <ModalBody>
+                    <FormGroup >
+                        <div className="text-center">
+                        <FormLabel>Professor ID</FormLabel>
+                        <input type="text" placeholder="20xxPxxxxH..." id={c_id}></input>
+                        </div>
+                    </FormGroup>
+                </ModalBody>
+                <ModalFooter>
+                    <Button onClick={()=>{
+                        console.log("input is "+document.getElementById(c_id).value);
+                        this.AddProf(document.getElementById(c_id).value,c_id)
+                        console.log(c_id+" is the cid after click");
+                        }}>Add</Button>
+                    <Button onClick={()=>{this.setState({showAddProfs:{c_id:false}})}}>Close</Button>
+                </ModalFooter>
+            </Modal>
+            </div>
+            )
+        }
+        if(l.length==3){
+            return(<h5 style={{float:"right"}}>Remove existing professors to add new</h5>)
+        }
     }
-
+    
     render(){
         return(
             <div className="entire_div_profile">
-                <Topnav/>
-                <Sidebar/>
+                <Topnav_admin></Topnav_admin>
+                <Sidebar_admin></Sidebar_admin>
                 <div className="side_main_box">
                     <div>
                         <br></br>
                         <h3>Assign Professors to Courses</h3><br></br><br></br>
-                       
-                        <FaSearch></FaSearch><input 
-                        style={{margin : 10}}
-                        type="text"
-              placeholder="Type to search..."
-              id="search_bar"
-              onChange={e => {
-                  this.setState({seach_course:document.getElementById("search_bar").value})
-                  console.log(document.getElementById("search_bar").value);
-                    if(document.getElementById("search_bar").value===''){
-                        
-                        console.log("search is empty");
-                        document.getElementById("full_table").setAttribute('class','show_display')
-                        document.getElementById("half_table").setAttribute('class','display_class')
- 
-                    }
-                    else{
-                        document.getElementById("full_table").setAttribute('class','display_class')
-                        document.getElementById("half_table").setAttribute('class','show_display')
-                    }
-              }}
- 
-            ></input>
-                        <div id="full_table">
-                        <table id="courses_table" className="table table-bordered table-hover">
-                            <thead className="thead-dark">
-                            <tr>
-                                <th>Cid</th>
-                                <th>Cname</th>
-                                <th>Professor(s)</th>
-                                <th>Update</th>
-                            </tr>
-                            </thead>
-                            
-                            <tbody>
-                                
-                                {this.renderTableData()}
-                            </tbody>
-                        </table>
-                        </div>
-                        <div id="test"> </div>
-                        <div id="half_table">
-                        <table id="courses_table_2" className="table table-bordered table-hover">
-                            <thead className="thead-dark">
-                            <tr>
-                                <th>Cid</th>
-                                <th>Cname</th>
-                                 <th>Professor(s)</th>
-                                <th>Update</th>
-                            </tr>
-                            </thead>
-                            
-                            <tbody>
-                                
-                                {/* {x=document.getElementById("search_bar").value} */}
-                                {this.renderTableData2()}
-                            </tbody>
-                        </table>
-                        </div>
                     </div>
+                    {this.createCards()}
                 </div>  
  
             </div>
         )
     }
 }
+ 
 export default assign_prof;
