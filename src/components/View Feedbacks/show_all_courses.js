@@ -156,7 +156,7 @@ class show_all_courses extends Component{
     show_cards(){
         var j=this.state.feedbacks;
         console.log("j is "+j);
-        if(j==""){
+        if(j===""){
             return(<div style={{marginLeft:"40%"}}>No Feedbacks yet :(</div>)
         }
         return j.map((course_json,index)=>{
@@ -190,7 +190,7 @@ class show_all_courses extends Component{
     renderTableData(){
         console.log(this.state.courses);
         return this.state.courses.map((course,index)=>{
-            const {c_id,c_name,credits}=course
+            const {c_id,c_name}=course
             return(
                 <tr id={c_id}>
                     <td>{c_id}</td>
@@ -209,7 +209,7 @@ class show_all_courses extends Component{
         var search=this.state.seach_course;
         console.log("search is "+search);
         return this.state.courses.map((course,index)=>{
-            const {c_id,c_name,credits}=course
+            const {c_id,c_name}=course
             var l_id = c_id.toLowerCase()
             var l_name = c_name.toLowerCase()
             if(l_id.startsWith(search.toLowerCase())||l_name.startsWith(search.toLowerCase())){   
@@ -238,9 +238,9 @@ function go_front(c_id){
     document.getElementById("show_respective").setAttribute('class','show_display')
     // get_feedbacks(c_id)
 }
-function go_back(){
-    document.getElementById("show_respective").setAttribute('class','display_class');
-    document.getElementById("full_side").setAttribute('class','show_display')
+// function go_back(){
+//     document.getElementById("show_respective").setAttribute('class','display_class');
+//     document.getElementById("full_side").setAttribute('class','show_display')
     
-}
+// }
 export default show_all_courses;

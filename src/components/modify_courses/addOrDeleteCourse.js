@@ -35,27 +35,28 @@ class addOrDeleteCourse extends Component{
         console.log('selected '+e.value+' name is '+e.label);
         document.getElementById("alert").innerHTML="Selected "+e.value+" - "+e.label+" and on pressing delete, will be deleted!"
     }
-    // async insert(){
-    //     const course={
-    //         c_id:document.getElementById("c_id").value,
-    //         c_name:document.getElementById("c_name").value,
-    //         handout:document.getElementById("hand").value,
-    //         credits:document.getElementById("cred").value,
-    //         mids:document.getElementById("mid").value,
-    //         compre:document.getElementById("compre").value
+
+    // const { value: file } = await Swal.fire({
+    //     title: 'Select image',
+    //     input: 'file',
+    //     inputAttributes: {
+    //       'accept': 'image/*',
+    //       'aria-label': 'Upload your profile picture'
     //     }
-    //     if(course.c_id===''||course.c_name===''){
-    //         document.getElementById("out").innerHTML=(<p>c_id and c_name cannot be empty</p>)
+    //   })
+      
+    //   if (file) {
+    //     const reader = new FileReader()
+    //     reader.onload = (e) => {
+    //       Swal.fire({
+    //         title: 'Your uploaded picture',
+    //         imageUrl: e.target.result,
+    //         imageAlt: 'The uploaded picture'
+    //       })
     //     }
-    //     else{
-    //         axios.post('http://localhost:4000/app/add_course',{course})
-    //         .then(Response=>{
-    //             if(Response.status===200){
-    //                 document.getElementById("out").innerHTML=(<p>Added Successfully!</p>)
-    //             }
-    //         })
-    //     }
-    // }
+    //     reader.readAsDataURL(file)
+    //   }
+   
     render(){
         console.log(this.state.selectOptions);
         return(
@@ -70,7 +71,7 @@ class addOrDeleteCourse extends Component{
                         <form>
                             <pre className="tab"><label>c_id:           <input type="text" id="c_id"></input></label></pre>
                             <pre className="tab"><label>c_name:     <input type="text" id="c_name"></input></label></pre>
-                            <pre className="tab"><label>handout:    <input type="text" id="hand"></input></label></pre>
+                            <pre className="tab"><label>handout:    <input type="file" id="hand"></input></label></pre>
                             <pre className="tab"><label>credits:       <input type="number" id="cred"></input></label></pre>
                             <pre className="tab"><label>mids:           <input type="date" id="mid"></input></label></pre>
                             <pre className="tab"><label>compre:      <input type="date" id="compre"></input></label></pre>
@@ -125,20 +126,7 @@ class addOrDeleteCourse extends Component{
             </div>
         )
     }    
-    // deleteCourse(){
-    //     const c_id=this.state.id;
-    //     if(c_id===''){
-    //         document.getElementById("out").innerHTML=(<p>Did not select</p>)
-    //     }
-    //     else{
-    //     axios.post('http://localhost:4000/app/delete_course',{c_id})
-    //     .then(Response=>{
-    //         if(Response.status===200){
-    //             document.getElementById("out").innerHTML=(<p>Added Successfully!</p>)
-    //         }
-    //     })
-    //     }
-    // }
+
 }
 function addCourse(){
     const course={
