@@ -6,18 +6,18 @@ import Sidebar from '../dashboard/sidebar'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
 
-// var id = localStorage.getItem("loginID")
+var id = localStorage.getItem("loginID")
 class cms_student extends Component{
     constructor(props){
         super(props)
         this.state={
-            s_id:'2019A7PS0155H',
+            s_id:id,
             courses:[]
         }
     }
     
     componentDidMount(){
-        document.getElementById("hello_sid").innerHTML='Hello '+this.state.s_id;
+        // document.getElementById("hello_sid").innerHTML='Hello '+this.state.s_id;
         this.getCourses();
     }
     componentDidUpdate(){
@@ -50,10 +50,10 @@ class cms_student extends Component{
                 <Topnav/>
                 <Sidebar/>
                 <div className="side_main_box">
-                    <h3 id="hello_sid"></h3>
+                    {/* <h3 id="hello_sid"></h3> */}
                     <div>
                         <br></br>
-                        <h3>CMS of registered courses</h3><br></br><br></br>
+                        <h3>Details of registered courses</h3><br></br><br></br>
                         <div id="alert_reg"></div>
                         <table id="courses_table" className="table table-bordered table-hover">
                             <thead className="thead-dark">
@@ -79,8 +79,11 @@ class cms_student extends Component{
     getCourses(){
         const student={s_id:this.state.s_id};
         console.log(student.s_id);
+        console.log("before post");
         axios.post('http://localhost:4000/app/registered_courses',{student})
         .then(res=>{
+        console.log("after post"+res.data);
+
             this.setState({courses:res.data})
         })
     }

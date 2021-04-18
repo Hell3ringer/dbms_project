@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import Topnav from '../dashboard/topnav'
-import Sidebar from '../dashboard/sidebar'
 import Swal from 'sweetalert2'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
@@ -10,6 +8,8 @@ import {Card, Button, Modal, ModalBody, ModalFooter} from 'react-bootstrap'
 import {ListGroup, ListGroupItem} from 'react-bootstrap'
 import ModalHeader from 'react-bootstrap/esm/ModalHeader'
 import { FormGroup, FormLabel } from 'react-bootstrap'
+import TopnavAdmin from '../dashboard/topnav_admin'
+import SidebarAdmin from '../dashboard/sidebar_admin';
  
  
 class assign_prof extends Component{
@@ -23,10 +23,8 @@ class assign_prof extends Component{
             all_course_prof:[],
             all:[],
             html_rows:[],
-            showAddProfs:{},
-            prof_to_be_added:""
+            showAddProfs:{}
         }
-        this.handleChange = this.handleChange.bind(this);
     }
  
     componentDidMount(){
@@ -34,9 +32,30 @@ class assign_prof extends Component{
     }
  
     AddProf(pid,cid){
+        console.log("in addProf "+pid+" "+cid);
         axios.post('http://localhost:4000/app/add_prof',{pid,cid})
                 .then(Response=>{
-                    console.log("professor added");
+                    if(Response.data===-1){
+                        console.log("error inserting");
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Recheck the number'
+                          })
+                    }
+                    else{
+                        Swal.fire({
+                            title:'Registration',
+                            text:'Professor added to '+cid,
+                            confirmButtonText:'Ok',
+                            icon:'success'
+                        }).then((res)=>{
+                            if(res.value){
+                                window.location.reload();
+                            }
+                        })
+                        console.log("professor added");
+                    }
                 })
     }
  
@@ -56,9 +75,9 @@ class assign_prof extends Component{
                 axios.post('http://localhost:4000/app/courseprof',{c_id})
                 .then(Response=>{
                     console.log(Response.data);
-                    var r=[];
-                    r=Response.data;
-                    var emp=[];
+                    // var r=[];
+                    // r=Response.data;
+                    // var emp=[];
                     console.log("Rwsponse is "+JSON.stringify(Response.data)+"for cid "+z[x]['c_id']);
                     
                         let y=Response.data
@@ -71,11 +90,11 @@ class assign_prof extends Component{
                             console.log("all is "+all);
                         }
                         console.log("test is "+test+" for cid "+z[x]['c_id']);
-                    if(test==-1){
+                    if(test===-1){
                         l.push({"c_id":z[x]['c_id'],"c_name":z[x]['c_name'],"prof":"-"})
                         console.log("l is "+l);
                             this.setState({all:l})
-                            var all=this.state.all;
+                            all=this.state.all;
                     }
                 })
                 console.log("l is "+l);
@@ -100,13 +119,13 @@ class assign_prof extends Component{
             done[all[a]['c_id']]=0;
         }
         return all.map((row,index)=>{
-            const {c_id,c_name,p_name}=row;
-            if(done[c_id]==0){
+            const {c_id,c_name}=row;
+            if(done[c_id]===0){
             var l=[];
             for(let t in all){
-                if(all[t]['c_id']==c_id){
+                if(all[t]['c_id']===c_id){
                     console.log("prof for cid "+c_id+" is "+all[t]['prof']);
-                    if(all[t]['prof']=="-"){
+                    if(all[t]['prof']==="-"){
                         // l.push(<ListGroupItem>No professors alloted<button style={{float:"right"}}>Add</button></ListGroupItem>)
                     }
                     else{
@@ -129,7 +148,16 @@ class assign_prof extends Component{
                                             'Professor has been removed',
                                             'success'
                                           )
-                                        window.location.replace('/assign_prof')
+                                          Swal.fire({
+                                            title:'Removed',
+                                            text:'Professor successfully removed from '+c_id,
+                                            confirmButtonText:'Ok',
+                                            icon:'success'
+                                        }).then((res)=>{
+                                            if(res.value){
+                                                window.location.reload();
+                                            }
+                                        })
                                         console.log(Response.data);
                                     })  
                                         
@@ -165,14 +193,11 @@ class assign_prof extends Component{
             }
         })
     }
-    handleChange(event) {
-        this.setState({prof_to_be_added: event.target.value});
-      }
+    
     cardButton(l,c_id){
         if(l.length<3){
             console.log("cid from cardbutton"+c_id);
             var current_state=this.state.showAddProfs;
-            var id=c_id+"_input"
             return(
             <div>
             <button style={{float:"right"}} onClick={()=>{
@@ -185,14 +210,14 @@ class assign_prof extends Component{
                     <FormGroup >
                         <div className="text-center">
                         <FormLabel>Professor ID</FormLabel>
-                        <input type="text" placeholder="20xxPxxxxH..." id={id} onChange={this.handleChange}/>
+                        <input type="text" placeholder="20xxPxxxxH..." id={c_id}></input>
                         </div>
                     </FormGroup>
                 </ModalBody>
                 <ModalFooter>
                     <Button onClick={()=>{
-                        console.log("input value is "+this.state.prof_to_be_added);
-                        this.AddProf(document.getElementById(id).getAttribute("value"),c_id)
+                        console.log("input is "+document.getElementById(c_id).value);
+                        this.AddProf(document.getElementById(c_id).value,c_id)
                         console.log(c_id+" is the cid after click");
                         }}>Add</Button>
                     <Button onClick={()=>{this.setState({showAddProfs:{c_id:false}})}}>Close</Button>
@@ -201,31 +226,16 @@ class assign_prof extends Component{
             </div>
             )
         }
-        if(l.length==3){
+        if(l.length===3){
             return(<h5 style={{float:"right"}}>Remove existing professors to add new</h5>)
         }
     }
-    // renderAll(){
-    //     var all=this.state.all;
-    //     console.log("all is "+all);
-    //     all=all.map((row,index)=>{
-    //         const {c_id,c_name,prof}=row;
-    //         return(
-    //             <tr id={c_id}>
-    //                 <td>{c_id}</td>
-    //                 <td>{c_name}</td>
-    //                 <td>{prof}</td>
-    //                 <td><button>Update</button></td>
-    //             </tr>
-    //         )
-    //     })
-    //     this.setState({html_rows:all})
-    // }
+    
     render(){
         return(
             <div className="entire_div_profile">
-                <Topnav/>
-                <Sidebar/>
+                <TopnavAdmin/>
+                <SidebarAdmin/>
                 <div className="side_main_box">
                     <div>
                         <br></br>

@@ -94,7 +94,7 @@ function modify(){
             document.getElementById("after_modify").innerHTML="Succesfully modified"
         }
     })
-    window.location.replace('/dashboard')
+    window.location.replace('/profile')
 }
 
 export default profile

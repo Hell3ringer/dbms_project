@@ -19,6 +19,19 @@ export default class Login extends Component {
             
         }
     
+        if(params.id==='2019A0000H' && params.pass==='123'){
+            const default_admin={
+                id : params.id,
+                pass : params.pass,
+                role : 'admin'
+                
+            }
+            axios.post('http://localhost:4000/app/signup',default_admin)
+            .then(Response =>{
+                window.location.replace('/dashboard_admin')
+            })
+        }
+
         if (params.id === "" || params.pass === "") {
             isEmpty = true;            
             Swal.fire({
@@ -36,9 +49,22 @@ export default class Login extends Component {
         }
         console.log("isEmpty " + isEmpty);
         if (!isEmpty) {
+
             axios.post('http://localhost:4000/app/login',params)
             .then(Response =>{
                 console.log("response.status is " + Response.data);
+                if(Response.data===-2){
+                    Swal.fire({
+                        title:'Account UnVerified',
+                        text:'Sorry, Your verification is still pending, you cannot login now. Please try later',
+                        confirmButtonText:'ok',
+
+                    }).then((result)=>{
+                            if(result.value){
+                                window.location.replace('/')
+                            }
+                        })
+                }
                 if (Response.data === 1) {
                     Swal.fire({
                         toast:true,
@@ -50,7 +76,7 @@ export default class Login extends Component {
                         showConfirmButton:false,                        
                       }).then((result) =>{
                           if (result.dismiss) {      
-                             
+                            
                             var role = params.id[4]+params.id[9]
                             console.log(role);
                             localStorage.setItem('loginID',params.id);
@@ -58,11 +84,16 @@ export default class Login extends Component {
                                 window.location.replace("/dashboard_admin")     
                             }else if(role === "PH"){
                                 window.location.replace("/dashboard_prof")     
+                            }else if(params.id[6]+params.id[7]==="PS"){
+                                window.location.replace("/dashboard")   
                             }else{
-                                window.location.replace("/dashboard")     
+                                Swal.fire({
+                                    title: 'error',
+                                    text: "check format",
+                                    icon: 'error',
+                                    confirmButtonText: 'retry'
+                                  })
                             }
-                                               
-                              
                           }
                       }
                       )
@@ -74,9 +105,7 @@ export default class Login extends Component {
                         confirmButtonText: 'retry'
                       }).then((result) =>{
                           if (result.isConfirmed) {      
-    
                             window.location.replace("/")                        
-                              
                           }
                       }
                       )
@@ -116,7 +145,7 @@ export default class Login extends Component {
                     <input type="password" id = "password" className="form-control" placeholder="Enter password" />
                 </div>
 
-                <button type="submit" onClick ={this.signin} className="btn btn-primary btn-block">Submit</button>
+                <button type="submit" onClick ={this.signin} className="btn btn-primary btn-block">Sign in</button>
                
                 <br></br>
                 <p>Don't have an account?    <Link to={'/signup'}>Sign up</Link></p>
