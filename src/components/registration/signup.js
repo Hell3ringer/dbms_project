@@ -4,11 +4,14 @@ import axios from 'axios'
 const Swal = require('sweetalert2')
 
 var isEmpty = false;
+var match_pass = false;
+var format = true
 function check_pass() {
     if (document.getElementById('password').value ===
         document.getElementById('confirm_password').value) {
         document.getElementById('message').style.color = 'green';
         document.getElementById('message').innerHTML = 'matching';
+        match_pass=true
        
         
     } else {
@@ -28,7 +31,7 @@ class SignUp extends Component {
             role : document.getElementById('role').value
         }
     
-        if (params.id === ''||params.pass === ''||params.role === '') {
+        if (params.id === ''||params.pass === ''||params.role === ''||document.getElementById("confirm_password").value==='') {
             isEmpty = true;
             Swal.fire({
                 title: 'error',
@@ -43,11 +46,56 @@ class SignUp extends Component {
               }
               )
         }
-        if(!isEmpty){
+
+        if(params.role==='student'&& (params.id[6]+params.id[7]!=='PS')){
+            format=false
+            Swal.fire({
+                title: 'error',
+                text: 'Student ID format: 20xxxxPSxxxxH',
+                icon: 'error',
+                confirmButtonText: 'retry'
+              }).then((result) =>{
+                if (result.isConfirmed) {    
+                  window.location.replace("/signup")  
+                }
+            }
+            )
+        }
+
+        if(params.role==='professor'&& (params.id[4]+params.id[9]!=='PH')){
+            format=false
+            Swal.fire({
+                title: 'error',
+                text: 'Professor ID format: 20xxPxxxxH',
+                icon: 'error',
+                confirmButtonText: 'retry'
+              }).then((result) =>{
+                if (result.isConfirmed) {    
+                  window.location.replace("/signup")                        
+                }
+            }
+            )
+        }
+
+        if(params.role==='admin'&& (params.id[4]+params.id[9]!=='AH')){
+            format=false
+            Swal.fire({
+                title: 'error',
+                text: 'Admin ID format: 20xxAxxxxH',
+                icon: 'error',
+                confirmButtonText: 'retry'
+              }).then((result) =>{
+                if (result.isConfirmed) {    
+                  window.location.replace("/signup")                        
+                }
+            }
+            )
+        }
+
+        if(!isEmpty && match_pass && format){
             console.log(" params " + params);
             axios.post('http://localhost:4000/app/signup',params)  
             .then(Response =>{            
-                
                 if (Response.status === 200) {                    
                     sessionStorage.setItem('role',params.role);
                     sessionStorage.setItem('id',params.id);
@@ -58,14 +106,18 @@ class SignUp extends Component {
                         confirmButtonText: 'ok'
                       }).then((result) =>{
                           if (result.isConfirmed) {    
-    
                             window.location.replace("/details")                        
-                              
                           }
                       }
                       )
-                }else{
+                }else if(Response.status===404){
                     console.log("error in post");
+                    Swal.fire({
+                        title: 'error',
+                        text: "error",
+                        icon: 'error',
+                        confirmButtonText: 'ok'
+                      })
                     window.location.replace('/signup')
                 }
             })
@@ -96,12 +148,10 @@ class SignUp extends Component {
                 <span id="message"></span>
                 <div className="form-group">
                     <label for="role">Role</label>
-                    {/* <input type="password" className="form-control" placeholder="Enter password" /> */}
                     <select id="role" name="role" style={{marginLeft: '20px'}}>
                         <option value="student">Student</option>
                         <option value="professor">Professor</option>
                         <option value="admin">Admin</option>
-                        {/* <option value="admin">Admin</option> */}
                     </select>
                 </div>
                 <button type="submit" onClick={this.signup} className="btn btn-primary btn-block" >Sign Up</button>
