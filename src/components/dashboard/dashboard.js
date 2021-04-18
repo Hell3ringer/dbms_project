@@ -39,7 +39,6 @@ class dashboard extends Component {
                 <tr id={c_id}>
                     <td>{c_id}</td>
                     <td>{c_name}</td>
-                    <td><button>Give feedback</button></td>
                 </tr>
             )
         })
@@ -56,21 +55,6 @@ class dashboard extends Component {
 
                 <Topnav/>
                 <Sidebar/>   
-                
-                    
-                        {/* <div id="main">
-
-                        <button id="sidebarCollapse" className="openbtn btn btn-info" onClick={this.openNav}>&#9776;</button>
-                            <form>
-                                <p>
-                                    isjfiowjviwvmkwvomeiorvjmeroivje
-                                </p>
-                                <p>
-                                    ksefoiewmfnoiewjvmweopigvmew
-                                </p>
-                            </form>
-                           
-                        </div> */}
                 <div id="side_main_box"> 
                 <div> 
             
@@ -81,7 +65,6 @@ class dashboard extends Component {
                             <tr>
                                 <th>Course ID</th>
                                 <th>Course name</th>
-                                <th>Give feedback</th>
                             </tr>
                             </thead>
                             

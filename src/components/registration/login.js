@@ -19,6 +19,19 @@ export default class Login extends Component {
             
         }
     
+        if(params.id==='2019A0000H' && params.pass==='123'){
+            const default_admin={
+                id : params.id,
+                pass : params.pass,
+                role : 'admin'
+                
+            }
+            axios.post('http://localhost:4000/app/signup',default_admin)
+            .then(Response =>{
+                window.location.replace('/dashboard_admin')
+            })
+        }
+
         if (params.id === "" || params.pass === "") {
             isEmpty = true;            
             Swal.fire({
@@ -63,7 +76,7 @@ export default class Login extends Component {
                         showConfirmButton:false,                        
                       }).then((result) =>{
                           if (result.dismiss) {      
-                             
+                            
                             var role = params.id[4]+params.id[9]
                             console.log(role);
                             localStorage.setItem('loginID',params.id);
@@ -71,12 +84,16 @@ export default class Login extends Component {
                                 window.location.replace("/dashboard_admin")     
                             }else if(role === "PH"){
                                 window.location.replace("/dashboard_prof")     
-                            }else{
+                            }else if(params.id[6]+params.id[7]==="PS"){
                                 window.location.replace("/dashboard")   
-                                  
+                            }else{
+                                Swal.fire({
+                                    title: 'error',
+                                    text: "check format",
+                                    icon: 'error',
+                                    confirmButtonText: 'retry'
+                                  })
                             }
-                                               
-                              
                           }
                       }
                       )
@@ -88,9 +105,7 @@ export default class Login extends Component {
                         confirmButtonText: 'retry'
                       }).then((result) =>{
                           if (result.isConfirmed) {      
-    
                             window.location.replace("/")                        
-                              
                           }
                       }
                       )

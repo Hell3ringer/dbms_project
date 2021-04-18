@@ -63,17 +63,11 @@ class modify_courses extends Component{
     render(){
         return(
             <div className="entire_div_profile">
-                {/* <Dashboard/> */}
                 <TopnavAdmin/>
                 <SidebarAdmin/>
                 <div className="side_main_box">
-                    {/* <p>Modify Courses Here</p><br></br>
-                    <p>Like add or delete courses and kavalante handout kuda ikkade ivvochu</p><br></br>
-                    <p>window loc is {window.location.pathname}</p> */}
-                    
                     <br></br><h5>For adding or deleting a course go to<a href="/add_del_course">  add/delete course</a></h5>
                     <br></br><br></br>
-                    <h5>Modify course here, by selecting course and then changing in below form</h5>
                     <h3>Available Courses</h3>
                     <table id="courses_table" className="table table-bordered table-hover">
                             <thead className="thead-dark">
@@ -105,7 +99,6 @@ class modify_courses extends Component{
             </div>
         )
     }
-    
 }
 
 function modify(){
@@ -146,9 +139,7 @@ function modify(){
                 }
             })
         }
-        
     });
-    
     }
 }
 

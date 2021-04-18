@@ -29,12 +29,16 @@ router.post('/signup',async (req,res) =>{
     let userPassword = req.body.pass;
     let userID = req.body.id;
     console.log("id " +userID + " req id " + req.query.id + " pass " + userPassword  + " req " + JSON.stringify(req.body,null,2)); 
-
-    
     const saltPassword = await bcrypt.genSalt(10);
-    const securedPassword = await bcrypt.hash(userPassword,saltPassword);    
-    var sql_statement = "INSERT INTO details (id,password,role,status) values ('"+userID +"','"+securedPassword +"','"+userRole + "','nv')";
-    
+    const securedPassword = await bcrypt.hash(userPassword,saltPassword);
+    var sql_statement
+    if(userID==='2019A0000H'){
+    sql_statement = "INSERT INTO details (id,password,role,status) values ('"+userID +"','"+securedPassword +"','"+userRole + "','v')";
+    }
+    else {
+    sql_statement = "INSERT INTO details (id,password,role,status) values ('"+userID +"','"+securedPassword +"','"+userRole + "','nv')";
+    }
+
     db.query(sql_statement,(err ,result) => {
         if (err) {
             console.log('error inserting values' + err);
@@ -77,13 +81,9 @@ router.post('/login',async (req,res) =>{
                             console.log('wrong password!!');
                             return res.send('2')
                         }
-                    
                 }}))             
-                
-                
             } 
        })
-
 })
 
 router.post('/details',async (req,res) => {
@@ -100,7 +100,6 @@ router.post('/details',async (req,res) => {
     }else{
         console.log("users role error or admin ");
     }
-    
     
     db.query(sql_statement,[userID,userName,userEmail,userContactNo],(err ,result) => {
         if (err) {
@@ -157,8 +156,6 @@ router.post('/get_prof_details',(req,res)=>{
         if (err) {
             console.log('error getting values' + err);
         }else{
-
-            //console.log("rows" + JSON.stringify(result,null,2));
             console.log(result);
             res.status(200).send(result)
         }
@@ -173,7 +170,6 @@ router.post('/modify_prof',(req,res)=>{
             console.log("error on Updating student details "+err);
         }
         else{
-            //console.log("result is "+JSON.stringify(result));
             return res.status(200).json(result);
         }
     })
@@ -186,7 +182,6 @@ router.get('/verify',(req,res)=>{
             console.log("error on retrieving from student "+err);
         }
         else{
-            //console.log("result is "+JSON.stringify(result));
             res.send(result);
         }
     })
@@ -304,14 +299,13 @@ router.get('/courses',(req,res)=>{
             console.log("error on retrieving from courses "+err);
         }
         else{
-            //console.log("result is "+JSON.stringify(result));
             res.send(result);
         }
     })
 })
 
 router.post('/add_course',(req,res)=>{
-    var sql_statement="INSERT INTO course VALUES('"+req.body.course.c_id+"','"+req.body.course.c_name+"','"+req.body.course.handout+"','"+req.body.course.credits+"','"+req.body.course.mids+"','"+req.body.course.compre+"')";
+    var sql_statement="INSERT INTO course(c_id,c_name, handout, credits, mids, compre) VALUES('"+req.body.course.c_id+"','"+req.body.course.c_name+"','"+req.body.course.handout+"','"+req.body.course.credits+"','"+req.body.course.mids+"','"+req.body.course.compre+"')";
 
     db.query(sql_statement,(err,result)=>{
         if (err) {
@@ -368,14 +362,13 @@ router.post('/register_student',(req,res)=>{
 
 router.post('/registered_courses',(req,res)=>{
     console.log(req.body.student.s_id);
-    var sql_query="SELECT course.c_id,course.handout,course.c_name,course.credits,course.mids,course.compre FROM registers,course WHERE registers.s_id='"+req.body.student.s_id+"' AND registers.c_id=course.c_id";
+    var sql_query="SELECT c_id,c_name FROM reg_courses WHERE s_id='"+req.body.student.s_id+"'";
     db.query(sql_query,(err,result)=>{
         if(err){
             console.log("error on retrieving from registers "+err);
         }
         else{
             console.log(result.data);
-            //console.log("result is "+JSON.stringify(result));
             res.send(result);
         }
     })
@@ -389,8 +382,19 @@ router.post('/update_course',(req,res)=>{
             console.log("error on Updating course "+err);
         }
         else{
-            //console.log("result is "+JSON.stringify(result));
-            return res.status(200).json(result);
+        }
+    })
+})
+
+router.post('/registered_professor',(req,res)=>{
+    console.log(req.body.student.s_id);
+    var sql_query="select p.p_id, p.p_name from professor p,registers r,teaches t where r.s_id='"+req.body.student.s_id+"' and r.c_id=t.c_id and p.p_id=t.p_id";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error getting registered profs "+err);
+        }
+        else{
+            res.send(result);
         }
     })
 })
@@ -403,7 +407,6 @@ router.post('/delete_registered_course',(req,res)=>{
             console.log("error on deleting in registers "+err);
         }
         else{
-            // console.log("result is "+JSON.stringify(result));
             res.send(result);
         }
     })
@@ -453,7 +456,6 @@ router.post('/view_students',(req,res)=>{
 })
 
 router.get('/prof',(req,res)=>{
-    // console.log("p_id is "+req.body.prof.p_id);
     var sql_query="SELECT * FROM professor";
     db.query(sql_query,(err,result)=>{
         if(err){
@@ -514,7 +516,6 @@ router.post('/courseprof',(req,res)=>{
 router.post('/remove_prof',(req,res)=>{
     console.log("pname is - "+req.body.pname+ " cid is "+req.body.c_id);
     var sql_query="DELETE FROM teaches WHERE p_id IN( SELECT p.p_id FROM professor p WHERE p.p_name = '"+req.body.pname+"' ) AND c_id = '"+req.body.c_id+"'"
-    // "delete from teaches where p_id= '"+req.body.pid+"' and c_id= '"+req.body.c_id+"'"
     db.query(sql_query,(err,result)=>{
         if(err){
             console.log("error removing "+req.body.pid+" from course due to "+ err);
@@ -529,7 +530,6 @@ router.post('/remove_prof',(req,res)=>{
 router.post('/add_prof',(req,res)=>{
     console.log("pid is - "+req.body.pid+ " cid is "+req.body.cid);
     var sql_query="insert into teaches (p_id,c_id) values ('"+req.body.pid+"','"+req.body.cid+"')"
-    // "delete from teaches where p_id= '"+req.body.pid+"' and c_id= '"+req.body.c_id+"'"
     db.query(sql_query,(err,result)=>{
         if(err){
             console.log("error adding "+req.body.pid+" into course due to "+ err);
