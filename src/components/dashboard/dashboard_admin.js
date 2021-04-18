@@ -22,9 +22,9 @@ class dashboard_admin extends Component {
         };
         return (
             <div className="entire_div_dashboard">        
-                     <TopnavAdmin/>
-                     <SidebarAdmin/>
-                    <div> 
+                <TopnavAdmin/>   
+                <SidebarAdmin/>
+            <div> 
                     <p style={styling}><h2>Hi {id}</h2></p>
                     </div>
             </div>

@@ -12,6 +12,9 @@ class SidebarAdmin extends Component{
                         <li id={window.location.pathname==="/show_prof"?"active_tab":""}><a href="/show_prof">Proffesors</a></li>
                         <li id={window.location.pathname==="/show_students"?"active_tab":""}><a href="/show_students">Students</a></li>
                         <li id={window.location.pathname==="/assign_prof"?"active_tab":""}><a href="/assign_prof">Assign Proffesors</a></li>
+    <li id={window.location.pathname==="/verify_confirm"?"active_tab":""}><a href="/verify_confirm">Verify</a></li>
+                        {/* <li><a href="#">Post on CMS</a></li> */}
+
                     </ul>  
             </nav>
         )

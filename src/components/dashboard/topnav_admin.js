@@ -4,6 +4,10 @@ import '../stylesheets/dashboard.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 class TopnavAdmin extends Component{
+    Logout(){
+        sessionStorage.clear();
+        localStorage.clear()
+    }
     render(){
         return(
             <div id="nav_id" className="topnav navbar nav-pills fixed-top navbar-dark bg-dark">          
