@@ -4,11 +4,13 @@ import axios from 'axios'
 const Swal = require('sweetalert2')
 
 var isEmpty = false;
+var match_pass = false;
 function check_pass() {
     if (document.getElementById('password').value ===
         document.getElementById('confirm_password').value) {
         document.getElementById('message').style.color = 'green';
         document.getElementById('message').innerHTML = 'matching';
+        match_pass=true
        
         
     } else {
@@ -26,9 +28,10 @@ class SignUp extends Component {
             id : document.getElementById('id').value,
             pass : document.getElementById('password').value,
             role : document.getElementById('role').value
+
         }
     
-        if (params.id === ''||params.pass === ''||params.role === '') {
+        if (params.id === ''||params.pass === ''||params.role === ''||document.getElementById("confirm_password").value==='') {
             isEmpty = true;
             Swal.fire({
                 title: 'error',
@@ -43,11 +46,10 @@ class SignUp extends Component {
               }
               )
         }
-        if(!isEmpty){
+        if(!isEmpty && match_pass){
             console.log(" params " + params);
             axios.post('http://localhost:4000/app/signup',params)  
             .then(Response =>{            
-                
                 if (Response.status === 200) {                    
                     sessionStorage.setItem('role',params.role);
                     sessionStorage.setItem('id',params.id);
@@ -64,8 +66,15 @@ class SignUp extends Component {
                           }
                       }
                       )
-                }else{
+                }else if(Response.status===404){
                     console.log("error in post");
+                    Swal.fire({
+                        title: 'error',
+                        text: "error",
+                        icon: 'error',
+                        confirmButtonText: 'ok'
+                      })
+
                     window.location.replace('/signup')
                 }
             })

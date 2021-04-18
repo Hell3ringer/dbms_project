@@ -38,7 +38,6 @@ router.post('/signup',async (req,res) =>{
     db.query(sql_statement,(err ,result) => {
         if (err) {
             console.log('error inserting values' + err);
-
             res.status(404);            
         }else{
             console.log("data entered to details table");

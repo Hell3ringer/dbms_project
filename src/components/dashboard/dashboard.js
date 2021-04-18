@@ -5,7 +5,6 @@ import axios from 'axios'
 import Topnav from './topnav';
 import Sidebar from './sidebar';
 
-// var id = localStorage.getItem('loginID')
 class dashboard extends Component {
     constructor(props){
         super(props);
@@ -14,24 +13,14 @@ class dashboard extends Component {
             s_id: localStorage.getItem('loginID') 
         }
     }
-    // openNav() {
-    //     document.getElementById("sidebar").style.width = "250px";
-    //     document.getElementById("main").style.marginLeft = "250px";       
-    // }
     
-    
-    // closeNav() {
-    // document.getElementById("sidebar").style.width = "0";
-    // document.getElementById("main").style.marginLeft = "0";}
     Logout(){
-        // document.cookie="jwt="+ ";" + "max-age=" + (0);
         sessionStorage.clear();
         localStorage.clear()
     }
     
     getCourses(){
         const student={s_id:this.state.s_id};
-        //console.log(student.s_id);
         axios.post('http://localhost:4000/app/registered_courses',{student})
         .then(res=>{
             this.setState({courses:res.data})
