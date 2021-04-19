@@ -542,4 +542,32 @@ router.post('/add_prof',(req,res)=>{
     })
 
 })
+
+router.get('/get_verify_admin',(req,res)=>{
+    var sql_query="SELECT id FROM details WHERE status='nv'";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on retrieving from professor "+err);
+        }
+        else{
+            //console.log("result is "+JSON.stringify(result));
+            res.send(result);
+        }
+    })
+})
+
+router.post('/verify_admin',(req,res)=>{
+    console.log(req.body.id);
+    var sql_query="UPDATE details SET status='v' "+"WHERE id='"+req.body.id+"'";
+    db.query(sql_query,(err,result)=>{
+        if(err){
+            console.log("error on Updating professor details "+err);
+        }
+        else{
+            //console.log("result is "+JSON.stringify(result));
+            return res.status(200).json(result);
+        }
+    })
+})
+
 module.exports = router;
