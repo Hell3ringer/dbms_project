@@ -27,7 +27,7 @@ class dashboard extends Component {
         })
     }
     componentDidMount(){
-        document.getElementById("hello_sid").innerHTML='Hello '+this.state.s_id;
+        document.getElementById("hello_sid").innerHTML='Welcome '+this.state.s_id;
         this.getCourses();
     }
     renderTableData(){

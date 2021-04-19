@@ -66,9 +66,9 @@ class modify_courses extends Component{
                 <TopnavAdmin/>
                 <SidebarAdmin/>
                 <div className="side_main_box">
-                    <br></br><h5>For adding or deleting a course go to<a href="/add_del_course">  add/delete course</a></h5>
-                    <br></br><br></br>
-                    <h3>Available Courses</h3>
+                    <h5><a href="/add_del_course">  add/delete course</a></h5>
+                    <br></br>
+                    <h3>Available Courses</h3><br></br>
                     <table id="courses_table" className="table table-bordered table-hover">
                             <thead className="thead-dark">
                             <tr>

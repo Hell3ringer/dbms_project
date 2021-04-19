@@ -64,12 +64,11 @@ router.post('/login',async (req,res) =>{
                 return res.send('-2')
             }else{
                 console.log("result is "+JSON.stringify(result));
-                if(result[0]['status']=='nv'){
-                    return res.send('-2')
-                }                
                  if (result.length == 0) {
                     console.log("user dosent exist!!");
                     return res.send('-1');
+                }else if(result[0]['status']=='nv'){
+                    return res.send('-2')
                 }else(await bcrypt.compare(userPass,result[0].password,(error,response) => {
                     if (error) {
                         console.log(error);                        
