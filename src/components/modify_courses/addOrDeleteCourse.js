@@ -71,7 +71,7 @@ class addOrDeleteCourse extends Component{
                         <form>
                             <pre className="tab"><label>c_id:           <input type="text" id="c_id"></input></label></pre>
                             <pre className="tab"><label>c_name:     <input type="text" id="c_name"></input></label></pre>
-                            <pre className="tab"><label>handout:    <input type="file" id="hand"></input></label></pre>
+                            <pre className="tab"><label>handout:    <input type="text" id="hand"></input></label></pre>
                             <pre className="tab"><label>credits:       <input type="number" id="cred"></input></label></pre>
                             <pre className="tab"><label>mids:           <input type="date" id="mid"></input></label></pre>
                             <pre className="tab"><label>compre:      <input type="date" id="compre"></input></label></pre>

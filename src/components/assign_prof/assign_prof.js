@@ -176,7 +176,7 @@ class assign_prof extends Component{
                         <Card.Title>
                             {c_name}-{c_id}
                         </Card.Title>
-                        <Card.Subtitle>Course Name - c_id</Card.Subtitle>
+                        {/* <Card.Subtitle>Course Name - c_id</Card.Subtitle> */}
                         <br></br>
                         <ListGroup style={{width:"60%",marginLeft:"20%"}}>
                             <ListGroupItem active>Professors:</ListGroupItem>

@@ -21,7 +21,7 @@ class about extends Component{
                 {/* <a href="/dashboard">Dashboard</a> */}
                 <a onClick={this.dash}>Dashboard</a>
                 <span className="navbar-text cfs-class" style={{marginLeft:"40%"}}>Course Feedback System CFS</span>
-                <a href="/contact">Contact</a>
+                {/* <a href="/contact">Contact</a> */}
                 <a href="/about">About</a>
                 <a className="active" href="/" onClick={this.Logout}>Logout</a>
                 </div>
