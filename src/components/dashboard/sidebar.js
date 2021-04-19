@@ -12,10 +12,10 @@ class Sidebar extends Component{
                     <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
                 </li> */}
             <li id={window.location.pathname==="/profile"?"active_tab":""}><a href="/profile">My Profile</a></li>                            
-            <li id={window.location.pathname==="/register"?"active_tab":""}><a href="/register">Register/Unenroll from Courses</a></li>
+            <li id={window.location.pathname==="/register"?"active_tab":""}><a href="/register">Register Courses</a></li>
              <li id={window.location.pathname==="/give_feedback"?"active_tab":""}><a href="/give_feedback">Give Feedback</a></li> 
             <li id={window.location.pathname==="/view_all_feedbacks"?"active_tab":""}><a href="/view_all_feedbacks">All Courses</a></li>
-            <li id={window.location.pathname==="/cms_student"?"active_tab":""}><a href="/cms_student">Extra Details</a></li>
+            {/* <li id={window.location.pathname==="/cms_student"?"active_tab":""}><a href="/cms_student">Extra Details</a></li> */}
             </ul>  
         </nav>
         )
