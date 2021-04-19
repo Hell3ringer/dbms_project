@@ -51,9 +51,51 @@ class about extends Component{
   <div className="w3-container w3-padding-16 w3-theme-l4" id="work">
     <div className="w3-col.m12">
       <h2>Our Work: Course Feedback System</h2>
-      <p>Our project is to create a web portal to share and view reviews about the courses offered at the university. Through the Course Feedback System, each student can give feedback, rating to any number of professors and each professor can have feedback, rating from any number of students as long as they were taught by him/her in the previous semester. The student has s_id(unique), s_name, s_email, s_contact_no as attributes. The professor has p_id(unique), p_name, p_email, p_contact_no, p_rating as attributes. Each student can have at least 1 course and at most 9 courses whereas each course can have any number of students from 0 to 300. Each student has to register for their respective courses (on the website). Students can view feedback and rating of any course or professor. Students can give feedback, rating to courses they opted for and a course can have feedback, rating from any number of students. Each course has c_id (unique), c_name, c_rating, credits, information as attributes. The information contains handouts and test dates (mid-semester, comprehensive). Each course can be taught by at most 3 professors and can have 0 professors at a given time. Each professor can teach 0 to 4 courses. Student can only give a rating and not feedback if he chooses so. Students can view information on the respective registered courses. </p>
+      <h3>
+        Our project is to create a web portal to share and view reviews about the professors and courses offered at the university.</h3> 
+        <h3>As we know that the already present system is to post in social media groups like facebook,whatsapp , or maybe call a friend to ask his reviews.</h3>
+        <h3>This process can be tedious and maybe be not much fruitfull. So to improve the process the portal CFS is made </h3>
+        <br></br><br></br>
+        <p>Student can view the feedbacks given by other students based on professor or course</p>
+        <p>This will help the students to decide based on the feedbacks</p>        
+        <p>Students can also give feedback, rating to courses they opted for. </p>        
+        <p>The information contains handouts and test dates (mid-semester, comprehensive).</p>        
+        <p>Students can view information on the respective registered courses. </p>
+        <p>The professor can also have the details about the student enroled to his course and the courses assigned to him</p>
     </div>
   </div>
+  <br></br><br></br>
+
+  <div className="w3-container w3-padding-16 w3-theme-l4" id="work">
+    <div className="w3-col.m12">
+      <h2>Some RDBMS stuff</h2>
+      <br></br>
+      <p>The student has s_id(unique), s_name, s_email, s_contact_no as attributes. </p>
+        <p>The professor has p_id(unique), p_name, p_email, p_contact_no, p_rating as attributes. </p>
+        <p>Each course has c_id (unique), c_name, c_rating, credits, information as attributes.</p>
+        <p>Each student can have at least 1 course and at most 9 courses whereas each course can have any number of students from 0 to 300. </p>
+        <p>Each student has to register for their respective courses (on the website). </p>
+        <p>Each course can be taught by at most 3 professors and can have 0 professors at a given time. </p>
+        <p>Each professor can teach 0 to 4 courses. Student can only give a rating and not feedback if he chooses so.</p>
+        <br></br>
+      <img src={"./tables_diagram.png"} width ={'1000px'}></img>
+      <br></br><br></br>
+      <img src={"./RDBMS_diagram.png"} width ={'1000px'}></img>
+      <br></br>
+      <h3>
+        triggers used 
+      </h3>
+      <p style={{fontFamily:'monospace'}}>BEGIN
+    DECLARE n double;
+    select avg(p_rating) into n from feedback_prof where p_id = NEW.p_id;
+    update professor set p_avg_rating = n where p_id = NEW.p_id;
+    
+END</p>
+    
+    </div>
+  </div>
+
+  
 
     {/* Team Container */}
     <div className="w3-container w3-padding-small w3-center" id="team">
@@ -76,8 +118,10 @@ class about extends Component{
         <p>2019A7PS0098H</p>
       </div>
       </div>
+      <br></br><br></br>
     </div>
 
+    
   
   
   
