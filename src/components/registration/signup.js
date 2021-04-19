@@ -105,14 +105,15 @@ class SignUp extends Component {
                         icon: 'success',
                         confirmButtonText: 'ok'
                       }).then((result) =>{
-                          
-                          if (result.isConfirmed) {    
-                            if(params.role!='admin'){  
-                            window.location.replace("/details")
-                            }
-                            else{
-                                window.location.replace("/");
-                            }                        
+
+                          if (result.isConfirmed) { 
+                              if (params.role != 'admin') {
+                                window.location.replace("/details")  
+                              }else{
+                                window.location.replace("/")  
+                              }
+                                                  
+
                           }
                         
                       }
