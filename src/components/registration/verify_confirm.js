@@ -20,12 +20,17 @@ class verify_confirm extends Component{
                     
                     <button style={{marginLeft:"31%", marginTop:"10%"}} onClick={() => window.location.replace('/verify')}>Student</button>
                     <br></br><br></br>
-                    <button style={{marginLeft:"31%", marginTop:"10%"}} onClick = {() => window.location.replace("/verify_prof")}>Professor</button>       
+                    <button style={{marginLeft:"31%", marginTop:"10%"}} onClick = {() => window.location.replace("/verify_prof")}>Professor</button><br></br>
+                    {this.admin_verify()}
                 </div>  
             </div>
         )
     }
-    
+    admin_verify(){
+        if(localStorage.getItem('loginID')==='2019A0000H'){
+            return(<button style={{marginLeft:"31%", marginTop:"10%"}} onClick={() => window.location.replace('/verify_admin')}>Admins</button>)
+        }
+    }
 }
 
 export default verify_confirm

@@ -31,6 +31,7 @@ import assign_prof from './components/assign_prof/assign_prof';
 import ShowProf from './components/show_users/show_prof';
 import ShowStudents from './components/show_users/show_students';
 import {ProtectedRouteProfessor,ProtectedRouteStudent,ProtectedRouteAdmin} from './protected_routes/protected_route'
+import verify_admin from './components/registration/verify_admin';
 
 function App() {
   return (
@@ -71,7 +72,7 @@ function App() {
         <ProtectedRouteAdmin exat path='/assign_prof' component={assign_prof}/>
         <ProtectedRouteAdmin exact path='/add_del_course' component={addOrDeleteCourse}/>
         <ProtectedRouteAdmin exact path='/dashboard_admin' component={dashboard_admin}/>
-        
+        <Route exact path='/verify_admin' component={verify_admin}/> 
         <Route component={error}/>
         
       </Switch>}
