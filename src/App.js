@@ -72,7 +72,7 @@ function App() {
         <ProtectedRouteAdmin exat path='/assign_prof' component={assign_prof}/>
         <ProtectedRouteAdmin exact path='/add_del_course' component={addOrDeleteCourse}/>
         <ProtectedRouteAdmin exact path='/dashboard_admin' component={dashboard_admin}/>
-        <Route exact path='/verify_admin' component={verify_admin}/> 
+        <ProtectedRouteAdmin exact path='/verify_admin' component={verify_admin}/> 
         <Route component={error}/>
         
       </Switch>}

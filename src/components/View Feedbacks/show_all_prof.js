@@ -9,6 +9,9 @@ import {BsArrowLeft} from 'react-icons/bs'
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
+var s_id;
+
+s_id = localStorage.getItem('loginID')
 
 class show_all_prof extends Component{
     constructor(props){
@@ -17,7 +20,7 @@ class show_all_prof extends Component{
             prof:[],
             id:'',
             enrolled_courses:[],
-            s_id:'2019A7PS0155H',  //HARD-CODED HERE
+            s_id:s_id,  //HARD-CODED HERE
             seach_course:'',
             feedbacks:[],
             course_details:[]
@@ -190,12 +193,12 @@ class show_all_prof extends Component{
     renderTableData(){
         console.log(this.state.prof);
         return this.state.prof.map((prof,index)=>{
-            const {p_id,p_name}=prof
+            const {p_id,p_name,p_avg_rating}=prof
             return(
                 <tr id={p_id}>
                     <td>{p_id}</td>
                     <td>{p_name}</td>
-                    <td>4</td>
+                    <td>{p_avg_rating}</td>
                     {this.know_more(p_id)}
                     {/* <td><button onClick={go_front(c_id)}>Know More</button></td> */}
                     {/* <td>{credits}</td>
@@ -209,7 +212,7 @@ class show_all_prof extends Component{
         var search=this.state.seach_course;
         console.log("search is "+search);
         return this.state.prof.map((course,index)=>{
-            const {p_id,p_name}=course
+            const {p_id,p_name,p_avg_rating}=course
             var l_id = p_id.toLowerCase()
             var l_name = p_name.toLowerCase()
             if(l_id.startsWith(search.toLowerCase())||l_name.startsWith(search.toLowerCase())){   
@@ -217,7 +220,7 @@ class show_all_prof extends Component{
                 <tr id={p_id}>
                     <td>{p_id}</td>
                     <td>{p_name}</td>
-                    <td>4</td>
+                    <td>{p_avg_rating}</td>
                     {this.know_more(p_id)}
                     {/* <td><button>Know More</button></td> */}
                 </tr>
