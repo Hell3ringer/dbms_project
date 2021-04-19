@@ -2,33 +2,20 @@ import React, { Component } from 'react'
 import Topnav from '../dashboard/topnav'
 import Sidebar from '../dashboard/sidebar'
 import Swal from 'sweetalert2'
- 
+import {FaSearch} from 'react-icons/fa'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/profile.css'
 import axios from 'axios';
  
-// async function getCourses(){
-//     let res=await axios.get('http://localhost:4000/app/courses')
-//     let data=res.data
-//     return data;
-// }
-// function axiosTest (populateData) {
-//     axios.get('http://localhost:4000/app/courses')
-//    .then(function(response){
-//            populateData(response.data);
-//     })
-//     .catch(function(error){
-//            console.log(error);
-//      });
-// }   
+var id = localStorage.getItem('loginID')
+  
 class courses_table extends Component{
     constructor(props){
         super(props)
         this.state={
             courses:[],
-            id:'',
             enrolled_courses:[],
-            s_id:'2019A7PS0155H',  //HARD-CODED HERE
+            s_id: id,
             seach_course:''
         }
     }
@@ -239,7 +226,7 @@ class courses_table extends Component{
                         <br></br>
                         <h3>Register Into Courses</h3><br></br><br></br>
                         <div id="alert_reg"></div>
-                       
+                        <FaSearch></FaSearch>
                         <input 
                         style={{margin : 10}}
                         type="text"

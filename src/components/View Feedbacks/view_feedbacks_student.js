@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import Topnav from '../dashboard/topnav'
 import Sidebar from '../dashboard/sidebar'
 
@@ -13,8 +12,8 @@ class view_feedbacks_student extends Component{
                 {/* <Dashboard/> */}
                 <Topnav/>
                 <Sidebar/>
-                <div className="side_main_box">
-                    <h2>View feedbacks and details regarding Courses/Professors</h2>
+                <div className="side_main_box"><br></br>
+                    <h4>View feedbacks of Courses and Professors</h4>
                     <button onClick={()=>{
                         window.location.href="/show_all_courses"
                     }} style={{marginLeft:"31%", marginTop:"10%"}}>Search w.r.t Courses</button>
@@ -27,10 +26,10 @@ class view_feedbacks_student extends Component{
         )
     }
 }
-function func() {
-    window.location.replace("/view_feedback_course")
-}
-function func2(){
-    window.location.replace("/view_feedback_prof_to_student")
-}
+// function func() {
+//     window.location.replace("/view_feedback_course")
+// }
+// function func2(){
+//     window.location.replace("/view_feedback_prof_to_student")
+// }
 export default view_feedbacks_student

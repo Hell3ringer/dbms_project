@@ -8,13 +8,12 @@ export class CourseGiveFeedback extends Component {
         super(props);
         this.state={
             professors:[],
-            s_id:'2019A7PS0155H'    //HARD-CODED HERE
+            s_id:localStorage.getItem('loginID')
         }
     }
     getProfessors(){
         const student={s_id:this.state.s_id};
-        //console.log(student.s_id);
-        axios.get('http://localhost:4000/app/professor',{student})
+        axios.post('http://localhost:4000/app/registered_professor',{student})
         .then(res=>{
             this.setState({professors:res.data})
         })
@@ -52,8 +51,6 @@ export class CourseGiveFeedback extends Component {
                 <Sidebar />
                 <div id="side_main_box"> 
                 <div> 
-            
-                    <h2 id="hello_sid">Hi</h2><br></br>
                     <h5>Professors:</h5>
                     <table id="courses_table" className="table table-bordered table-hover">
                             <thead className="thead-dark">
