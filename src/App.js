@@ -35,6 +35,8 @@ import GiveProfessorFeedback from './components/feedback/ProfessorGiveFeedback'
 import assign_prof from './components/assign_prof/assign_prof';
 import ShowProf from './components/show_users/show_prof';
 import ShowStudents from './components/show_users/show_students';
+import About from './components/about/about'
+
 
 function App() {
   return (
@@ -44,6 +46,7 @@ function App() {
         <Route exact path='/' component={Login}/>
         <Route exact path='/signup' component={SignUp}/>
         <Route exact path='/details' component={details}/>
+        <Route exact path='/about' component={About} />
         
         {/* dashboard */}
         <Route exact path='/dashboard' component={dashboard}/>

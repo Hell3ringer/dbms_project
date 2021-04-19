@@ -49,8 +49,7 @@ class dashboard extends Component {
             return(
                 <tr id={c_id}>
                     <td>{c_id}</td>
-                    <td>{c_name}</td>
-                    <td><button>Give feedback</button></td>
+                    <td>{c_name}</td>                    
                 </tr>
             )
         })
@@ -92,7 +91,7 @@ class dashboard extends Component {
                             <tr>
                                 <th>Course ID</th>
                                 <th>Course name</th>
-                                <th>Give feedback</th>
+                                
                             </tr>
                             </thead>
                             
