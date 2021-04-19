@@ -18,6 +18,7 @@ class verify_admin extends Component{
         axios.get('http://localhost:4000/app/get_verify_admin')
         .then(res=>{
             this.setState({verify:res.data})
+            
         })
     }
 
