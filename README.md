@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+****How to get the repo into your PC****:\
+Step 1: copy URL of the repo\
+Step 2: in the terminal go to the desired folder and enter 'git clone <URL>' (paste the repo URL inplace of <URL>)\
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+****How to start the website****:\
+  Step 1: Open terminal and make sure you are in the folder which has all files\
+  Step 2: Type command *'npm install'*. This installs necessary node modules\
+  Step 3: run command *'npm start'*. You can now see that the Front-end of the website is running in your browser.\
+  Step 4: Open 'XAMPP control panel' app (you can download xampp from 'https://www.apachefriends.org/download.html') and start apache and MySQL modules\
+  Step 5: Open 'http://localhost/phpmyadmin/index.php?' in browser which shows databases, tables etc which are there in your MySQL. Click on *'Import'* in top menu. Upload the file named *'database_sql.sql'* present in *'backend'* folder. Now you can see a database is created which has some tables, this is the database of our website.\
+  Step 6: In another terminal, move to the folder named *'backend'*\
+  Step 7: No need to run npm install here as the node_modules are already present. You can do *'npm install'* if the current node_modules do not support your version.\
+  Step 8: run command *'npm start'* and your server starts now\
+Finally both the frontend and backend have started, now you can use the website.
+  
+****How to use website****:\
+  Firstly you have to signup and enter your details\
+  You cannot signin to website unless you are verified by any administrator, so please wait while the administrator verifies your account.\
+ Administrator: there is a main administrator with id '20190000H' and password:'123'. Login with these credentials as an administrator and verify the accounts.
+  
+  After your account is verified, you can signin
+  
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+****Usage of the website****:
+  1. Students can view feedbacks of the courses and professors to choose the courses and professors before the start of the semester.
+  2. Professors can view feedbacks and reviews given to him by students.
+  3. Student can give feedback to the registered courses. Feedback/review are completely anonymous.
+  4. Administrator can add/delete/modify courses, assign professors to the course.
