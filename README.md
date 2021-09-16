@@ -20,7 +20,7 @@ Finally both the frontend and backend have started, now you can use the website.
   
 
 ****Usage of the website****:
-  1. Students can view feedbacks of the courses and professors to choose the courses and professors before the start of the semester.\
-  2. Professors can view feedbacks and reviews given to him by students.\
-  3. Student can give feedback to the registered courses. Feedback/review are completely anonymous.\
-  4. Administrator can add/delete/modify courses, assign professors to the course.\
+  1. Students can view feedbacks of the courses and professors to choose the courses and professors before the start of the semester.
+  2. Professors can view feedbacks and reviews given to him by students.
+  3. Student can give feedback to the registered courses. Feedback/review are completely anonymous.
+  4. Administrator can add/delete/modify courses, assign professors to the course.
