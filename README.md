@@ -6,9 +6,11 @@ Step 2: in the terminal go to the desired folder and enter 'git clone <URL>' (pa
   Step 1: Open terminal and make sure you are in the folder which has all files\
   Step 2: Type command *'npm install'*. This installs necessary node modules\
   Step 3: run command *'npm start'*. You can now see that the Front-end of the website is running in your browser.\
-  Step 4: In another terminal, move to the folder named *'backend'*\
-  Step 5: No need to run npm install here as the node_modules are already present. You can do *'npm install'* if the current node_modules do not support your version.\
-  Step 6: run command *'npm start'* and your server starts now\
+  Step 4: Open 'XAMPP control panel' app (you can download xampp from 'https://www.apachefriends.org/download.html') and start apache and MySQL modules\
+  Step 5: Open 'http://localhost/phpmyadmin/index.php?' in browser which shows databases, tables etc which are there in your MySQL. Click on *'Import'* in top menu. Upload the file named *'database_sql.sql'* present in *'backend'* folder. Now you can see a database is created which has some tables, this is the database of our website.\
+  Step 6: In another terminal, move to the folder named *'backend'*\
+  Step 7: No need to run npm install here as the node_modules are already present. You can do *'npm install'* if the current node_modules do not support your version.\
+  Step 8: run command *'npm start'* and your server starts now\
 Finally both the frontend and backend have started, now you can use the website.
   
 ****How to use website****:\
